@@ -49,7 +49,6 @@
 
   --bg1: rgb(var(--base-paper));
   --bg2: rgb(var(--base-50));
-  --bg3: rgba(var(--base-black), 0.05);
   --ui1: rgb(var(--base-100));
   --ui2: rgb(var(--base-150));
   --ui3: rgb(var(--base-200));
@@ -71,14 +70,9 @@
   --font-sans: "Inter UI", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --text-*: initial;
-  --text-ui-xs: 12px;
-  --text-ui-xs--line-height: 14px;
-  --text-ui-sm: 13px;
-  --text-ui-sm--line-height: 20px;
-  --text-ui-md: 15px;
-  --text-ui-md--line-height: 20px;
-  --text-ui-lg: 20px;
-  --text-ui-lg--line-height: 28px;
+  --text-ui-sm: 12px;
+  --text-ui-base: 13px;
+  --text-ui-lg: 15px;
 
   --text-color-normal: var(--tx1);
   --text-color-muted: var(--tx2);
@@ -97,8 +91,6 @@
   --background-color-primary-alt: var(--bg2);
   --background-color-secondary: var(--bg2);
   --background-color-secondary-alt: var(--bg1);
-  --background-color-modifier-hover: var(--bg3);
-  --background-color-modifier-active-hover: var(--bg3);
   --background-color-modifier-border: var(--ui1);
   --background-color-modifier-border-hover: var(--ui2);
   --background-color-modifier-border-focus: var(--ui3);
@@ -107,7 +99,6 @@
   --background-color-interactive-hover: var(--ui1);
   --background-color-interactive-accent: var(--ax3);
   --background-color-interactive-accent-hover: var(--ax1);
-
   --ring-color-modifier-border: var(--ui1);
   --ring-color-modifier-border-hover: var(--ui2);
   --ring-color-modifier-border-focus: var(--ui3);
@@ -150,5 +141,10 @@
   --z-index-tooltip: 70;
   --z-index-dragged-item: 80;
 
-  --height-input: 32px;
+  --height-interactive-sm: 24px;
+  --height-interactive-md: 28px;
+  --height-interactive-lg: 32px;
+
+  --shadow-interactive: inset 0 0 0 1px rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0,0,0,.05), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;
+  --shadow-interactive-hover: inset 0 0 0 1px rgba(0, 0, 0, 0.17), 0 2px 3px 0 rgba(0,0,0,.1), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;
 }

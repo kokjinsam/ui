@@ -1,7 +1,11 @@
 import clsx from "clsx"
+import { createTV } from "tailwind-variants"
 
 const cn = (...inputs: clsx.ClassValue[]) => clsx(inputs)
 
-export { tv } from "tailwind-variants"
+const tv = createTV({
+  twMerge: false
+})
+
 export type { VariantProps } from "tailwind-variants"
-export { cn }
+export { cn, tv }

@@ -54,6 +54,9 @@ importers:
       react-cosmos:
         specifier: 6.2.4-canary.b2d1977.0
         version: 6.2.4-canary.b2d1977.0
+      react-cosmos-plugin-boolean-input:
+        specifier: 6.2.4-canary.b2d1977.0
+        version: 6.2.4-canary.b2d1977.0
       react-cosmos-plugin-vite:
         specifier: 6.2.4-canary.b2d1977.0
         version: 6.2.4-canary.b2d1977.0(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0))
@@ -3479,6 +3482,9 @@ packages:
 
   react-cosmos-dom@6.2.4-canary.b2d1977.0:
     resolution: {integrity: sha512-52NWjHqe7650ELLjoR+3zsyUOkfkZ9Dul3iDnURi3EqDD96/C8wHj6NDoe03E4gJd4/Eh3/hjW/JssX6v4vX8w==}
+
+  react-cosmos-plugin-boolean-input@6.2.4-canary.b2d1977.0:
+    resolution: {integrity: sha512-x4E34UgTkFFF2jnINoxidzxroYSLqgKjKKbXSihgmo+eBtjkkzioodVNgGkTveTKjXjptM/89w7c2lIxvKtWeg==}
 
   react-cosmos-plugin-vite@6.2.4-canary.b2d1977.0:
     resolution: {integrity: sha512-z/A/fC3rCp0OY6yl9elSgON7Mr94iqn9DxdSItR6xmy2YTL/aLFMyUgBFgXHTRiaEhbRr6LeXBt5OibO/jcN4g==}
@@ -8040,6 +8046,8 @@ snapshots:
       lodash-es: 4.17.21
       react-cosmos-core: 6.2.4-canary.b2d1977.0
       react-cosmos-renderer: 6.2.4-canary.b2d1977.0
+
+  react-cosmos-plugin-boolean-input@6.2.4-canary.b2d1977.0: {}
 
   react-cosmos-plugin-vite@6.2.4-canary.b2d1977.0(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)):
     dependencies:
