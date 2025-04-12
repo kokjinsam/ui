@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Button } from "./button";
+import * as React from "react"
+import { Button } from "./button"
 
 export default () => {
-  return <Button>Click me!</Button>;
-};
+  return <Button>Click me!</Button>
+}
