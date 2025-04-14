@@ -18,49 +18,46 @@ type ModalProps = DialogTriggerProps
 
 const Modal = (props: ModalProps) => <DialogTrigger {...props} />
 
-const modalOverlayStyles = tv({
-  base: [
-    "z-modal bg-modifier-cover/85 fixed top-0 left-0 isolate flex h-(--visual-viewport-height) w-full items-end justify-end",
-    "sm:block",
-    "[--visual-viewport-vertical-padding:16px] sm:[--visual-viewport-vertical-padding:80px]"
-  ],
-  variants: {
-    isEntering: {
-      true: "fade-in animate-in duration-200 ease-out"
-    },
-    isExiting: {
-      true: "fade-out animate-out ease-in"
-    }
-  }
-})
-
 const modalContentStyles = tv({
-  base: [
-    "bg-primary ring-modifier-border max-h-full w-full overflow-hidden rounded-t-2xl text-left align-middle shadow-lg ring",
-    "sm:fixed sm:top-1/2 sm:left-[50vw] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg"
-  ],
+  slots: {
+    overlay: [
+      "z-modal bg-modifier-cover/85 fixed top-0 left-0 isolate flex h-(--visual-viewport-height) w-full items-end justify-end",
+      "sm:block",
+      "[--visual-viewport-vertical-padding:16px] sm:[--visual-viewport-vertical-padding:80px]"
+    ],
+    container: [
+      "bg-primary/70 ring-modifier-border max-h-full w-full overflow-hidden p-0.5 text-left align-middle shadow-lg ring",
+      "sm:fixed sm:top-1/2 sm:left-[50vw] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg"
+    ],
+    content: ["border-normal bg-primary rounded-lg border"]
+  },
   variants: {
     isEntering: {
-      true: [
-        "fade-in slide-in-from-bottom animate-in duration-200 ease-out",
-        "sm:zoom-in-95 sm:slide-in-from-bottom-0"
-      ]
+      true: {
+        overlay: "fade-in animate-in duration-200 ease-out",
+        container: [
+          "fade-in slide-in-from-bottom animate-in duration-200 ease-out",
+          "sm:zoom-in-95 sm:slide-in-from-bottom-0"
+        ]
+      }
     },
     isExiting: {
-      true: [
-        "slide-out-to-bottom sm:slide-out-to-bottom-0 sm:zoom-out-95 animate-out duration-150 ease-in"
-      ]
+      true: {
+        overlay: "fade-out animate-out ease-in",
+        container:
+          "slide-out-to-bottom sm:slide-out-to-bottom-0 sm:zoom-out-95 animate-out duration-150 ease-in"
+      }
     },
     size: {
-      "xs": "sm:max-w-xs",
-      "sm": "sm:max-w-sm",
-      "md": "sm:max-w-md",
-      "lg": "sm:max-w-lg",
-      "xl": "sm:max-w-xl",
-      "2xl": "sm:max-w-2xl",
-      "3xl": "sm:max-w-3xl",
-      "4xl": "sm:max-w-4xl",
-      "5xl": "sm:max-w-5xl"
+      "xs": { container: "sm:max-w-xs" },
+      "sm": { container: "sm:max-w-sm" },
+      "md": { container: "sm:max-w-md" },
+      "lg": { container: "sm:max-w-lg" },
+      "xl": { container: "sm:max-w-xl" },
+      "2xl": { container: "sm:max-w-2xl" },
+      "3xl": { container: "sm:max-w-3xl" },
+      "4xl": { container: "sm:max-w-4xl" },
+      "5xl": { container: "sm:max-w-5xl" }
     }
   },
   defaultVariants: {
@@ -74,7 +71,7 @@ type ModalContentProps = Omit<ModalOverlayProps, "className" | "children"> &
     closeButton?: boolean
     classNames?: {
       overlay?: ModalOverlayProps["className"]
-      content?: ModalOverlayProps["className"]
+      container?: ModalOverlayProps["className"]
     }
   }
 
@@ -88,34 +85,31 @@ const ModalContent = ({
   ...props
 }: ModalContentProps) => {
   const isDismissable = isDismissableInternal ?? role !== "alertdialog"
+  const {
+    overlay: overlayStyles,
+    container: containerStyles,
+    content: contentStyles
+  } = modalContentStyles()
 
   return (
     <ModalOverlay
       isDismissable={isDismissable}
       className={composeRenderProps(
         classNames?.overlay,
-        (className, renderProps) =>
-          modalOverlayStyles({
-            ...renderProps,
-            className
-          })
+        (className, renderProps) => overlayStyles({ ...renderProps, className })
       )}
       {...props}
     >
       <ModalPrimitive
         isDismissable={isDismissable}
         className={composeRenderProps(
-          classNames?.content,
+          classNames?.container,
           (className, renderProps) =>
-            modalContentStyles({
-              ...renderProps,
-              size,
-              className
-            })
+            containerStyles({ ...renderProps, size, className })
         )}
         {...props}
       >
-        <Dialog role={role}>
+        <Dialog role={role} className={contentStyles({ size })}>
           {(values) => (
             <>
               {typeof children === "function" ? children(values) : children}

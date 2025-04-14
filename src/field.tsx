@@ -29,9 +29,9 @@ type FieldProps = {
 
 const fieldStyles = tv({
   slots: {
-    description: "text-muted-fg text-sm/6 text-pretty",
-    label: "text-secondary-fg w-fit cursor-default text-sm/6 font-medium",
-    fieldError: "text-danger text-sm/6 forced-colors:text-[Mark]"
+    description: "text-muted text-ui-base text-pretty",
+    label: "text-normal text-ui-base w-fit cursor-default font-medium",
+    fieldError: "text-error text-ui-base"
   }
 })
 
@@ -74,7 +74,7 @@ const FieldError = (props: FieldErrorProps) => (
 
 const fieldGroupStyles = tv({
   base: [
-    "group border-normal h-input relative isolate flex items-center overflow-hidden rounded-sm border shadow-xs transition duration-200 ease-out",
+    "group border-normal h-interactive-lg relative isolate flex items-center overflow-hidden rounded-sm border shadow-xs transition duration-200 ease-out",
     "[&>[role=progressbar]:first-child]:ml-2.5 [&>[role=progressbar]:last-child]:mr-2.5",
     "**:data-[slot=icon]:size-4 **:data-[slot=icon]:shrink-0 **:[button]:shrink-0",
     "[&>button:has([data-slot=icon])]:absolute [&>button:has([data-slot=icon]):first-child]:left-0 [&>button:has([data-slot=icon]):last-child]:right-0",
@@ -113,7 +113,7 @@ const Input = (props: InputProps) => (
   <InputPrimitive
     {...props}
     className={cn(
-      "text-normal text-ui-sm placeholder-muted w-full min-w-0 border-none bg-transparent px-2.5 py-1.5 outline-hidden",
+      "text-normal text-ui-base placeholder-muted w-full min-w-0 border-none bg-transparent px-2.5 py-1 outline-hidden",
       "[&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden",
       "focus:ring-0 focus:outline-hidden",
       props.className

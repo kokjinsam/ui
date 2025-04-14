@@ -71,7 +71,7 @@ const TextField = ({
             data-loading={isPending ? "true" : undefined}
           >
             {prefix && typeof prefix === "string" ? (
-              <span className="text-muted text-ui-sm ml-2">{prefix}</span>
+              <span className="text-muted text-ui-base ml-2">{prefix}</span>
             ) : (
               prefix
             )}
@@ -93,7 +93,7 @@ const TextField = ({
               <Loader variant="spin" />
             ) : suffix ? (
               typeof suffix === "string" ? (
-                <span className="text-muted text-ui-sm mr-2">{suffix}</span>
+                <span className="text-muted text-ui-base mr-2">{suffix}</span>
               ) : (
                 suffix
               )

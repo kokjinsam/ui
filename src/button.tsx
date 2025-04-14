@@ -25,8 +25,8 @@ const buttonStyles = tv({
         "hover:bg-interactive-hover"
       ],
       danger: [
-        "text-error border border-[rgb(255,0,0)]/[0.14] bg-[rgb(255,0,0)]/[0.14]",
-        "hover:bg-[rgb(255,0,0)]/[0.08]"
+        "text-error border-modifier-error bg-modifier-error border",
+        "hover:bg-modifier-error-hover"
       ]
     },
     // TODO: **:data-[slot=avatar]:size-3.5 **:data-[slot=avatar]:*:size-3.5

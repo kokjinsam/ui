@@ -7,6 +7,7 @@
   --accent-h: 175;
   --accent-s: 57%;
   --accent-l: 33%;
+  --accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
 
   --base-paper: 255 252 240;
   --base-50: 242 240 229;
@@ -49,6 +50,7 @@
 
   --bg1: rgb(var(--base-paper));
   --bg2: rgb(var(--base-50));
+  --bg3: hsla(0, 3%, 6%, 0.05);
   --ui1: rgb(var(--base-100));
   --ui2: rgb(var(--base-150));
   --ui3: rgb(var(--base-200));
@@ -56,6 +58,8 @@
   --tx2: rgb(var(--base-600));
   --tx3: rgb(var(--base-300));
   --tx4: hsl(var(--base-h), calc(var(--base-s) - 10%), calc(var(--base-l) - 60%));
+  --hl1: hsla(155, 32%, 80%, 0.3);
+  --hl2: hsla(48, 92%, 60%, 0.3);
   --ax1: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
   --ax2: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 8%));
   --ax3: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 6%));
@@ -91,14 +95,20 @@
   --background-color-primary-alt: var(--bg2);
   --background-color-secondary: var(--bg2);
   --background-color-secondary-alt: var(--bg1);
+  --background-color-modifier-hover: var(--bg3);
+  --background-color-modifier-active-hover: var(--bg3);
   --background-color-modifier-border: var(--ui1);
   --background-color-modifier-border-hover: var(--ui2);
   --background-color-modifier-border-focus: var(--ui3);
   --background-color-modifier-cover: var(--cover);
+  --background-color-modifier-success: var(--color-green);
+  --background-color-modifier-error: hsla(0, 100%, 50%, 0.14);
+  --background-color-modifier-error-hover: hsla(0, 100%, 50%, 0.08);
   --background-color-interactive-normal: var(--bg1);
   --background-color-interactive-hover: var(--ui1);
   --background-color-interactive-accent: var(--ax3);
   --background-color-interactive-accent-hover: var(--ax1);
+
   --ring-color-modifier-border: var(--ui1);
   --ring-color-modifier-border-hover: var(--ui2);
   --ring-color-modifier-border-focus: var(--ui3);
@@ -109,6 +119,8 @@
   --border-color-normal: var(--ui1);
   --border-color-hover: var(--ui2);
   --border-color-focus: var(--ui3);
+  --border-color-modifier-error: hsla(0, 100%, 50%, 0.14);
+  --border-color-modifier-error-hover: hsla(0, 100%, 50%, 0.08);
 
   --font-weight-*: initial;
   --font-weight-thin: 100;

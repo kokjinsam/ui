@@ -10,30 +10,28 @@ type KeyboardProps = React.HTMLAttributes<HTMLElement> & {
   }
 }
 
-const Keyboard = ({ keys, classNames, className, ...props }: KeyboardProps) => {
-  return (
-    <KeyboardPrimitive
-      className={cn(
-        "group-hover:text-fg group-focus:text-fg hidden text-current/70 group-focus:opacity-90 group-disabled:opacity-50 lg:inline-flex forced-colors:group-focus:text-[HighlightText]",
-        classNames?.base
-      )}
-      {...props}
-    >
-      {(Array.isArray(keys) ? keys : keys.split("")).map((char, index) => (
-        <kbd
-          key={index}
-          className={cn(
-            "group-hover:text-fg group-focus:text-fg hidden text-current/70 group-focus:opacity-90 group-disabled:opacity-50 lg:inline-flex forced-colors:group-focus:text-[HighlightText]",
-            index > 0 && char.length > 1 && "pl-1",
-            classNames?.kbd
-          )}
-        >
-          {char}
-        </kbd>
-      ))}
-    </KeyboardPrimitive>
-  )
-}
+const Keyboard = ({ keys, classNames, className, ...props }: KeyboardProps) => (
+  <KeyboardPrimitive
+    className={cn(
+      "group-hover:text-fg group-focus:text-fg hidden text-current/70 group-focus:opacity-90 group-disabled:opacity-50 lg:inline-flex forced-colors:group-focus:text-[HighlightText]",
+      classNames?.base
+    )}
+    {...props}
+  >
+    {(Array.isArray(keys) ? keys : keys.split("")).map((char, index) => (
+      <kbd
+        key={index}
+        className={cn(
+          "group-hover:text-fg group-focus:text-fg hidden text-current/70 group-focus:opacity-90 group-disabled:opacity-50 lg:inline-flex forced-colors:group-focus:text-[HighlightText]",
+          index > 0 && char.length > 1 && "pl-1",
+          classNames?.kbd
+        )}
+      >
+        {char}
+      </kbd>
+    ))}
+  </KeyboardPrimitive>
+)
 
 export { Keyboard }
 export type { KeyboardProps }

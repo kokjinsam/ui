@@ -148,22 +148,9 @@ const Footer = ({ className, ...props }: DialogFooterProps) => {
   )
 }
 
-const Close = ({
-  className,
-  intent = "outline",
-  ref,
-  ...props
-}: ButtonProps) => {
-  return (
-    <Button
-      slot="close"
-      className={className}
-      ref={ref}
-      intent={intent}
-      {...props}
-    />
-  )
-}
+const Close = ({ className, intent = "outline", ...props }: ButtonProps) => (
+  <Button slot="close" className={className} intent={intent} {...props} />
+)
 
 type CloseButtonIndicatorProps = Omit<ButtonProps, "children"> & {
   className?: string

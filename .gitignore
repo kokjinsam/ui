@@ -1,3 +1,4 @@
 cosmos.imports.js
 node_modules
 dist
+.DS_Store
