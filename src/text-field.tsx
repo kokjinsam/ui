@@ -3,10 +3,8 @@ import type {
   InputProps,
   TextFieldProps as TextFieldPrimitiveProps
 } from "react-aria-components"
-import {
-  Button as ButtonPrimitive,
-  TextField as TextFieldPrimitive
-} from "react-aria-components"
+import { TextField as TextFieldPrimitive } from "react-aria-components"
+import { Button } from "./button"
 import type { FieldProps } from "./field"
 import { Description, FieldError, FieldGroup, Input, Label } from "./field"
 import { Loader } from "./loader"
@@ -14,20 +12,19 @@ import { cn } from "./utils"
 
 type InputType = Exclude<InputProps["type"], "password">
 
-interface BaseTextFieldProps extends TextFieldPrimitiveProps, FieldProps {
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-  isPending?: boolean
-  className?: string
-}
+type BaseTextFieldProps = TextFieldPrimitiveProps &
+  FieldProps & {
+    prefix?: React.ReactNode
+    suffix?: React.ReactNode
+    isPending?: boolean
+    isRevealable?: boolean
+  }
 
-interface RevealableTextFieldProps extends BaseTextFieldProps {
-  isRevealable: true
+type RevealableTextFieldProps = BaseTextFieldProps & {
   type: "password"
 }
 
-interface NonRevealableTextFieldProps extends BaseTextFieldProps {
-  isRevealable?: never
+type NonRevealableTextFieldProps = BaseTextFieldProps & {
   type?: InputType
 }
 
@@ -42,15 +39,15 @@ const TextField = ({
   suffix,
   isPending,
   isRevealable,
+  type,
   ...props
 }: TextFieldProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
-
   const inputType = isRevealable
     ? isPasswordVisible
       ? "text"
       : "password"
-    : props.type
+    : type
 
   const handleTogglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev)
@@ -58,8 +55,8 @@ const TextField = ({
 
   return (
     <TextFieldPrimitive
-      {...props}
       type={inputType}
+      {...props}
       className={cn("group flex flex-col gap-y-1", props.className)}
     >
       {!props.children ? (
@@ -71,29 +68,31 @@ const TextField = ({
             data-loading={isPending ? "true" : undefined}
           >
             {prefix && typeof prefix === "string" ? (
-              <span className="text-muted text-ui-base ml-2">{prefix}</span>
+              <span className="text-muted text-ui-base/5 ml-2">{prefix}</span>
             ) : (
               prefix
             )}
             <Input placeholder={placeholder} />
             {isRevealable ? (
-              <ButtonPrimitive
+              <Button
                 type="button"
+                size="square-md"
+                intent="plain"
                 aria-label="Toggle password visibility"
                 onPress={handleTogglePasswordVisibility}
-                className="*:data-[slot=icon]:text-muted-fg focus-visible:*:data-[slot=icon]:text-primary relative mr-1 grid shrink-0 place-content-center rounded-sm border-transparent outline-hidden"
+                className="hover:bg-transparent"
               >
                 {isPasswordVisible ? (
-                  <div className="lucide-eye-off size-4" />
+                  <div data-slot="icon" className="lucide-eye-off" />
                 ) : (
-                  <div className="lucide-eye size-4" />
+                  <div data-slot="icon" className="lucide-eye" />
                 )}
-              </ButtonPrimitive>
+              </Button>
             ) : isPending ? (
               <Loader variant="spin" />
             ) : suffix ? (
               typeof suffix === "string" ? (
-                <span className="text-muted text-ui-base mr-2">{suffix}</span>
+                <span className="text-muted text-ui-base/5 mr-2">{suffix}</span>
               ) : (
                 suffix
               )

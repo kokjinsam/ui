@@ -68,24 +68,15 @@ const Spin = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
 const loaderStyles = tv({
   base: "relative",
   variants: {
-    intent: {
-      current: "text-current",
-      primary: "text-primary",
-      secondary: "text-muted-fg",
-      success: "text-success",
-      warning: "text-warning",
-      danger: "text-danger"
-    },
     size: {
-      "small": "size-4",
-      "medium": "size-6",
-      "large": "size-8",
-      "extra-large": "size-10"
+      sm: "size-4",
+      md: "size-6",
+      lg: "size-8",
+      xl: "size-10"
     }
   },
   defaultVariants: {
-    intent: "current",
-    size: "small"
+    size: "sm"
   }
 })
 
@@ -110,14 +101,12 @@ type LoaderProps = Omit<
     ref?: React.RefObject<SVGSVGElement>
   }
 
-const Loader = ({ isIndeterminate = true, ref, ...props }: LoaderProps) => {
-  const {
-    className,
-    variant = DEFAULT_SPINNER,
-    intent,
-    size,
-    ...spinnerProps
-  } = props
+const Loader = ({
+  isIndeterminate = true,
+  variant = DEFAULT_SPINNER,
+  size,
+  ...props
+}: LoaderProps) => {
   const LoaderPrimitive =
     LOADERS[variant in LOADERS ? variant : DEFAULT_SPINNER]
 
@@ -129,17 +118,14 @@ const Loader = ({ isIndeterminate = true, ref, ...props }: LoaderProps) => {
     >
       <LoaderPrimitive
         role="presentation"
-        className={loaderStyles({
-          intent,
-          size,
-          className: cn([
-            ["ring"].includes(variant) && "animate-spin",
-            variant === "spin" && "stroke-current",
-            className
-          ])
-        })}
-        ref={ref}
-        {...spinnerProps}
+        {...props}
+        className={cn([
+          loaderStyles({ size }),
+          "text-current",
+          ["ring"].includes(variant) && "animate-spin",
+          variant === "spin" && "stroke-current",
+          props.className
+        ])}
       />
     </ProgressBar>
   )
