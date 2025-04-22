@@ -4,11 +4,17 @@ import {
   type ButtonProps as ButtonPrimitiveProps,
   composeRenderProps
 } from "react-aria-components"
+import type { VariantProps } from "./utils"
 import { tv } from "./utils"
+
+// primary outline plain danger
 
 const buttonStyles = tv({
   base: [
-    "relative isolate inline-flex cursor-default items-center justify-center gap-x-2 font-medium"
+    "relative isolate inline-flex cursor-default items-center justify-center gap-x-1 font-medium outline-0",
+    "forced-colors:outline-[Highlight] forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
+    "*:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:align-middle *:data-[slot=icon]:text-current",
+    "*:data-[slot=avatar]:*:size-4 *:data-[slot=avatar]:size-4 *:data-[slot=avatar]:shrink-0"
   ],
   variants: {
     intent: {
@@ -25,25 +31,24 @@ const buttonStyles = tv({
         "hover:bg-interactive-hover"
       ],
       danger: [
-        "text-error border-modifier-error bg-modifier-error border",
-        "hover:bg-modifier-error-hover"
+        "text-danger border-modifier-danger/20 bg-modifier-danger/20 border",
+        "hover:bg-modifier-danger-hover/30"
       ]
     },
-    // TODO: **:data-[slot=avatar]:size-3.5 **:data-[slot=avatar]:*:size-3.5
-    // **:data-[slot=icon]:size-3
-    //  *:data-[slot=icon]:mx-[-1.5px] sm:*:data-[slot=icon]:size-5
     size: {
-      sm: "text-ui-sm h-interactive-sm px-2",
-      md: "text-ui-sm h-interactive-md px-3.5",
-      lg: "text-ui-base h-interactive-lg px-3.5"
+      "sm": "h-interactive-sm text-ui-sm/5 px-2",
+      "md": "h-interactive-md text-ui-base/5 px-3.5",
+      "lg": "h-interactive-lg text-ui-lg/5 px-3.5",
+      "square-sm": "size-6 shrink-0",
+      "square-md": "size-7 shrink-0",
+      "square-lg": "size-8 shrink-0"
     },
     shape: {
-      square: "rounded-sm",
+      square: "rounded-lg",
       circle: "rounded-full"
     },
     isDisabled: {
-      false: "forced-colors:disabled:text-[GrayText]",
-      true: "border-0 opacity-50 ring-0 inset-shadow-none dark:inset-ring-0 forced-colors:disabled:text-[GrayText]"
+      true: "cursor-default opacity-50 inset-ring-0 forced-colors:text-[GrayText]"
     },
     isPending: {
       true: "cursor-default opacity-50"
@@ -56,34 +61,32 @@ const buttonStyles = tv({
   }
 })
 
-type ButtonProps = ButtonPrimitiveProps & {
-  intent?: "primary" | "outline" | "plain" | "danger"
-  size?: "sm" | "md" | "lg"
-  shape?: "square" | "circle"
-}
+type ButtonProps = ButtonPrimitiveProps & VariantProps<typeof buttonStyles>
 
-const Button = ({ intent, size, shape, ...props }: ButtonProps) => (
-  <ButtonPrimitive
-    {...props}
-    className={composeRenderProps(props.className, (className, renderProps) =>
-      buttonStyles({
-        ...renderProps,
-        intent,
-        size,
-        shape,
-        className
-      })
-    )}
-  >
-    {(values) => (
-      <>
-        {typeof props.children === "function"
-          ? props.children(values)
-          : props.children}
-      </>
-    )}
-  </ButtonPrimitive>
-)
+const Button = ({ intent, size, shape, ...props }: ButtonProps) => {
+  return (
+    <ButtonPrimitive
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        buttonStyles({
+          ...renderProps,
+          intent,
+          size,
+          shape,
+          className
+        })
+      )}
+    >
+      {(values) => (
+        <>
+          {typeof props.children === "function"
+            ? props.children(values)
+            : props.children}
+        </>
+      )}
+    </ButtonPrimitive>
+  )
+}
 
 export { Button, buttonStyles }
 export type { ButtonProps }
