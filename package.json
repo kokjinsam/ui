@@ -41,11 +41,22 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
+    "@internationalized/date": "^3.8.0",
     "@radix-ui/react-scroll-area": "^1.2.3",
+    "@react-aria/i18n": "^3.12.8",
+    "@react-stately/calendar": "^3.8.0",
+    "@react-stately/color": "^3.8.4",
+    "@react-types/overlays": "^3.8.14",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
+    "motion": "^12.7.4",
     "react-aria-components": "^1.7.1",
     "react-resizable-panels": "^2.1.7",
-    "tailwind-variants": "^1.0.0"
+    "react-stately": "^3.37.0",
+    "recharts": "^2.15.3",
+    "sonner": "^2.0.3",
+    "tailwind-variants": "^1.0.0",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.3",
