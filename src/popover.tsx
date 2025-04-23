@@ -7,14 +7,13 @@ import type {
 } from "react-aria-components"
 import {
   DialogTrigger,
-  Modal,
-  ModalOverlay,
   OverlayArrow,
   PopoverContext,
   Popover as PopoverPrimitive,
   composeRenderProps,
   useSlottedContext
 } from "react-aria-components"
+import { tv } from "tailwind-variants"
 import type {
   DialogBodyProps,
   DialogFooterProps,
@@ -22,39 +21,34 @@ import type {
   DialogTitleProps
 } from "./dialog"
 import { Dialog } from "./dialog"
-import { useMediaQuery } from "./hooks/use-media-query"
-import { cn, tv } from "./utils"
+import { cn } from "./utils"
 
 type PopoverProps = DialogTriggerProps
 
 const Popover = (props: PopoverProps) => <DialogTrigger {...props} />
 
-const PopoverTitle = ({ level = 2, className, ...props }: DialogTitleProps) => (
-  <Dialog.Title
-    className={cn("sm:leading-none", level === 2 && "sm:text-lg", className)}
-    {...props}
-  />
+const PopoverTitle = (props: DialogTitleProps) => (
+  <Dialog.Title {...props} className={cn("sm:leading-none", props.className)} />
 )
 
-const PopoverHeader = ({ className, ...props }: DialogHeaderProps) => (
-  <Dialog.Header className={cn("sm:p-4", className)} {...props} />
+const PopoverHeader = (props: DialogHeaderProps) => (
+  <Dialog.Header {...props} className={cn("sm:p-4", props.className)} />
 )
 
-const PopoverFooter = ({ className, ...props }: DialogFooterProps) => (
-  <Dialog.Footer className={cn("sm:p-4", className)} {...props} />
+const PopoverFooter = (props: DialogFooterProps) => (
+  <Dialog.Footer {...props} className={cn("sm:p-4", props.className)} />
 )
 
-const PopoverBody = ({ className, ref, ...props }: DialogBodyProps) => (
-  <Dialog.Body
-    ref={ref}
-    className={cn("sm:px-4 sm:pt-0", className)}
-    {...props}
-  />
+const PopoverBody = (props: DialogBodyProps) => (
+  <Dialog.Body {...props} className={cn("sm:px-4 sm:pt-0", props.className)} />
 )
 
 const content = tv({
   base: [
-    "peer/popover-content bg-overlay text-overlay-fg max-w-xs rounded-xl border bg-clip-padding shadow-xs transition-transform [scrollbar-width:thin] sm:max-w-3xl sm:text-sm dark:backdrop-saturate-200 forced-colors:bg-[Canvas] [&::-webkit-scrollbar]:size-0.5"
+    "peer/popover-content bg-secondary text-normal border-hover max-w-xs rounded-xl border bg-clip-padding shadow-xs transition-transform",
+    "sm:max-w-3xl sm:text-sm",
+    "forced-colors:bg-[Canvas]",
+    "[scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5"
   ],
   variants: {
     isPicker: {
@@ -79,81 +73,36 @@ const content = tv({
   }
 })
 
-const drawer = tv({
-  base: [
-    "bg-overlay fixed top-auto bottom-0 z-50 max-h-full w-full max-w-2xl border border-b-transparent outline-hidden"
-  ],
-  variants: {
-    isMenu: {
-      true: "rounded-t-xl p-0 [&_[role=dialog]]:*:not-has-[[data-slot=dialog-body]]:px-1",
-      false: "rounded-t-2xl"
-    },
-    isEntering: {
-      true: [
-        "[will-change:transform] [transition:transform_0.5s_cubic-bezier(0.32,_0.72,_0,_1)]",
-        "fade-in-0 slide-in-from-bottom-56 animate-in duration-200",
-        "[transition:translate3d(0,_100%,_0)]",
-        "sm:slide-in-from-bottom-auto sm:slide-in-from-top-[20%]"
-      ]
-    },
-    isExiting: {
-      true: "slide-out-to-bottom-56 animate-out duration-200 ease-in"
-    }
-  }
-})
-
-type PopoverContentProps = Omit<ModalOverlayProps, "className"> &
-  Omit<PopoverPrimitiveProps, "children" | "className"> &
+type PopoverContentProps = Omit<
+  PopoverPrimitiveProps,
+  "children" | "className"
+> &
+  Omit<ModalOverlayProps, "className"> &
   Pick<DialogProps, "aria-label" | "aria-labelledby"> & {
     children: React.ReactNode
     showArrow?: boolean
     style?: React.CSSProperties
-    respectScreen?: boolean
     className?: string | ((values: { defaultClassName?: string }) => string)
   }
 
 const PopoverContent = ({
-  respectScreen = true,
   children,
   showArrow = true,
-  className,
   ...props
 }: PopoverContentProps) => {
-  const isMobile = useMediaQuery("(max-width: 600px)")
   const popoverContext = useSlottedContext(PopoverContext)!
-  const isMenuTrigger = popoverContext?.trigger === "MenuTrigger"
   const isSubmenuTrigger = popoverContext?.trigger === "SubmenuTrigger"
-  const isMenu = isMenuTrigger || isSubmenuTrigger
   const isComboBoxTrigger = popoverContext?.trigger === "ComboBox"
   const offset = showArrow ? 12 : 8
   const effectiveOffset = isSubmenuTrigger ? offset - 5 : offset
 
-  return isMobile && respectScreen ? (
-    <ModalOverlay
-      className="bg-overlay/10 fixed top-0 left-0 isolate z-50 h-(--visual-viewport-height) w-full [--visual-viewport-vertical-padding:16px]"
-      {...props}
-      isDismissable
-    >
-      <Modal
-        className={composeRenderProps(className, (className, renderProps) =>
-          drawer({ ...renderProps, isMenu, className })
-        )}
-      >
-        <Dialog role="dialog" aria-label={props["aria-label"] ?? "List item"}>
-          {children}
-        </Dialog>
-      </Modal>
-    </ModalOverlay>
-  ) : (
+  return (
     <PopoverPrimitive
       offset={effectiveOffset}
-      className={composeRenderProps(className, (className, renderProps) =>
-        content({
-          ...renderProps,
-          className
-        })
-      )}
       {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        content({ ...renderProps, className })
+      )}
     >
       {showArrow && (
         <OverlayArrow className="group">
@@ -161,7 +110,13 @@ const PopoverContent = ({
             width={12}
             height={12}
             viewBox="0 0 12 12"
-            className="fill-overlay stroke-border block group-data-[placement=bottom]:rotate-180 group-data-[placement=left]:-rotate-90 group-data-[placement=right]:rotate-90 forced-colors:fill-[Canvas] forced-colors:stroke-[ButtonBorder]"
+            className={cn([
+              "fill-secondary stroke-modifier-border-hover block",
+              "group-data-[placement=bottom]:rotate-180",
+              "group-data-[placement=left]:-rotate-90",
+              "group-data-[placement=right]:rotate-90",
+              "forced-colors:fill-[Canvas] forced-colors:stroke-[ButtonBorder]"
+            ])}
           >
             <path d="M0 0 L6 6 L12 0" />
           </svg>

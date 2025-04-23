@@ -114,6 +114,7 @@
 
   --fill-primary: var(--bg1);
   --fill-primary-inverted: rgb(var(--base-black));
+  --fill-secondary: var(--bg2);
 
   --stroke-modifier-border-hover: var(--ui2);
 
