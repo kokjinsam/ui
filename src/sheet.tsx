@@ -12,16 +12,14 @@ import {
 } from "react-aria-components"
 import { Dialog } from "./dialog"
 import type { VariantProps } from "./utils"
-import { tv } from "./utils"
+import { cn, tv } from "./utils"
 
 const overlayStyles = tv({
   base: [
-    "bg-fg/15 dark:bg-bg/40 fixed top-0 left-0 isolate z-50 flex h-(--visual-viewport-height) w-full items-center justify-center p-4"
+    "[--visual-viewport-vertical-padding:16px]",
+    "bg-modifier-cover z-modal fixed top-0 left-0 isolate flex h-(--visual-viewport-height) w-full items-center justify-center"
   ],
   variants: {
-    isBlurred: {
-      true: "bg-bg/15 dark:bg-bg/40 backdrop-blur"
-    },
     isEntering: {
       true: "fade-in animate-in duration-300 ease-out"
     },
@@ -39,17 +37,17 @@ const generateCompoundVariants = (sides: Array<Sides>) => {
     isFloat: true,
     className:
       side === "top"
-        ? "top-2 inset-x-2 rounded-xl ring-1 border-b-0"
+        ? "top-2 inset-x-2 rounded-xl border-b-0"
         : side === "bottom"
-          ? "bottom-2 inset-x-2 rounded-xl ring-1 border-t-0"
+          ? "bottom-2 inset-x-2 rounded-xl border-t-0"
           : side === "left"
-            ? "left-2 inset-y-2 rounded-xl ring-1 border-r-0"
-            : "right-2 inset-y-2 rounded-xl ring-1 border-l-0"
+            ? "left-2 inset-y-2 rounded-xl border-r-0"
+            : "right-2 inset-y-2 rounded-xl border-l-0"
   }))
 }
 
 const contentStyles = tv({
-  base: "border-fg/5 bg-overlay text-overlay-fg dark:border-border fixed z-50 grid gap-4 shadow-lg transition ease-in-out",
+  base: "border-normal bg-primary text-normal z-modal fixed shadow-lg transition ease-in-out",
   variants: {
     isEntering: {
       true: "animate-in duration-300"
@@ -66,8 +64,8 @@ const contentStyles = tv({
         "data-entering:slide-in-from-right data-exiting:slide-out-to-right inset-y-0 right-0 h-auto w-full max-w-xs overflow-y-auto border-l"
     },
     isFloat: {
-      false: "border-fg/20 dark:border-border",
-      true: "ring-fg/5 dark:ring-border"
+      false: "border-normal",
+      true: "ring-modifier-border"
     }
   },
   compoundVariants: generateCompoundVariants(["top", "bottom", "left", "right"])
@@ -77,8 +75,11 @@ type SheetProps = DialogTriggerProps
 
 const Sheet = (props: SheetProps) => <DialogTrigger {...props} />
 
-type SheetContentProps = Omit<ModalOverlayProps, "className"> &
-  Omit<React.ComponentProps<typeof Modal>, "children" | "className"> &
+type SheetContentProps = Omit<
+  React.ComponentProps<typeof Modal>,
+  "children" | "className"
+> &
+  Omit<ModalOverlayProps, "className"> &
   VariantProps<typeof overlayStyles> & {
     "aria-label"?: DialogProps["aria-label"]
     "aria-labelledby"?: DialogProps["aria-labelledby"]
@@ -95,7 +96,6 @@ type SheetContentProps = Omit<ModalOverlayProps, "className"> &
 
 const SheetContent = ({
   classNames,
-  isBlurred = false,
   isDismissable = true,
   side = "right",
   role = "dialog",
@@ -114,7 +114,6 @@ const SheetContent = ({
         (className, renderProps) => {
           return overlayStyles({
             ...renderProps,
-            isBlurred,
             className
           })
         }
@@ -156,12 +155,22 @@ const SheetContent = ({
   )
 }
 
+type SheetBodyProps = React.ComponentProps<typeof Dialog.Body>
+
+const SheetBody = (props: SheetBodyProps) => (
+  <Dialog.Body
+    {...props}
+    className={cn(
+      "h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)-var(--dialog-header-height,0px)-var(--dialog-footer-height,0px))]"
+    )}
+  />
+)
+
 const SheetTrigger = Dialog.Trigger
 const SheetFooter = Dialog.Footer
 const SheetHeader = Dialog.Header
 const SheetTitle = Dialog.Title
 const SheetDescription = Dialog.Description
-const SheetBody = Dialog.Body
 const SheetClose = Dialog.Close
 
 Sheet.Trigger = SheetTrigger

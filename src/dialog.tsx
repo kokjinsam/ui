@@ -17,7 +17,7 @@ const Dialog = ({ role = "dialog", ...props }: DialogProps) => (
     role={role}
     {...props}
     className={cn(
-      "peer/dialog group/dialog relative flex max-h-[inherit] flex-col overflow-hidden outline-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5",
+      "peer/dialog group/dialog relative max-h-[inherit] overflow-hidden outline-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5",
       props.className
     )}
   />
@@ -102,14 +102,13 @@ type DialogBodyProps = {
 const Body = (props: DialogBodyProps) => (
   <ScrollArea
     data-slot="dialog-body"
+    className={props.className}
     classNames={{
       viewport:
-        "max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)-var(--dialog-header-height,0px)-var(--dialog-footer-height,0px))]"
+        "isolate max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)-var(--dialog-header-height,0px)-var(--dialog-footer-height,0px))] px-4 pt-4 pb-6"
     }}
   >
-    <div className={cn("isolate px-4 pt-4 pb-6", props.className)}>
-      {props.children}
-    </div>
+    {props.children}
   </ScrollArea>
 )
 

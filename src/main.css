@@ -1,4 +1,6 @@
 @import "tailwindcss";
 @import "./index.css";
 
+@plugin "@tailwindcss/forms";
+@plugin "tailwindcss-animate";
 @plugin "../tailwind-lucide.js";
