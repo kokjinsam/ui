@@ -1,5 +1,4 @@
 :root {
-  /* Global tokens */
   --base-h: 48;
   --base-s: 100%;
   --base-l: 97%;
@@ -24,29 +23,29 @@
   --base-950: 28 27 26;
   --base-black: 16 15 15;
 
-  --red-400: 209 77 65;
-  --red-600: 175 48 41;
+  --ink-red-400: 209 77 65;
+  --ink-red-600: 175 48 41;
 
-  --orange-400: 218 112 44;
-  --orange-600: 188 82 21;
+  --ink-orange-400: 218 112 44;
+  --ink-orange-600: 188 82 21;
 
-  --yellow-400: 208 162 21;
-  --yellow-600: 173 131 1;
+  --ink-yellow-400: 208 162 21;
+  --ink-yellow-600: 173 131 1;
 
-  --green-400: 135 154 57;
-  --green-600: 102 128 11;
+  --ink-green-400: 135 154 57;
+  --ink-green-600: 102 128 11;
 
-  --cyan-400: 58 169 159;
-  --cyan-600: 36 131 123;
+  --ink-cyan-400: 58 169 159;
+  --ink-cyan-600: 36 131 123;
 
-  --blue-400: 67 133 190;
-  --blue-600: 32 94 166;
+  --ink-blue-400: 67 133 190;
+  --ink-blue-600: 32 94 166;
 
-  --purple-400: 139 126 200;
-  --purple-600: 94 64 157;
+  --ink-purple-400: 139 126 200;
+  --ink-purple-600: 94 64 157;
 
-  --magenta-400: 206 93 151;
-  --magenta-600: 160 47 111;
+  --ink-magenta-400: 206 93 151;
+  --ink-magenta-600: 160 47 111;
 
   --bg1: rgb(var(--base-paper));
   --bg2: rgb(var(--base-50));
@@ -64,28 +63,23 @@
   --ax2: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 8%));
   --ax3: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 6%));
   --sp1: rgb(var(--base-paper));
-  --cover: hsla(var(--base-h), calc(var(--base-s) - 70%), calc(var(--base-l) - 20%), 0.5)
 }
 
 @theme {
-  --color-*: initial;
-
-  --font-*: initial;
-  --font-sans: "Inter UI", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-  --text-*: initial;
   --text-ui-sm: 12px;
   --text-ui-base: 13px;
   --text-ui-lg: 15px;
 
   --text-color-normal: var(--tx1);
+  --text-color-normal-inverted: var(--sp1);
   --text-color-muted: var(--tx2);
   --text-color-faint: var(--tx3);
   --text-color-on-accent: var(--sp1);
   --text-color-on-accent-inverted: rgb(var(--base-black));
-  --text-color-error: rgb(var(--red-600));
-  --text-color-warning: rgb(var(--orange-600));
-  --text-color-success: rgb(var(--green-600));
+  --text-color-success: rgb(var(--ink-green-600));
+  --text-color-danger: rgb(var(--ink-red-600));
+  --text-color-warning: rgb(var(--ink-orange-600));
+  --text-color-info: rgb(var(--ink-blue-600));
   --text-color-accent: var(--ax1);
   --text-color-accent-hover: var(--ax2);
   --text-color-link: var(--ax1);
@@ -93,21 +87,32 @@
 
   --background-color-primary: var(--bg1);
   --background-color-primary-alt: var(--bg2);
+  --background-color-primary-inverted: rgb(var(--base-black));
   --background-color-secondary: var(--bg2);
   --background-color-secondary-alt: var(--bg1);
+  --background-color-modifier-muted: var(--tx2);
   --background-color-modifier-hover: var(--bg3);
   --background-color-modifier-active-hover: var(--bg3);
   --background-color-modifier-border: var(--ui1);
   --background-color-modifier-border-hover: var(--ui2);
   --background-color-modifier-border-focus: var(--ui3);
-  --background-color-modifier-cover: var(--cover);
-  --background-color-modifier-success: var(--color-green);
-  --background-color-modifier-error: hsla(0, 100%, 50%, 0.14);
-  --background-color-modifier-error-hover: hsla(0, 100%, 50%, 0.08);
+  --background-color-modifier-success: rgb(var(--ink-green-400));
+  --background-color-modifier-success-hover: rgb(var(--ink-green-600));
+  --background-color-modifier-danger: rgb(var(--ink-red-400));
+  --background-color-modifier-danger-hover: rgb(var(--ink-red-600));
+  --background-color-modifier-warning: rgb(var(--ink-orange-400));
+  --background-color-modifier-warning-hover: rgb(var(--ink-orange-600));
+  --background-color-modifier-info: rgb(var(--ink-blue-400));
+  --background-color-modifier-info-hover: rgb(var(--ink-blue-600));
   --background-color-interactive-normal: var(--bg1);
   --background-color-interactive-hover: var(--ui1);
   --background-color-interactive-accent: var(--ax3);
   --background-color-interactive-accent-hover: var(--ax1);
+
+  --fill-primary: var(--bg1);
+  --fill-primary-inverted: rgb(var(--base-black));
+
+  --stroke-modifier-border-hover: var(--ui2);
 
   --ring-color-modifier-border: var(--ui1);
   --ring-color-modifier-border-hover: var(--ui2);
@@ -119,39 +124,14 @@
   --border-color-normal: var(--ui1);
   --border-color-hover: var(--ui2);
   --border-color-focus: var(--ui3);
-  --border-color-modifier-error: hsla(0, 100%, 50%, 0.14);
-  --border-color-modifier-error-hover: hsla(0, 100%, 50%, 0.08);
-
-  --font-weight-*: initial;
-  --font-weight-thin: 100;
-  --font-weight-extralight: 200;
-  --font-weight-light: 300;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
-  --font-weight-black: 900;
-
-  --radius-*: initial;
-  --radius-none: 0px;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-full: 9999px;
-
-  --z-index-*: initial;
-  --z-index-cover: 5;
-  --z-index-sidedock: 10;
-  --z-index-status-bar: 15;
-  --z-index-popover: 30;
-  --z-index-slides: 45;
-  --z-index-modal: 50;
-  --z-index-notice: 60;
-  --z-index-menu: 65;
-  --z-index-tooltip: 70;
-  --z-index-dragged-item: 80;
+  --border-color-modifier-success: rgb(var(--ink-green-400));
+  --border-color-modifier-success-hover: rgb(var(--ink-green-600));
+  --border-color-modifier-danger: rgb(var(--ink-red-400));
+  --border-color-modifier-danger-hover: rgb(var(--ink-red-600));
+  --border-color-modifier-warning: rgb(var(--ink-orange-400));
+  --border-color-modifier-warning-hover: rgb(var(--ink-orange-600));
+  --border-color-modifier-info: rgb(var(--ink-blue-400));
+  --border-color-modifier-info-hover: rgb(var(--ink-blue-600));
 
   --height-interactive-sm: 24px;
   --height-interactive-md: 28px;
