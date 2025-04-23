@@ -18,40 +18,44 @@ type CheckboxGroupProps = CheckboxGroupPrimitiveProps & {
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-const CheckboxGroup = (props: CheckboxGroupProps) => {
-  return (
-    <CheckboxGroupPrimitive
-      {...props}
-      className={cn("flex flex-col gap-y-2", props.className)}
-    >
-      {props.label && <Label>{props.label}</Label>}
-      {props.children as React.ReactNode}
-      {props.description && (
-        <Description className="block">{props.description}</Description>
-      )}
-      <FieldError>{props.errorMessage}</FieldError>
-    </CheckboxGroupPrimitive>
-  )
-}
+const CheckboxGroup = ({
+  label,
+  description,
+  errorMessage,
+  children,
+  ...props
+}: CheckboxGroupProps) => (
+  <CheckboxGroupPrimitive
+    {...props}
+    className={cn("flex flex-col gap-y-2", props.className)}
+  >
+    {label && <Label>{label}</Label>}
+    {children as React.ReactNode}
+    {description && <Description className="block">{description}</Description>}
+    <FieldError>{errorMessage}</FieldError>
+  </CheckboxGroupPrimitive>
+)
 
 const checkboxStyles = tv({
-  slots: {
-    container: "group text-ui-base flex items-center gap-2",
-    box: [
-      "ring-modifier-border text-normal flex size-4 shrink-0 items-center justify-center rounded-sm ring",
-      "*:data-[slot=icon]:size-3"
-    ]
-  },
+  base: "group flex items-center gap-2 text-sm transition",
+  variants: {
+    isDisabled: {
+      true: "opacity-50"
+    }
+  }
+})
+
+const boxStyles = tv({
+  base: [
+    "inset-ring-modifier-border text-normal flex size-4 shrink-0 items-center justify-center rounded-sm inset-ring",
+    "*:data-[slot=icon]:size-3 *:data-[slot=icon]:align-middle"
+  ],
   variants: {
     isSelected: {
-      true: {
-        box: "bg-interactive-accent text-on-accent"
-      }
+      true: "border-interactive-accent bg-interactive-accent text-on-accent"
     },
-    isDisabled: {
-      true: {
-        container: "opacity-50"
-      }
+    isFocused: {
+      true: "border-primary ring-modifier-border-focus ring-2"
     }
   }
 })
@@ -61,24 +65,24 @@ type CheckboxProps = CheckboxPrimitiveProps & {
   label?: string
 }
 
-const Checkbox = (props: CheckboxProps) => {
-  const { container: containerStyles, box: boxStyles } = checkboxStyles({
-    isDisabled: props.isDisabled,
-    isSelected: props.isSelected
-  })
-
+const Checkbox = ({
+  description,
+  label,
+  className,
+  ...props
+}: CheckboxProps) => {
   return (
     <CheckboxPrimitive
       {...props}
-      className={composeRenderProps(props.className, (className, renderProps) =>
-        containerStyles({ ...renderProps, className })
+      className={composeRenderProps(className, (className, renderProps) =>
+        checkboxStyles({ ...renderProps, className })
       )}
     >
       {({ isSelected, isIndeterminate, ...renderProps }) => (
         <div
           className={cn(
             "flex gap-x-2",
-            props.description ? "items-start" : "items-center"
+            description ? "items-start" : "items-center"
           )}
         >
           <div
@@ -90,26 +94,22 @@ const Checkbox = (props: CheckboxProps) => {
             {isIndeterminate ? (
               <span data-slot="icon" className="lucide-minus" />
             ) : isSelected ? (
-              <span data-slot="icon" className="lucide-check-medium" />
+              <span data-slot="icon" className="lucide-check" />
             ) : null}
           </div>
 
           <div className="flex flex-col gap-1">
             <>
-              {props.label ? (
+              {label ? (
                 <Label
-                  className={cn(
-                    props.description && "text-ui-base/4 font-normal"
-                  )}
+                  className={cn(description && "text-ui-base/5 font-normal")}
                 >
-                  {props.label}
+                  {label}
                 </Label>
               ) : (
                 (props.children as React.ReactNode)
               )}
-              {props.description && (
-                <Description>{props.description}</Description>
-              )}
+              {description && <Description>{description}</Description>}
             </>
           </div>
         </div>
