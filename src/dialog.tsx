@@ -4,39 +4,35 @@ import {
   Button as ButtonPrimitive,
   Dialog as DialogPrimitive,
   Heading,
-  Text,
-  composeRenderProps
+  Text
 } from "react-aria-components"
-import type { ButtonProps } from "./button"
-import { Button } from "./button"
+import { Button, type ButtonProps } from "./button"
 import { ScrollArea } from "./scroll-area"
 import { cn } from "./utils"
 
-const Dialog = ({
-  role = "dialog",
-  className,
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive>) => (
+type DialogProps = React.ComponentProps<typeof DialogPrimitive>
+
+const Dialog = ({ role = "dialog", ...props }: DialogProps) => (
   <DialogPrimitive
     role={role}
-    className={cn(
-      "peer/dialog group/dialog relative max-h-[inherit] overflow-hidden outline-hidden",
-      className
-    )}
     {...props}
+    className={cn(
+      "peer/dialog group/dialog relative flex max-h-[inherit] flex-col overflow-hidden outline-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5",
+      props.className
+    )}
   />
 )
 
-const Trigger = (props: React.ComponentProps<typeof ButtonPrimitive>) => (
-  <ButtonPrimitive {...props} />
-)
+type DialogTriggerProps = React.ComponentProps<typeof ButtonPrimitive>
+
+const Trigger = (props: DialogTriggerProps) => <ButtonPrimitive {...props} />
 
 type DialogHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   title?: string
   description?: string
 }
 
-const Header = ({ className, ...props }: DialogHeaderProps) => {
+const Header = (props: DialogHeaderProps) => {
   const headerRef = React.useRef<HTMLHeadingElement>(null)
 
   React.useEffect(() => {
@@ -62,7 +58,10 @@ const Header = ({ className, ...props }: DialogHeaderProps) => {
     <div
       data-slot="dialog-header"
       ref={headerRef}
-      className={cn("ring-modifier-border px-4 py-3 ring", className)}
+      className={cn(
+        "ring-modifier-border relative px-4 py-2.5 ring",
+        props.className
+      )}
     >
       {props.title && <Title>{props.title}</Title>}
       {props.description && <Description>{props.description}</Description>}
@@ -81,36 +80,42 @@ const Title = (props: DialogTitleProps) => (
   <Heading
     slot="title"
     {...props}
-    className={cn("text-normal text-ui-md font-semibold", props.className)}
+    className={cn("text-normal text-ui-base font-semibold", props.className)}
   />
 )
 
 type DialogDescriptionProps = React.ComponentProps<"div">
 
-const Description = ({ className, ref, ...props }: DialogDescriptionProps) => (
+const Description = (props: DialogDescriptionProps) => (
   <Text
     slot="description"
-    className={cn("text-muted-fg text-sm", className)}
-    ref={ref}
     {...props}
+    className={cn("text-muted text-ui-sm", props.className)}
   />
 )
 
-type DialogBodyProps = React.ComponentProps<typeof ScrollArea>
+type DialogBodyProps = {
+  className?: string
+  children: React.ReactNode
+}
 
-const Body = ({ className, ref, ...props }: DialogBodyProps) => (
-  <div
+const Body = (props: DialogBodyProps) => (
+  <ScrollArea
     data-slot="dialog-body"
-    ref={ref}
-    className="isolate h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding,0px)-var(--dialog-header-height,0px)-var(--dialog-footer-height,0px))]"
+    classNames={{
+      viewport:
+        "max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)-var(--dialog-header-height,0px)-var(--dialog-footer-height,0px))]"
+    }}
   >
-    <ScrollArea {...props} className={cn("h-full", className)} />
-  </div>
+    <div className={cn("isolate px-4 pt-4 pb-6", props.className)}>
+      {props.children}
+    </div>
+  </ScrollArea>
 )
 
 type DialogFooterProps = React.ComponentProps<"div">
 
-const Footer = ({ className, ...props }: DialogFooterProps) => {
+const Footer = (props: DialogFooterProps) => {
   const footerRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
@@ -139,37 +144,38 @@ const Footer = ({ className, ...props }: DialogFooterProps) => {
     <div
       ref={footerRef}
       data-slot="dialog-footer"
-      className={cn(
-        "ring-modifier-border bg-secondary flex h-11 items-center justify-end gap-x-2 pr-2 pl-3 ring",
-        className
-      )}
       {...props}
+      className={cn(
+        "ring-modifier-border bg-secondary isolate flex h-11 items-center justify-end gap-x-2 pr-2 pl-3 ring",
+        // "isolate mt-auto flex flex-col-reverse justify-between gap-3 p-4 pt-3 sm:flex-row sm:p-6 sm:pt-5",
+        props.className
+      )}
     />
   )
 }
 
-const Close = ({ className, intent = "outline", ...props }: ButtonProps) => (
-  <Button slot="close" className={className} intent={intent} {...props} />
+type DialogCloseProps = ButtonProps
+
+const Close = ({ intent = "outline", ...props }: DialogCloseProps) => (
+  <Button slot="close" intent={intent} {...props} />
 )
 
-type CloseButtonIndicatorProps = Omit<ButtonProps, "children"> & {
+type DialogCloseIndicatorProps = Omit<ButtonProps, "children"> & {
   className?: string
   isDismissable?: boolean | undefined
 }
 
-const CloseIndicator = (props: CloseButtonIndicatorProps) => {
+const CloseIndicator = (props: DialogCloseIndicatorProps) => {
   return props.isDismissable ? (
     <ButtonPrimitive
       aria-label="Close"
       slot="close"
-      className={composeRenderProps(props.className, (className) =>
-        cn(
-          "close hover:bg-secondary focus:bg-secondary focus-visible:ring-primary absolute top-1 right-1 z-50 grid size-8 place-content-center rounded-xl focus:outline-hidden focus-visible:ring-1 sm:top-2 sm:right-2 sm:size-7 sm:rounded-md",
-          className
-        )
+      className={cn(
+        "close hover:bg-secondary focus:bg-secondary focus-visible:ring-primary absolute top-1 right-1 z-50 grid size-8 place-content-center rounded-xl focus:outline-hidden focus-visible:ring-1 sm:top-2 sm:right-2 sm:size-7 sm:rounded-md",
+        props.className
       )}
     >
-      <div className="lucide-x size-4" />
+      <span data-slot="icon" className="lucide-x size-4" />
     </ButtonPrimitive>
   ) : null
 }
@@ -185,10 +191,13 @@ Dialog.CloseIndicator = CloseIndicator
 
 export { Dialog }
 export type {
-  CloseButtonIndicatorProps,
   DialogBodyProps,
+  DialogCloseIndicatorProps,
+  DialogCloseProps,
   DialogDescriptionProps,
   DialogFooterProps,
   DialogHeaderProps,
-  DialogTitleProps
+  DialogProps,
+  DialogTitleProps,
+  DialogTriggerProps
 }

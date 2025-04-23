@@ -66,6 +66,8 @@
 }
 
 @theme {
+  --font-sans: "Inter UI", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
   --text-ui-sm: 12px;
   --text-ui-base: 13px;
   --text-ui-lg: 15px;
@@ -104,6 +106,7 @@
   --background-color-modifier-warning-hover: rgb(var(--ink-orange-600));
   --background-color-modifier-info: rgb(var(--ink-blue-400));
   --background-color-modifier-info-hover: rgb(var(--ink-blue-600));
+  --background-color-modifier-cover: hsla(48,calc(100% - 70%),calc(97% - 20%),0.5);
   --background-color-interactive-normal: var(--bg1);
   --background-color-interactive-hover: var(--ui1);
   --background-color-interactive-accent: var(--ax3);
@@ -132,10 +135,23 @@
   --border-color-modifier-warning-hover: rgb(var(--ink-orange-600));
   --border-color-modifier-info: rgb(var(--ink-blue-400));
   --border-color-modifier-info-hover: rgb(var(--ink-blue-600));
+  --border-color-interactive-accent: var(--ax3);
+  --border-color-interactive-accent-hover: var(--ax1);
 
   --height-interactive-sm: 24px;
   --height-interactive-md: 28px;
   --height-interactive-lg: 32px;
+
+  --z-index-cover: 5;
+  --z-index-sidedock: 10;
+  --z-index-status-bar: 15;
+  --z-index-popover: 30;
+  --z-index-slides: 45;
+  --z-index-modal: 50;
+  --z-index-notice: 60;
+  --z-index-menu: 65;
+  --z-index-tooltip: 70;
+  --z-index-dragged-item: 80;
 
   --shadow-interactive: inset 0 0 0 1px rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0,0,0,.05), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;
   --shadow-interactive-hover: inset 0 0 0 1px rgba(0, 0, 0, 0.17), 0 2px 3px 0 rgba(0,0,0,.1), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;

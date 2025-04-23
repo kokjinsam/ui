@@ -12,7 +12,7 @@ import { cn, tv } from "./utils"
 
 const tooltipStyles = tv({
   base: [
-    "group text-ui-base rounded-lg border px-1.5 py-1 will-change-transform dark:shadow-none [&_strong]:font-medium"
+    "group text-ui-base z-tooltip rounded-lg border px-1.5 py-1 will-change-transform dark:shadow-none [&_strong]:font-medium"
   ],
   variants: {
     intent: {
