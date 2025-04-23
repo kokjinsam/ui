@@ -12,11 +12,23 @@ export default () => {
         <TextField isDisabled={isDisabled} label="Full Name" />
         <TextField
           isDisabled={isDisabled}
+          label="Book Title"
+          description="This is a description"
+        />
+        <TextField
+          isDisabled={isDisabled}
+          label="Category"
+          isInvalid
+          errorMessage="This is an error message"
+        />
+        <TextField isPending label="Username" />
+        <TextField isReadOnly label="Username" value="kokjinsam" />
+        <TextField
+          isDisabled={isDisabled}
           isRevealable
           label="Password"
           type="password"
         />
-        <TextField isPending label="Username" />
         <TextField
           label="Twitch"
           placeholder="kokjinsam"

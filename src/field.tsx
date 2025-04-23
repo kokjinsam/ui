@@ -30,7 +30,11 @@ const fieldStyles = tv({
   slots: {
     description: "text-muted text-ui-base/5 text-pretty",
     label: "text-normal text-ui-base/5 w-fit cursor-default font-medium",
-    fieldError: "text-danger text-ui-base/5 forced-colors:text-[Mark]"
+    fieldError: [
+      "text-danger text-ui-base/5",
+      "forced-colors:text-[Mark]",
+      "*:data-[slot=icon]:mr-1 *:data-[slot=icon]:size-4 *:data-[slot=icon]:align-middle"
+    ]
   }
 })
 
@@ -60,10 +64,18 @@ const Description = ({ isWarning = false, ...props }: DescriptionProps) => (
 type FieldErrorProps = FieldErrorPrimitiveProps
 
 const FieldError = (props: FieldErrorProps) => (
-  <FieldErrorPrimitive
-    {...props}
-    className={cn(fieldError(), props.className)}
-  />
+  <FieldErrorPrimitive {...props} className={cn(fieldError(), props.className)}>
+    {(values) =>
+      typeof props.children === "function" ? (
+        props.children(values)
+      ) : (
+        <>
+          <span data-slot="icon" className="lucide-circle-x" />
+          {props.children}
+        </>
+      )
+    }
+  </FieldErrorPrimitive>
 )
 
 type FieldGroupProps = GroupProps
