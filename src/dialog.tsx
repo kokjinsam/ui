@@ -7,7 +7,6 @@ import {
   Text
 } from "react-aria-components"
 import { Button, type ButtonProps } from "./button"
-import { ScrollArea } from "./scroll-area"
 import { cn } from "./utils"
 
 type DialogProps = React.ComponentProps<typeof DialogPrimitive>
@@ -100,16 +99,15 @@ type DialogBodyProps = {
 }
 
 const Body = (props: DialogBodyProps) => (
-  <ScrollArea
+  <div
     data-slot="dialog-body"
-    className={props.className}
-    classNames={{
-      viewport:
-        "isolate max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)-var(--dialog-header-height,0px)-var(--dialog-footer-height,0px))] px-4 pt-4 pb-6"
-    }}
+    className={cn([
+      "isolate max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)-var(--dialog-header-height,0px)-var(--dialog-footer-height,0px))] overflow-auto px-4 pt-4 pb-6",
+      props.className
+    ])}
   >
     {props.children}
-  </ScrollArea>
+  </div>
 )
 
 type DialogFooterProps = React.ComponentProps<"div">
@@ -146,7 +144,6 @@ const Footer = (props: DialogFooterProps) => {
       {...props}
       className={cn(
         "ring-modifier-border bg-secondary isolate flex h-11 items-center justify-end gap-x-2 pr-2 pl-3 ring",
-        // "isolate mt-auto flex flex-col-reverse justify-between gap-3 p-4 pt-3 sm:flex-row sm:p-6 sm:pt-5",
         props.className
       )}
     />

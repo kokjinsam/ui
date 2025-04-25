@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import type {
   ButtonProps,
@@ -5,7 +7,8 @@ import type {
   MenuProps as MenuPrimitiveProps,
   MenuSectionProps as MenuSectionPrimitiveProps,
   MenuTriggerProps as MenuTriggerPrimitiveProps,
-  PopoverProps
+  PopoverProps,
+  SubmenuTriggerProps as SubmenuTriggerPrimitiveProps
 } from "react-aria-components"
 import {
   Button,
@@ -34,10 +37,10 @@ type MenuProps = MenuTriggerPrimitiveProps
 
 const Menu = (props: MenuProps) => <MenuTriggerPrimitive {...props} />
 
-const MenuSubMenu = ({ delay = 0, ...props }) => (
-  <SubmenuTriggerPrimitive {...props} delay={delay}>
-    {props.children}
-  </SubmenuTriggerPrimitive>
+type MenuSubMenuProps = SubmenuTriggerPrimitiveProps
+
+const MenuSubMenu = ({ delay = 0, ...props }: MenuSubMenuProps) => (
+  <SubmenuTriggerPrimitive {...props} delay={delay} />
 )
 
 type MenuTriggerProps = ButtonProps
@@ -47,8 +50,9 @@ const MenuTrigger = (props: MenuTriggerProps) => (
     data-slot="menu-trigger"
     {...props}
     className={cn(
-      props.className,
-      "focus-visible:ring-primary relative inline text-left outline-hidden focus-visible:ring-1"
+      "relative inline text-left outline-hidden",
+      "focus-visible:ring-interactive-focus focus-visible:ring",
+      props.className
     )}
   >
     {(values) => (
@@ -95,17 +99,21 @@ const MenuContent = <T extends object>({
     triggerRef={props.triggerRef}
     arrowBoundaryOffset={props.arrowBoundaryOffset}
     className={cn(
-      "z-50 p-0 shadow-xs outline-hidden sm:min-w-40",
+      "z-modal min-w-40 p-0 shadow-xs outline-hidden",
       classNames?.popover
     )}
   >
     <MenuPrimitive
       data-slot="menu-content"
+      {...props}
       className={cn(
-        "grid max-h-[calc(var(--visual-viewport-height)-10rem)] grid-cols-[auto_1fr] overflow-auto rounded-xl p-1 outline-hidden [clip-path:inset(0_0_0_0_round_calc(var(--radius-lg)-2px))] sm:max-h-[inherit] *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1",
+        // TODO Why are we using --visual-viewport-height here?
+        "grid max-h-[calc(var(--visual-viewport-height)-10rem)] grid-cols-[auto_1fr] overflow-auto rounded-md p-1 outline-hidden",
+        "sm:max-h-[inherit]",
+        // TODO Do we need margin between separators?
+        "*:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1",
         props.className
       )}
-      {...props}
     />
   </PopoverContent>
 )
@@ -129,8 +137,9 @@ const MenuItem = ({ isDanger = false, children, ...props }: MenuItemProps) => {
           ...renderProps,
           className: renderProps.hasSubmenu
             ? cn([
-                "data-open:data-danger:bg-danger/10 data-open:data-danger:text-danger",
-                "data-open:bg-accent data-open:text-accent-fg data-open:*:data-[slot=icon]:text-accent-fg data-open:*:[.text-muted-fg]:text-accent-fg",
+                "data-open:data-danger:bg-modifier-danger/10 data-open:data-danger:text-danger",
+                "data-open:bg-interactive-hover",
+                "data-open:*:data-[slot=icon]:text-accent data-open:*:[.text-muted]:text-accent",
                 className
               ])
             : className

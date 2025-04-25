@@ -45,8 +45,8 @@ const PopoverBody = (props: DialogBodyProps) => (
 
 const content = tv({
   base: [
-    "peer/popover-content bg-secondary text-normal border-hover max-w-xs rounded-xl border bg-clip-padding shadow-xs transition-transform",
-    "sm:max-w-3xl sm:text-sm",
+    "peer/popover-content bg-primary text-normal border-hover max-w-xs rounded-xl border bg-clip-padding shadow-xs transition-transform",
+    "sm:max-w-3xl",
     "forced-colors:bg-[Canvas]",
     "[scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5"
   ],
@@ -111,7 +111,7 @@ const PopoverContent = ({
             height={12}
             viewBox="0 0 12 12"
             className={cn([
-              "fill-secondary stroke-modifier-border-hover block",
+              "fill-primary stroke-modifier-border-hover block",
               "group-data-[placement=bottom]:rotate-180",
               "group-data-[placement=left]:-rotate-90",
               "group-data-[placement=right]:rotate-90",

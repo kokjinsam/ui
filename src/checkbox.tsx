@@ -55,7 +55,7 @@ const boxStyles = tv({
       true: "border-interactive-accent bg-interactive-accent text-on-accent"
     },
     isFocused: {
-      true: "border-primary ring-modifier-border-focus ring-2"
+      true: "border-primary ring-interactive-focus ring-2"
     }
   }
 })
