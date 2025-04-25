@@ -42,7 +42,6 @@
   },
   "dependencies": {
     "@internationalized/date": "^3.8.0",
-    "@radix-ui/react-scroll-area": "^1.2.3",
     "@react-aria/i18n": "^3.12.8",
     "@react-stately/calendar": "^3.8.0",
     "@react-stately/color": "^3.8.4",
