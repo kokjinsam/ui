@@ -1,27 +1,32 @@
+"use client"
+
 import * as React from "react"
 import * as ResizablePrimitive from "react-resizable-panels"
 import { cn } from "./utils"
 
-const ResizablePanelGroup = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>) => (
+type ResizablePanelGroupProps = React.ComponentProps<
+  typeof ResizablePrimitive.PanelGroup
+>
+
+const ResizablePanelGroup = (props: ResizablePanelGroupProps) => (
   <ResizablePrimitive.PanelGroup
+    {...props}
     className={cn(
       "flex h-full w-full data-[panel-group-direction=vertical]:flex-col",
-      className
+      props.className
     )}
-    {...props}
   />
 )
 
 const ResizablePanel = ResizablePrimitive.Panel
 
-const ResizableHandle = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle>) => (
+type ResizableHandleProps = React.ComponentProps<
+  typeof ResizablePrimitive.PanelResizeHandle
+>
+
+const ResizableHandle = (props: ResizableHandleProps) => (
   <ResizablePrimitive.PanelResizeHandle
+    {...props}
     className={cn(
       "relative flex w-px items-center justify-center",
       "after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 after:-translate-x-1/2",
@@ -36,10 +41,10 @@ const ResizableHandle = ({
       "data-[resize-handle-active]:after:bg-interactive-accent",
       "[&[data-panel-group-direction=vertical]>div]:rotate-90",
       "focus-visible:outline-none",
-      className
+      props.className
     )}
-    {...props}
   />
 )
 
 export { ResizableHandle, ResizablePanel, ResizablePanelGroup }
+export type { ResizableHandleProps, ResizablePanelGroupProps }

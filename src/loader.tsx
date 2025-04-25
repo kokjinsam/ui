@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { ProgressBar } from "react-aria-components"
 import type { VariantProps } from "./utils"

@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import type { TooltipProps as TooltipPrimitiveProps } from "react-aria-components"
 import {
