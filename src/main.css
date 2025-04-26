@@ -5,12 +5,12 @@
 @plugin "tailwindcss-animate";
 @plugin "../tailwind-lucide.js";
 
-body.layoutScrollbarObtrusive, body.layoutScrollbarObtrusive * {
+body.layout-scrollbar-obtrusive, body.layout-scrollbar-obtrusive * {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-color) transparent;
 }
 
-body.layoutScrollbarObtrusive {
+body.layout-scrollbar-obtrusive {
   --scrollbar-min-size: 32px;
   --scrollbar-color: lch(64.473% 1 282.863 / 1);
 }
