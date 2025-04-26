@@ -1,6 +1,5 @@
 import * as React from "react"
 import type { Selection } from "react-aria-components"
-import { Collection } from "react-aria-components"
 import { Center } from "../center"
 import { Menu } from "../menu"
 
@@ -377,11 +376,12 @@ const MenuWithMultipleSelections = () => {
           onSelectionChange={setSelected}
         >
           {(section) => (
-            <Menu.Section>
-              <Menu.Header>{section.name}</Menu.Header>
-              <Collection items={section.children}>
-                {(item) => <Menu.Item>{item.name}</Menu.Item>}
-              </Collection>
+            <Menu.Section title={section.name} items={section.children}>
+              {(item) => (
+                <Menu.Item textValue={item.name}>
+                  <Menu.Label>{item.name}</Menu.Label>
+                </Menu.Item>
+              )}
             </Menu.Section>
           )}
         </Menu.Content>

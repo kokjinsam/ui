@@ -150,7 +150,7 @@ const MenuItem = ({ isDanger = false, children, ...props }: MenuItemProps) => {
         <>
           {values.isSelected && (
             <div
-              className="lucide-check -mx-0.5 mr-2 size-4"
+              className="lucide-check mr-2 size-4"
               data-slot="checked-icon"
             />
           )}
@@ -177,7 +177,7 @@ const MenuHeader = ({ separator = false, ...props }: MenuHeaderProps) => (
   <Header
     {...props}
     className={cn(
-      "col-span-full px-2.5 py-2 text-base font-semibold sm:text-sm",
+      "col-span-full px-2 py-1.5 text-base font-semibold sm:text-sm",
       separator && "-mx-1 mb-1 border-b sm:px-3 sm:pb-[0.625rem]",
       props.className
     )}

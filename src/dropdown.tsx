@@ -23,9 +23,9 @@ const dropdownItemStyles = tv({
   base: [
     "group text-normal text-ui-base/5 relative cursor-default rounded-[calc(var(--radius-lg)-1px)] px-2 py-1.5 outline-0 forced-color-adjust-none select-none",
     "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto]",
+    "supports-[grid-template-columns:subgrid]:grid-cols-subgrid",
     "not-has-data-[slot=dropdown-item-details]:items-center",
     "has-data-[slot=dropdown-item-details]:**:data-[slot=checked-icon]:mt-[1.5px]",
-    "supports-[grid-template-columns:subgrid]:grid-cols-subgrid",
     "forced-color:text-[Highlight] forced-colors:text-[LinkText]",
     "**:data-[slot=avatar]:mr-2 **:data-[slot=avatar]:size-5 **:data-[slot=avatar]:*:mr-2 **:data-[slot=avatar]:*:size-5",
     "*:data-[slot=icon]:mr-2",
@@ -53,8 +53,7 @@ const dropdownItemStyles = tv({
 const dropdownSectionStyles = tv({
   slots: {
     section: "col-span-full grid grid-cols-[auto_1fr]",
-    header:
-      "text-muted text-ui-sm col-span-full px-2.5 py-1 font-medium sm:text-xs"
+    header: "text-muted text-ui-sm col-span-full px-2 py-1 font-medium"
   }
 })
 
