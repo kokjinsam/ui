@@ -33,8 +33,8 @@ const buttonStyles = tv({
         "hover:bg-interactive-hover"
       ],
       danger: [
-        "text-danger border-modifier-danger/20 bg-modifier-danger/20 border",
-        "hover:bg-modifier-danger-hover/25"
+        "text-on-accent border-modifier-danger bg-modifier-danger border",
+        "hover:bg-modifier-danger-hover"
       ]
     },
     size: {

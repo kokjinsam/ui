@@ -34,7 +34,7 @@ const dropdownItemStyles = tv({
     "data-[slot=menu-radio]:*:data-[slot=icon]:size-3",
     "forced-colors:**:data-[slot=icon]:text-[CanvasText] forced-colors:group-focus:**:data-[slot=icon]:text-[Canvas]",
     "[&>[slot=label]+[data-slot=icon]]:absolute [&>[slot=label]+[data-slot=icon]]:right-0",
-    "hover:bg-modifier-hover",
+    "hover:bg-interactive-hover",
     "data-danger:text-danger",
     "data-danger:hover:bg-modifier-danger/10",
     "data-danger:**:data-[slot=icon]:text-danger",
@@ -166,10 +166,7 @@ const DropdownSeparator = (props: DropdownSeparatorProps) => (
   <Separator
     orientation="horizontal"
     {...props}
-    className={cn(
-      "bg-modifier-border col-span-full -mx-1 my-1 h-px",
-      props.className
-    )}
+    className={cn("bg-ui-line col-span-full -mx-1 my-1 h-px", props.className)}
   />
 )
 

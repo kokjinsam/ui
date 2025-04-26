@@ -5,14 +5,15 @@ import type { VariantProps } from "./utils"
 import { tv } from "./utils"
 
 const badgeIntents = {
-  primary: "bg-primary-alt text-normal group-hover:bg-modifier-hover",
+  // TODO: update color for primary
+  primary: "bg-ui-primary text-normal group-hover:bg-ui-secondary",
   success:
-    "bg-modifier-success/20 text-success group-hover:bg-modifier-success-hover/25",
-  info: "bg-modifier-info/20 text-info group-hover:bg-modifier-info-hover/25",
+    "bg-modifier-success text-on-accent group-hover:bg-modifier-success-hover",
+  info: "bg-modifier-info text-on-accent group-hover:bg-modifier-info-hover",
   warning:
-    "bg-modifier-warning/20 text-warning group-hover:bg-modifier-warning-hover/25",
+    "bg-modifier-warning text-on-accent group-hover:bg-modifier-warning-hover",
   danger:
-    "bg-modifier-danger/20 text-danger group-hover:bg-modifier-danger-hover/25"
+    "bg-modifier-danger text-on-accent group-hover:bg-modifier-danger-hover"
 }
 const badgeShapes = {
   square: "rounded-sm px-1.5",
@@ -20,7 +21,11 @@ const badgeShapes = {
 }
 
 const badgeStyles = tv({
-  base: "inline-flex items-center gap-x-1.5 py-0.5 text-xs/5 font-medium **:data-[slot=icon]:size-3 forced-colors:outline",
+  base: [
+    "text-ui-sm/5 inline-flex items-center gap-x-1.5 py-0.5 font-medium",
+    "**:data-[slot=icon]:size-3",
+    "forced-colors:outline"
+  ],
   variants: {
     intent: { ...badgeIntents },
     shape: { ...badgeShapes }

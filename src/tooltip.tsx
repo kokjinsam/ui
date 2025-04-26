@@ -14,19 +14,10 @@ import { cn, tv } from "./utils"
 
 const tooltipStyles = tv({
   base: [
-    "group text-ui-base z-tooltip rounded-lg border px-1.5 py-1 will-change-transform dark:shadow-none [&_strong]:font-medium"
+    "group text-ui-base z-tooltip bg-ui-primary text-normal border-ui-line-hover rounded-lg border px-1.5 py-1 will-change-transform dark:shadow-none [&_strong]:font-medium",
+    "[&_.arx]:fill-ui-primary [&_.arx]:stroke-ui-line-hover"
   ],
   variants: {
-    intent: {
-      outline: [
-        "bg-primary text-normal border-hover",
-        "[&_.arx]:fill-primary [&_.arx]:stroke-modifier-border-hover"
-      ],
-      inverse: [
-        "text-normal-inverted bg-primary-inverted border-transparent",
-        "[&_.arx]:fill-primary-inverted [&_.arx]:stroke-transparent"
-      ]
-    },
     isEntering: {
       true: [
         "fade-in animate-in",
@@ -45,9 +36,6 @@ const tooltipStyles = tv({
         "data-[placement=bottom]:slide-out-to-top-1"
       ]
     }
-  },
-  defaultVariants: {
-    intent: "inverse"
   }
 })
 
@@ -63,7 +51,6 @@ type TooltipContentProps = Omit<TooltipPrimitiveProps, "children"> &
 const TooltipContent = ({
   offset = 10,
   showArrow = true,
-  intent = "inverse",
   children,
   ...props
 }: TooltipContentProps) => {
@@ -72,11 +59,7 @@ const TooltipContent = ({
       {...props}
       offset={offset}
       className={composeRenderProps(props.className, (className, renderProps) =>
-        tooltipStyles({
-          ...renderProps,
-          intent,
-          className
-        })
+        tooltipStyles({ ...renderProps, className })
       )}
     >
       {showArrow && (

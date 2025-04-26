@@ -19,7 +19,7 @@ import { cn, tv } from "./utils"
 const overlayStyles = tv({
   base: [
     "[--visual-viewport-vertical-padding:16px]",
-    "bg-modifier-cover z-modal fixed top-0 left-0 isolate flex h-(--visual-viewport-height) w-full items-center justify-center"
+    "bg-ui-cover z-modal fixed top-0 left-0 isolate flex h-(--visual-viewport-height) w-full items-center justify-center"
   ],
   variants: {
     isEntering: {
@@ -49,7 +49,7 @@ const generateCompoundVariants = (sides: Array<Sides>) => {
 }
 
 const contentStyles = tv({
-  base: "border-normal bg-primary text-normal z-modal fixed shadow-lg transition ease-in-out",
+  base: "border-ui-line bg-ui-primary text-normal z-modal fixed shadow-lg transition ease-in-out",
   variants: {
     isEntering: {
       true: "animate-in duration-300"
@@ -66,8 +66,8 @@ const contentStyles = tv({
         "data-entering:slide-in-from-right data-exiting:slide-out-to-right inset-y-0 right-0 h-auto w-full max-w-xs overflow-y-auto border-l"
     },
     isFloat: {
-      false: "border-normal",
-      true: "ring-modifier-border"
+      false: "border-ui-line",
+      true: "ring-ui-border"
     }
   },
   compoundVariants: generateCompoundVariants(["top", "bottom", "left", "right"])

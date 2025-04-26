@@ -26,7 +26,7 @@ const Avatar = ({
       {...props}
       className={cn(
         "[--avatar-radius:20%] [--ring-opacity:20%]",
-        "outline-fg/(--ring-opacity) inline-grid shrink-0 align-middle outline-1 -outline-offset-1 *:col-start-1 *:row-start-1",
+        "outline-ui-line/(--ring-opacity) inline-grid shrink-0 align-middle outline-1 -outline-offset-1 *:col-start-1 *:row-start-1",
         size === "xs" && "size-5 *:size-5",
         size === "sm" && "size-6 *:size-6",
         size === "md" && "size-8 *:size-8",

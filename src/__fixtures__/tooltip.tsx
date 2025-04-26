@@ -11,19 +11,9 @@ export default () => {
       <div className="grid gap-2">
         <Tooltip>
           <Tooltip.Trigger aria-label="Follow My Twitch">
-            Outline Tooltip
+            Here's some text about tooltip
           </Tooltip.Trigger>
-          <Tooltip.Content intent="outline" showArrow={showArrow}>
-            This is an Outline Tooltip
-          </Tooltip.Content>
-        </Tooltip>
-        <Tooltip>
-          <Tooltip.Trigger aria-label="Follow My Twitch">
-            Inverse Tooltip
-          </Tooltip.Trigger>
-          <Tooltip.Content intent="inverse" showArrow={showArrow}>
-            This is an Inverse Tooltip
-          </Tooltip.Content>
+          <Tooltip.Content showArrow={showArrow}>A tooltip</Tooltip.Content>
         </Tooltip>
       </div>
     </Center>

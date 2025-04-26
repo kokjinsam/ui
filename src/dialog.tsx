@@ -59,10 +59,7 @@ const Header = (props: DialogHeaderProps) => {
     <div
       data-slot="dialog-header"
       ref={headerRef}
-      className={cn(
-        "ring-modifier-border relative px-4 py-2.5 ring",
-        props.className
-      )}
+      className={cn("ring-ui-line relative px-4 py-2.5 ring", props.className)}
     >
       {props.title && <Title>{props.title}</Title>}
       {props.description && <Description>{props.description}</Description>}
@@ -145,7 +142,7 @@ const Footer = (props: DialogFooterProps) => {
       data-slot="dialog-footer"
       {...props}
       className={cn(
-        "ring-modifier-border bg-secondary isolate flex h-11 items-center justify-end gap-x-2 pr-2 pl-3 ring",
+        "ring-ui-line bg-ui-secondary isolate flex h-11 items-center justify-end gap-x-2 pr-2 pl-3 ring",
         props.className
       )}
     />
@@ -169,7 +166,7 @@ const CloseIndicator = (props: DialogCloseIndicatorProps) => {
       aria-label="Close"
       slot="close"
       className={cn(
-        "close hover:bg-secondary focus:bg-secondary focus-visible:ring-primary absolute top-1 right-1 z-50 grid size-8 place-content-center rounded-xl focus:outline-hidden focus-visible:ring-1 sm:top-2 sm:right-2 sm:size-7 sm:rounded-md",
+        "close hover:bg-ui-secondary focus:bg-ui-secondary focus-visible:ring-primary absolute top-1 right-1 z-50 grid size-8 place-content-center rounded-xl focus:outline-hidden focus-visible:ring-1 sm:top-2 sm:right-2 sm:size-7 sm:rounded-md",
         props.className
       )}
     >

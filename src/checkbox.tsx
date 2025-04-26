@@ -49,11 +49,12 @@ const checkboxStyles = tv({
 
 const boxStyles = tv({
   base: [
-    "inset-ring-modifier-border text-normal flex size-4 shrink-0 items-center justify-center rounded-sm inset-ring",
+    "text-normal flex size-4 shrink-0 items-center justify-center rounded-sm",
     "*:data-[slot=icon]:size-3 *:data-[slot=icon]:align-middle"
   ],
   variants: {
     isSelected: {
+      false: "bg-ui-primary-alt inset-ring-ui-line inset-ring",
       true: "border-interactive-accent bg-interactive-accent text-on-accent"
     },
     isFocused: {
@@ -90,7 +91,8 @@ const Checkbox = ({
           <div
             className={boxStyles({
               ...renderProps,
-              isSelected: isSelected || isIndeterminate
+              isSelected: isSelected || isIndeterminate,
+              className: cn(description && "mt-[3px]")
             })}
           >
             {isIndeterminate ? (

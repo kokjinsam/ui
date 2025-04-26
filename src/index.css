@@ -68,16 +68,38 @@
 @theme {
   --font-sans: "Inter UI", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+  --color-*: initial;
+  --color-ui-primary: var(--bg1);
+  --color-ui-primary-alt: var(--bg2);
+  --color-ui-secondary: var(--bg2);
+  --color-ui-secondary-alt: var(--bg1);
+  --color-ui-line: var(--ui1);
+  --color-ui-line-hover: var(--ui2);
+  --color-ui-line-focus: var(--ui3);
+  --color-ui-cover: hsla(48,calc(100% - 70%),calc(97% - 20%),0.5);
+  --color-interactive-normal: var(--bg1);
+  --color-interactive-hover: var(--ui1);
+  --color-interactive-focus: var(--ui3);
+  --color-interactive-accent: var(--ax3);
+  --color-interactive-accent-hover: var(--ax1);
+  --color-modifier-success: rgb(var(--ink-green-400));
+  --color-modifier-success-hover: rgb(var(--ink-green-600));
+  --color-modifier-danger: rgb(var(--ink-red-400));
+  --color-modifier-danger-hover: rgb(var(--ink-red-600));
+  --color-modifier-warning: rgb(var(--ink-orange-400));
+  --color-modifier-warning-hover: rgb(var(--ink-orange-600));
+  --color-modifier-info: rgb(var(--ink-blue-400));
+  --color-modifier-info-hover: rgb(var(--ink-blue-600));
+
+  --text-*: initial;
   --text-ui-sm: 12px;
   --text-ui-base: 13px;
   --text-ui-lg: 15px;
 
   --text-color-normal: var(--tx1);
-  --text-color-normal-inverted: var(--sp1);
   --text-color-muted: var(--tx2);
   --text-color-faint: var(--tx3);
   --text-color-on-accent: var(--sp1);
-  --text-color-on-accent-inverted: rgb(var(--base-black));
   --text-color-success: rgb(var(--ink-green-600));
   --text-color-danger: rgb(var(--ink-red-600));
   --text-color-warning: rgb(var(--ink-orange-600));
@@ -87,62 +109,11 @@
   --text-color-link: var(--ax1);
   --text-color-link-hover: var(--ax2);
 
-  --background-color-primary: var(--bg1);
-  --background-color-primary-alt: var(--bg2);
-  --background-color-primary-inverted: rgb(var(--base-black));
-  --background-color-secondary: var(--bg2);
-  --background-color-secondary-alt: var(--bg1);
-  --background-color-modifier-muted: var(--tx2);
-  --background-color-modifier-hover: var(--bg3);
-  --background-color-modifier-active-hover: var(--bg3);
-  --background-color-modifier-border: var(--ui1);
-  --background-color-modifier-border-hover: var(--ui2);
-  --background-color-modifier-border-focus: var(--ui3);
-  --background-color-modifier-success: rgb(var(--ink-green-400));
-  --background-color-modifier-success-hover: rgb(var(--ink-green-600));
-  --background-color-modifier-danger: rgb(var(--ink-red-400));
-  --background-color-modifier-danger-hover: rgb(var(--ink-red-600));
-  --background-color-modifier-warning: rgb(var(--ink-orange-400));
-  --background-color-modifier-warning-hover: rgb(var(--ink-orange-600));
-  --background-color-modifier-info: rgb(var(--ink-blue-400));
-  --background-color-modifier-info-hover: rgb(var(--ink-blue-600));
-  --background-color-modifier-cover: hsla(48,calc(100% - 70%),calc(97% - 20%),0.5);
-  --background-color-interactive-normal: var(--bg1);
-  --background-color-interactive-hover: var(--ui1);
-  --background-color-interactive-accent: var(--ax3);
-  --background-color-interactive-accent-hover: var(--ax1);
-
-  --fill-primary: var(--bg1);
-  --fill-primary-inverted: rgb(var(--base-black));
-  --fill-secondary: var(--bg2);
-
-  --stroke-modifier-border-hover: var(--ui2);
-
-  --ring-color-modifier-border: var(--ui1);
-  --ring-color-modifier-border-hover: var(--ui2);
-  --ring-color-modifier-border-focus: var(--ui3);
-  --ring-color-interactive-normal: var(--ui1);
-  --ring-color-interactive-hover: var(--ui2);
-  --ring-color-interactive-focus: var(--ui3);
-
-  --border-color-normal: var(--ui1);
-  --border-color-hover: var(--ui2);
-  --border-color-focus: var(--ui3);
-  --border-color-modifier-success: rgb(var(--ink-green-400));
-  --border-color-modifier-success-hover: rgb(var(--ink-green-600));
-  --border-color-modifier-danger: rgb(var(--ink-red-400));
-  --border-color-modifier-danger-hover: rgb(var(--ink-red-600));
-  --border-color-modifier-warning: rgb(var(--ink-orange-400));
-  --border-color-modifier-warning-hover: rgb(var(--ink-orange-600));
-  --border-color-modifier-info: rgb(var(--ink-blue-400));
-  --border-color-modifier-info-hover: rgb(var(--ink-blue-600));
-  --border-color-interactive-accent: var(--ax3);
-  --border-color-interactive-accent-hover: var(--ax1);
-
   --height-interactive-sm: 24px;
   --height-interactive-md: 28px;
   --height-interactive-lg: 32px;
 
+  --z-index-*: initial;
   --z-index-cover: 5;
   --z-index-sidedock: 10;
   --z-index-status-bar: 15;

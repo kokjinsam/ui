@@ -84,7 +84,7 @@ const FieldGroup = (props: FieldGroupProps) => (
   <Group
     {...props}
     className={cn([
-      "group border-normal h-interactive-lg relative flex items-center overflow-hidden rounded-sm border shadow-xs",
+      "group border-ui-line h-interactive-lg relative flex items-center overflow-hidden rounded-sm border shadow-xs",
       "focus-within:ring-interactive-focus focus-within:ring-2 focus-within:outline-none",
       "focus-within:forced-colors:border-[Highlight]",
       "data-[disabled]:opacity-50 data-[disabled]:forced-colors:border-[GrayText]",
