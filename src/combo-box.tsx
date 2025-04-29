@@ -69,19 +69,16 @@ const ComboBoxList = <T extends object>({
 }: ComboBoxListProps<T>) => (
   <PopoverContent
     showArrow={false}
-    isNonModal
-    className={cn("sm:min-w-(--trigger-width)", classNames?.popover)}
     placement={props.placement}
+    className={cn("sm:min-w-(--trigger-width)", classNames?.popover)}
   >
     <ListBox
-      className={cn("border-0 shadow-none", props.className)}
       layout="stack"
       orientation="vertical"
       items={items}
       {...props}
-    >
-      {props.children}
-    </ListBox>
+      className={cn("border-0 shadow-none", props.className)}
+    />
   </PopoverContent>
 )
 
@@ -99,7 +96,9 @@ const ComboBoxInput = (props: InputProps) => {
           "hover:bg-transparent",
           "active:bg-transparent",
           "data-[pressed]:bg-transparent",
-          "**:data-[slot=icon]:data-[pressed]:text-normal **:data-[slot=icon]:text-muted **:data-[slot=icon]:hover:text-normal"
+          "**:data-[slot=icon]:text-muted",
+          "**:data-[slot=icon]:data-[pressed]:text-normal",
+          "**:data-[slot=icon]:hover:text-normal"
         ])}
       >
         {!context?.inputValue && (
