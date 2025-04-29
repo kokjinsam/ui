@@ -34,11 +34,8 @@ const dropdownItemStyles = tv({
     "data-[slot=menu-radio]:*:data-[slot=icon]:size-3",
     "forced-colors:**:data-[slot=icon]:text-[CanvasText] forced-colors:group-focus:**:data-[slot=icon]:text-[Canvas]",
     "[&>[slot=label]+[data-slot=icon]]:absolute [&>[slot=label]+[data-slot=icon]]:right-0",
-    "hover:bg-interactive-hover",
-    "data-danger:text-danger",
-    "data-danger:hover:bg-modifier-danger/10",
     "data-danger:**:data-[slot=icon]:text-danger",
-    "focus:data-danger:**:data-[slot=icon]:text-error"
+    "focus:data-danger:**:data-[slot=icon]:text-danger"
   ],
   variants: {
     isDisabled: {
@@ -46,6 +43,12 @@ const dropdownItemStyles = tv({
     },
     isSelected: {
       true: "**:data-[slot=avatar]:hidden **:data-[slot=avatar]:*:hidden **:data-[slot=icon]:hidden"
+    },
+    isFocused: {
+      true: [
+        "bg-interactive-hover",
+        "data-danger:bg-modifier-danger/10 data-danger:text-danger"
+      ]
     }
   }
 })
