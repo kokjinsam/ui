@@ -54,11 +54,11 @@ const boxStyles = tv({
   ],
   variants: {
     isSelected: {
-      false: "bg-ui-primary-alt inset-ring-ui-line inset-ring",
+      false: "bg-interactive-normal inset-ring-ui-line inset-ring",
       true: "border-interactive-accent bg-interactive-accent text-on-accent"
     },
     isFocused: {
-      true: "border-primary ring-interactive-focus ring-2"
+      true: "border-interactive-focus ring-interactive-focus ring-2"
     }
   }
 })
