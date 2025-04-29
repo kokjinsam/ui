@@ -47,7 +47,8 @@ const PopoverBody = (props: DialogBodyProps) => (
 
 const content = tv({
   base: [
-    "peer/popover-content bg-ui-primary text-normal border-ui-line-hover max-w-xs rounded-xl border bg-clip-padding shadow-xs transition-transform",
+    // FIXME: transition-transform is causing ListBox to not show the full list.
+    "peer/popover-content bg-ui-primary text-normal border-ui-line-hover max-w-xs rounded-xl border shadow-xs transition-transform",
     "sm:max-w-3xl",
     "forced-colors:bg-[Canvas]"
   ],

@@ -24,7 +24,7 @@ const ListBox = <T extends object>(props: ListBoxProps<T>) => (
   <ListBoxPrimitive
     {...props}
     className={cn(
-      "grid max-h-[inherit] w-full min-w-56 grid-cols-[auto_1fr] flex-col gap-y-1 overflow-auto overflow-y-auto rounded-lg border p-1 shadow-lg outline-hidden",
+      "grid max-h-[inherit] w-full min-w-56 grid-cols-[auto_1fr] overflow-auto rounded-lg border p-1 shadow-lg outline-hidden",
       "*:[[role='group']+[role=group]]:mt-4",
       "*:[[role='group']+[role=separator]]:mt-1",
       props.className
