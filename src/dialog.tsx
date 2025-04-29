@@ -18,7 +18,7 @@ const Dialog = ({ role = "dialog", ...props }: DialogProps) => (
     role={role}
     {...props}
     className={cn(
-      "peer/dialog group/dialog relative max-h-[inherit] overflow-hidden outline-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5",
+      "peer/dialog group/dialog relative max-h-[inherit] overflow-hidden outline-hidden",
       props.className
     )}
   />
@@ -166,7 +166,10 @@ const CloseIndicator = (props: DialogCloseIndicatorProps) => {
       aria-label="Close"
       slot="close"
       className={cn(
-        "close hover:bg-ui-secondary focus:bg-ui-secondary focus-visible:ring-primary absolute top-1 right-1 z-50 grid size-8 place-content-center rounded-xl focus:outline-hidden focus-visible:ring-1 sm:top-2 sm:right-2 sm:size-7 sm:rounded-md",
+        "close absolute top-2 right-2 z-50 grid size-7 place-content-center rounded-lg",
+        "hover:bg-ui-secondary",
+        "focus:bg-ui-secondary focus:outline-hidden",
+        "focus-visible:ring-primary focus-visible:ring-1",
         props.className
       )}
     >

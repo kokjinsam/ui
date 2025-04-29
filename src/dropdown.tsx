@@ -88,9 +88,9 @@ const DropdownItem = (props: DropdownItemProps) => {
       {composeRenderProps(props.children, (children, { isSelected }) => (
         <>
           {isSelected && (
-            <div
+            <span
               data-slot="checked-icon"
-              className="lucide-check -mx-0.5 mr-2"
+              className="lucide-check -mx-0.5 mr-2 size-4"
             />
           )}
           {typeof children === "string" ? (

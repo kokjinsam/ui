@@ -49,8 +49,7 @@ const content = tv({
   base: [
     "peer/popover-content bg-ui-primary text-normal border-ui-line-hover max-w-xs rounded-xl border bg-clip-padding shadow-xs transition-transform",
     "sm:max-w-3xl",
-    "forced-colors:bg-[Canvas]",
-    "[scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5"
+    "forced-colors:bg-[Canvas]"
   ],
   variants: {
     isPicker: {

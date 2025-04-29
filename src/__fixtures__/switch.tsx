@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { Center } from "../center"
 import { Switch } from "../switch"
