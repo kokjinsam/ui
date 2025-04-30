@@ -122,23 +122,23 @@ const SelectTrigger = (props: SelectTriggerProps) => (
     {props.prefix && <span className="-mr-1">{props.prefix}</span>}
     <SelectValue
       data-slot="select-value"
-      className={cn([
+      className={cn(
         "data-placeholder:text-muted",
         "text-ui-base grid flex-1 grid-cols-[auto_1fr] items-center",
         "*:data-[slot=avatar]:*:-mx-0.5 *:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:*:mr-2 *:data-[slot=avatar]:mr-2",
         "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:mr-2",
         "[&_[slot=description]]:hidden"
-      ])}
+      )}
     />
     <span
       data-slot="icon"
       aria-hidden
-      className={cn([
+      className={cn(
         "lucide-chevron-down text-muted size-4 shrink-0 duration-300",
         "group-data-[open]:text-normal group-data-[open]:rotate-180",
         "group-data-[disabled]:opacity-50",
         "forced-colors:text-[ButtonText] forced-colors:group-data-[disabled]:text-[GrayText]"
-      ])}
+      )}
     />
   </Button>
 )

@@ -100,10 +100,10 @@ type DialogBodyProps = {
 const Body = (props: DialogBodyProps) => (
   <div
     data-slot="dialog-body"
-    className={cn([
+    className={cn(
       "isolate max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)-var(--dialog-header-height,0px)-var(--dialog-footer-height,0px))] overflow-auto px-4 pt-4 pb-6",
       props.className
-    ])}
+    )}
   >
     {props.children}
   </div>

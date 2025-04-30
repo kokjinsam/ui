@@ -38,19 +38,17 @@ const ComboBox = <T extends object>({
   description,
   errorMessage,
   ...props
-}: ComboBoxProps<T>) => {
-  return (
-    <ComboboxPrimitive
-      {...props}
-      className={cn("group flex w-full flex-col gap-y-1.5", props.className)}
-    >
-      {label && <Label>{label}</Label>}
-      {props.children}
-      {description && <Description>{description}</Description>}
-      <FieldError>{errorMessage}</FieldError>
-    </ComboboxPrimitive>
-  )
-}
+}: ComboBoxProps<T>) => (
+  <ComboboxPrimitive
+    {...props}
+    className={cn("group flex w-full flex-col gap-y-1.5", props.className)}
+  >
+    {label && <Label>{label}</Label>}
+    {props.children}
+    {description && <Description>{description}</Description>}
+    <FieldError>{errorMessage}</FieldError>
+  </ComboboxPrimitive>
+)
 
 type ComboBoxListProps<T extends object> = Omit<
   ListBoxProps<T>,
@@ -92,7 +90,7 @@ const ComboBoxInput = (props: InputProps) => {
       <Button
         size="square-md"
         intent="plain"
-        className={cn([
+        className={cn(
           "h-7 w-8 rounded outline-offset-0",
           "hover:bg-transparent",
           "active:bg-transparent",
@@ -100,14 +98,14 @@ const ComboBoxInput = (props: InputProps) => {
           "**:data-[slot=icon]:text-muted",
           "**:data-[slot=icon]:data-[pressed]:text-normal",
           "**:data-[slot=icon]:hover:text-normal"
-        ])}
+        )}
       >
         {!context?.inputValue && (
           <span
-            className={cn([
+            className={cn(
               "lucide-chevron-down size-4 shrink-0 transition duration-200",
               "group-data-[open]:text-normal group-data-[open]:rotate-180"
-            ])}
+            )}
           />
         )}
       </Button>
@@ -121,11 +119,11 @@ const ComboBoxClearButton = () => {
 
   return (
     <ButtonPrimitive
-      className={cn([
+      className={cn(
         "text-muted absolute inset-y-0 right-0 flex items-center pr-2",
         "hover:text-normal",
         "focus:outline-hidden"
-      ])}
+      )}
       slot={null}
       aria-label="Clear"
       onPress={() => {

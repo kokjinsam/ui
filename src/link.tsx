@@ -13,7 +13,7 @@ const Link = ({ intent = "unstyled", ...props }: LinkProps) => {
   return (
     <LinkPrimitive
       {...props}
-      className={cn([
+      className={cn(
         "outline-0 outline-offset-2 transition-[color,_opacity]",
         "disabled:cursor-default disabled:opacity-60",
         "focus-visible:outline-ring focus-visible:outline-2",
@@ -23,7 +23,7 @@ const Link = ({ intent = "unstyled", ...props }: LinkProps) => {
         intent === "muted" && "text-muted hover:underline",
         intent === "info" && "text-info hover:underline",
         props.className
-      ])}
+      )}
     >
       {(values) => (
         <>

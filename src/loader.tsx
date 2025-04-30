@@ -121,13 +121,13 @@ const Loader = ({
       <LoaderPrimitive
         role="presentation"
         {...props}
-        className={cn([
+        className={cn(
           loaderStyles({ size }),
           "text-current",
           ["ring"].includes(variant) && "animate-spin",
           variant === "spin" && "stroke-current",
           props.className
-        ])}
+        )}
       />
     </ProgressBar>
   )

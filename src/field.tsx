@@ -83,7 +83,7 @@ type FieldGroupProps = GroupProps
 const FieldGroup = (props: FieldGroupProps) => (
   <Group
     {...props}
-    className={cn([
+    className={cn(
       "group border-ui-line h-interactive-lg relative flex items-center overflow-hidden rounded-sm border shadow-xs",
       "focus-within:ring-interactive-focus focus-within:ring-2 focus-within:outline-none",
       "focus-within:forced-colors:border-[Highlight]",
@@ -100,7 +100,7 @@ const FieldGroup = (props: FieldGroupProps) => (
       "**:[button]:shrink-0",
       "[&>button:first-child]:ml-[calc(var(--spacing)*0.7)] [&>button:last-child]:mr-[calc(var(--spacing)*0.7)]",
       props.className
-    ])}
+    )}
   />
 )
 

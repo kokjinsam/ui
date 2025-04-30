@@ -58,12 +58,12 @@ const ListBoxItem = <T extends object>(props: ListBoxItemProps<T>) => {
           <>
             {allowsDragging && (
               <span
-                className={cn([
+                className={cn(
                   "text-muted size-4 shrink-0 transition",
                   isFocused && "text-normal",
                   isDragging && "text-normal",
                   isSelected && "text-accent-fg/70"
-                ])}
+                )}
               />
             )}
             {isSelected && (
