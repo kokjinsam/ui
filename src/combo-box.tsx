@@ -68,9 +68,10 @@ const ComboBoxList = <T extends object>({
   ...props
 }: ComboBoxListProps<T>) => (
   <PopoverContent
+    isNonModal
     showArrow={false}
     placement={props.placement}
-    className={cn("sm:min-w-(--trigger-width)", classNames?.popover)}
+    className={classNames?.popover}
   >
     <ListBox
       layout="stack"

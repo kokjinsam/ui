@@ -15,7 +15,6 @@ import {
   composeRenderProps,
   useSlottedContext
 } from "react-aria-components"
-import { tv } from "tailwind-variants"
 import type {
   DialogBodyProps,
   DialogFooterProps,
@@ -23,7 +22,7 @@ import type {
   DialogTitleProps
 } from "./dialog"
 import { Dialog } from "./dialog"
-import { cn } from "./utils"
+import { cn, tv } from "./utils"
 
 type PopoverProps = DialogTriggerProps
 
@@ -47,8 +46,7 @@ const PopoverBody = (props: DialogBodyProps) => (
 
 const content = tv({
   base: [
-    // FIXME: transition-transform is causing ListBox to not show the full list.
-    "peer/popover-content bg-ui-primary text-normal border-ui-line-hover max-w-xs rounded-xl border shadow-xs transition-transform",
+    "peer/popover-content bg-ui-primary text-normal border-ui-line-hover max-w-xs rounded-lg border bg-clip-padding shadow-xs transition-transform",
     "sm:max-w-3xl",
     "forced-colors:bg-[Canvas]"
   ],
@@ -56,9 +54,6 @@ const content = tv({
     isPicker: {
       true: "max-h-72 min-w-(--trigger-width) overflow-y-auto",
       false: "min-w-80"
-    },
-    isMenu: {
-      true: ""
     },
     isEntering: {
       true: [
@@ -88,13 +83,13 @@ type PopoverContentProps = Omit<
   }
 
 const PopoverContent = ({
-  children,
   showArrow = true,
   ...props
 }: PopoverContentProps) => {
   const popoverContext = useSlottedContext(PopoverContext)!
   const isSubmenuTrigger = popoverContext?.trigger === "SubmenuTrigger"
   const isComboBoxTrigger = popoverContext?.trigger === "ComboBox"
+  const isPicker = isComboBoxTrigger || popoverContext?.trigger === "Select"
   const offset = showArrow ? 12 : 8
   const effectiveOffset = isSubmenuTrigger ? offset - 5 : offset
 
@@ -103,7 +98,11 @@ const PopoverContent = ({
       offset={effectiveOffset}
       {...props}
       className={composeRenderProps(props.className, (className, renderProps) =>
-        content({ ...renderProps, className })
+        content({
+          ...renderProps,
+          isPicker,
+          className
+        })
       )}
     >
       {showArrow && (
@@ -112,13 +111,13 @@ const PopoverContent = ({
             width={12}
             height={12}
             viewBox="0 0 12 12"
-            className={cn([
+            className={cn(
               "fill-ui-primary stroke-ui-line-hover block",
               "group-data-[placement=bottom]:rotate-180",
               "group-data-[placement=left]:-rotate-90",
               "group-data-[placement=right]:rotate-90",
               "forced-colors:fill-[Canvas] forced-colors:stroke-[ButtonBorder]"
-            ])}
+            )}
           >
             <path d="M0 0 L6 6 L12 0" />
           </svg>
@@ -126,10 +125,10 @@ const PopoverContent = ({
       )}
       {!isComboBoxTrigger ? (
         <Dialog role="dialog" aria-label={props["aria-label"] ?? "List item"}>
-          {children}
+          {props.children}
         </Dialog>
       ) : (
-        children
+        props.children
       )}
     </PopoverPrimitive>
   )
