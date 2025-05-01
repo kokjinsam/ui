@@ -46,13 +46,13 @@ const PopoverBody = (props: DialogBodyProps) => (
 
 const content = tv({
   base: [
-    "peer/popover-content bg-ui-primary text-normal border-ui-line-hover max-w-xs rounded-lg border bg-clip-padding shadow-xs transition-transform",
+    "peer/popover-content bg-surface-primary text-normal border-line-hover max-w-xs rounded-lg border bg-clip-padding shadow-xs transition-transform",
     "sm:max-w-3xl",
     "forced-colors:bg-[Canvas]"
   ],
   variants: {
     isPicker: {
-      true: "max-h-72 min-w-(--trigger-width) overflow-y-auto",
+      true: "max-h-72 max-w-(--trigger-width) overflow-hidden",
       false: ""
     },
     isEntering: {
@@ -112,7 +112,7 @@ const PopoverContent = ({
             height={12}
             viewBox="0 0 12 12"
             className={cn(
-              "fill-ui-primary stroke-ui-line-hover block",
+              "fill-surface-primary stroke-line-hover block",
               "group-data-[placement=bottom]:rotate-180",
               "group-data-[placement=left]:-rotate-90",
               "group-data-[placement=right]:rotate-90",

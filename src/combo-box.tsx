@@ -60,6 +60,7 @@ type ComboBoxListProps<T extends object> = Omit<
     }
   }
 
+// TODO: THERE ARE TWO SCROLLBARS
 const ComboBoxList = <T extends object>({
   items,
   classNames,

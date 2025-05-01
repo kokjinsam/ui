@@ -21,7 +21,7 @@ import { cn, tv } from "./utils"
 
 const dropdownItemStyles = tv({
   base: [
-    "group text-normal text-ui-base/5 relative cursor-default rounded-[calc(var(--radius-lg)-1px)] px-2 py-1.5 outline-0 forced-color-adjust-none select-none",
+    "group text-normal relative cursor-default rounded-[calc(var(--radius-lg)-1px)] px-2 py-1.5 text-base/5 outline-0 forced-color-adjust-none select-none",
     "col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto]",
     "supports-[grid-template-columns:subgrid]:grid-cols-subgrid",
     "not-has-data-[slot=dropdown-item-details]:items-center",
@@ -46,7 +46,7 @@ const dropdownItemStyles = tv({
       true: "**:data-[slot=avatar]:hidden **:data-[slot=avatar]:*:hidden **:data-[slot=icon]:hidden"
     },
     isFocused: {
-      true: "bg-interactive-hover data-danger:bg-modifier-danger/10"
+      true: "bg-control-hover data-danger:bg-modifier-danger/10"
     }
   }
 })
@@ -54,7 +54,7 @@ const dropdownItemStyles = tv({
 const dropdownSectionStyles = tv({
   slots: {
     section: "col-span-full grid grid-cols-[auto_1fr]",
-    header: "text-muted text-ui-sm col-span-full px-2 py-1 font-medium"
+    header: "text-muted col-span-full px-2 py-1 text-sm font-medium"
   }
 })
 
@@ -131,7 +131,7 @@ const DropdownItemDetails = ({
       {label && (
         <Text
           slot={slot ?? "label"}
-          className={cn("text-ui-base font-medium", classNames?.label)}
+          className={cn("text-base font-medium", classNames?.label)}
           {...restProps}
         >
           {label}
@@ -140,7 +140,7 @@ const DropdownItemDetails = ({
       {description && (
         <Text
           slot={slot ?? "description"}
-          className={cn("text-muted text-ui-base", classNames?.description)}
+          className={cn("text-muted text-base", classNames?.description)}
           {...restProps}
         >
           {description}
@@ -167,7 +167,7 @@ const DropdownSeparator = (props: DropdownSeparatorProps) => (
   <Separator
     orientation="horizontal"
     {...props}
-    className={cn("bg-ui-line col-span-full -mx-1 my-1 h-px", props.className)}
+    className={cn("bg-line col-span-full -mx-1 my-1 h-px", props.className)}
   />
 )
 

@@ -21,16 +21,16 @@ const buttonStyles = tv({
   variants: {
     intent: {
       primary: [
-        "bg-interactive-accent text-on-accent shadow-interactive border-none",
-        "hover:bg-interactive-accent-hover hover:shadow-interactive-hover"
+        "bg-interactive text-on-accent shadow-control border-none",
+        "hover:bg-interactive-hover hover:shadow-control-hover"
       ],
       outline: [
-        "bg-interactive-normal text-normal shadow-interactive border-none",
-        "hover:bg-interactive-hover hover:shadow-interactive-hover"
+        "bg-control text-normal shadow-control border-none",
+        "hover:bg-control-hover hover:shadow-control-hover"
       ],
       plain: [
         "text-normal border-none bg-transparent shadow-none",
-        "hover:bg-interactive-hover"
+        "hover:bg-control-hover"
       ],
       danger: [
         "text-on-accent border-modifier-danger bg-modifier-danger border",
@@ -38,9 +38,9 @@ const buttonStyles = tv({
       ]
     },
     size: {
-      "sm": "h-interactive-sm text-ui-sm/5 px-2",
-      "md": "h-interactive-md text-ui-base/5 px-3.5",
-      "lg": "h-interactive-lg text-ui-lg/5 px-3.5",
+      "sm": "h-control-sm px-2 text-sm/5",
+      "md": "h-control-md px-3.5 text-base/5",
+      "lg": "h-control-lg px-3.5 text-lg/5",
       "square-sm": "size-6 shrink-0",
       "square-md": "size-7 shrink-0",
       "square-lg": "size-8 shrink-0"

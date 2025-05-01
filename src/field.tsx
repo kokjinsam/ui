@@ -28,10 +28,10 @@ type FieldProps = {
 
 const fieldStyles = tv({
   slots: {
-    description: "text-muted text-ui-base/5 text-pretty",
-    label: "text-normal text-ui-base/5 w-fit cursor-default font-medium",
+    description: "text-muted text-base/5 text-pretty",
+    label: "text-normal w-fit cursor-default text-base/5 font-medium",
     fieldError: [
-      "text-danger text-ui-base/5",
+      "text-danger text-base/5",
       "forced-colors:text-[Mark]",
       "*:data-[slot=icon]:mr-1 *:data-[slot=icon]:size-4 *:data-[slot=icon]:align-middle"
     ]
@@ -84,8 +84,8 @@ const FieldGroup = (props: FieldGroupProps) => (
   <Group
     {...props}
     className={cn(
-      "group border-ui-line h-interactive-lg relative flex items-center overflow-hidden rounded-sm border shadow-xs",
-      "focus-within:ring-interactive-focus focus-within:ring-2 focus-within:outline-none",
+      "group border-line h-control-lg relative flex items-center overflow-hidden rounded-sm border shadow-xs",
+      "focus-within:ring-control-focus focus-within:ring-2 focus-within:outline-none",
       "focus-within:forced-colors:border-[Highlight]",
       "data-[disabled]:opacity-50 data-[disabled]:forced-colors:border-[GrayText]",
       "[&>[role=progressbar]:first-child]:ml-2.5 [&>[role=progressbar]:last-child]:mr-2.5",
@@ -110,7 +110,7 @@ const Input = (props: InputProps) => (
   <InputPrimitive
     {...props}
     className={cn(
-      "text-normal placeholder-modifier-muted text-ui-base h-full w-full min-w-0 border-none bg-transparent px-2.5 py-1 outline-none",
+      "text-normal placeholder-modifier-muted h-full w-full min-w-0 border-none bg-transparent px-2.5 py-1 text-base outline-none",
       "focus:border-none focus:ring-0 focus:outline-none",
       "focus-visible:border-none focus-visible:ring-0 focus-visible:outline-none",
       "[&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden",

@@ -5,8 +5,7 @@ import type { VariantProps } from "./utils"
 import { tv } from "./utils"
 
 const badgeIntents = {
-  // TODO: update color for primary
-  primary: "bg-ui-primary text-normal group-hover:bg-ui-secondary",
+  primary: "bg-control text-normal group-hover:bg-control-hover",
   success:
     "bg-modifier-success text-on-accent group-hover:bg-modifier-success-hover",
   info: "bg-modifier-info text-on-accent group-hover:bg-modifier-info-hover",
@@ -15,6 +14,7 @@ const badgeIntents = {
   danger:
     "bg-modifier-danger text-on-accent group-hover:bg-modifier-danger-hover"
 }
+
 const badgeShapes = {
   square: "rounded-sm px-1.5",
   circle: "px-2 rounded-full"
@@ -22,7 +22,7 @@ const badgeShapes = {
 
 const badgeStyles = tv({
   base: [
-    "text-ui-sm/5 inline-flex items-center gap-x-1.5 py-0.5 font-medium",
+    "inline-flex items-center gap-x-1.5 py-0.5 text-sm/5 font-medium",
     "**:data-[slot=icon]:size-3",
     "forced-colors:outline"
   ],

@@ -9,15 +9,15 @@ const Toaster = (props: ToasterProps) => (
     richColors
     toastOptions={{
       classNames: {
-        toast: "border-0! bg-ui-primary! inset-ring! inset-ring-ui-line!",
+        toast: "border-0! bg-surface-primary! inset-ring! inset-ring-line!",
         title: "text-normal! font-medium!",
         description: "text-muted!",
         actionButton:
-          "bg-interactive-normal! text-normal! shadow-interactive! hover:bg-interactive-hover! hover:shadow-interactive-hover!",
+          "bg-control! text-normal! shadow-control! hover:bg-control-hover! hover:shadow-control-hover!",
         cancelButton:
-          "bg-interactive-normal! text-normal! shadow-interactive! hover:bg-interactive-hover! hover:shadow-interactive-hover!",
+          "bg-control! text-normal! shadow-control! hover:bg-control-hover! hover:shadow-control-hover!",
         closeButton:
-          "bg-interactive-normal! text-normal! shadow-interactive! hover:bg-interactive-hover! hover:shadow-interactive-hover!"
+          "bg-control! text-normal! shadow-control! hover:bg-control-hover! hover:shadow-control-hover!"
       }
     }}
     {...props}

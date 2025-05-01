@@ -21,6 +21,18 @@ const SingleCheckbox = () => {
           description="Receive push notifications for new messages"
           isDisabled
         />
+        <Checkbox
+          label="Enable SMS notifications"
+          description="Receive SMS notifications for new messages"
+          isSelected
+          isDisabled
+        />
+        <Checkbox
+          label="Enable SMS notifications"
+          description="Receive SMS notifications for new messages"
+          isIndeterminate
+          isDisabled
+        />
       </div>
     </Center>
   )

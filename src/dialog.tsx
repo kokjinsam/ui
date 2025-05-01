@@ -59,7 +59,7 @@ const Header = (props: DialogHeaderProps) => {
     <div
       data-slot="dialog-header"
       ref={headerRef}
-      className={cn("ring-ui-line relative px-4 py-2.5 ring", props.className)}
+      className={cn("ring-line relative px-4 py-2.5 ring", props.className)}
     >
       {props.title && <Title>{props.title}</Title>}
       {props.description && <Description>{props.description}</Description>}
@@ -78,7 +78,7 @@ const Title = (props: DialogTitleProps) => (
   <Heading
     slot="title"
     {...props}
-    className={cn("text-normal text-ui-base font-semibold", props.className)}
+    className={cn("text-normal text-base font-semibold", props.className)}
   />
 )
 
@@ -88,7 +88,7 @@ const Description = (props: DialogDescriptionProps) => (
   <Text
     slot="description"
     {...props}
-    className={cn("text-muted text-ui-sm", props.className)}
+    className={cn("text-muted text-sm", props.className)}
   />
 )
 
@@ -142,7 +142,7 @@ const Footer = (props: DialogFooterProps) => {
       data-slot="dialog-footer"
       {...props}
       className={cn(
-        "ring-ui-line bg-ui-secondary isolate flex h-11 items-center justify-end gap-x-2 pr-2 pl-3 ring",
+        "ring-line bg-surface-secondary isolate flex h-11 items-center justify-end gap-x-2 pr-2 pl-3 ring",
         props.className
       )}
     />
@@ -167,9 +167,9 @@ const CloseIndicator = (props: DialogCloseIndicatorProps) => {
       slot="close"
       className={cn(
         "close absolute top-2 right-2 z-50 grid size-7 place-content-center rounded-lg",
-        "hover:bg-ui-secondary",
-        "focus:bg-ui-secondary focus:outline-hidden",
-        "focus-visible:ring-primary focus-visible:ring-1",
+        "hover:bg-surface-secondary",
+        "focus:bg-surface-secondary focus:outline-hidden",
+        "focus-visible:ring-control-focus focus-visible:ring-2",
         props.className
       )}
     >

@@ -28,8 +28,8 @@ import { cn, tv } from "./utils"
 
 const selectTriggerStyles = tv({
   base: [
-    "text-ui-base text-normal border-ui-line h-interactive-lg flex w-full cursor-default items-center gap-4 gap-x-2 rounded-lg border px-2.5 py-1 text-start transition",
-    "group-data-[open]:ring-interactive-focus group-data-[open]:ring-2",
+    "text-normal border-line h-control-lg flex w-full cursor-default items-center gap-4 gap-x-2 rounded-lg border px-2.5 py-1 text-start text-base transition",
+    "group-data-[open]:ring-control-focus group-data-[open]:ring-2",
     "group-data-[disabled]:opacity-50",
     "forced-colors:group-invalid:border-[Mark]",
     "**:data-[slot=icon]:size-4"
@@ -124,7 +124,7 @@ const SelectTrigger = (props: SelectTriggerProps) => (
       data-slot="select-value"
       className={cn(
         "data-placeholder:text-muted",
-        "text-ui-base grid flex-1 grid-cols-[auto_1fr] items-center",
+        "grid flex-1 grid-cols-[auto_1fr] items-center text-base",
         "*:data-[slot=avatar]:*:-mx-0.5 *:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:*:mr-2 *:data-[slot=avatar]:mr-2",
         "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:mr-2",
         "[&_[slot=description]]:hidden"

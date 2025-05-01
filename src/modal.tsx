@@ -23,7 +23,7 @@ const Modal = (props: ModalProps) => <DialogTrigger {...props} />
 const modalOverlayStyles = tv({
   base: [
     "[--visual-viewport-vertical-padding:16px] sm:[--visual-viewport-vertical-padding:32px]",
-    "z-modal bg-ui-cover fixed top-0 left-0 isolate flex h-(--visual-viewport-height) w-full items-end justify-end text-center",
+    "z-modal fixed top-0 left-0 isolate flex h-(--visual-viewport-height) w-full items-end justify-end bg-cover text-center",
     "sm:block"
   ],
   variants: {
@@ -38,7 +38,7 @@ const modalOverlayStyles = tv({
 
 const modalContentStyles = tv({
   base: [
-    "bg-ui-primary text-normal ring-ui-line max-h-full w-full overflow-hidden rounded-t-2xl text-left align-middle shadow-lg ring",
+    "bg-surface-primary text-normal ring-line max-h-full w-full overflow-hidden rounded-t-2xl text-left align-middle shadow-lg ring",
     "sm:fixed sm:top-1/2 sm:left-[50vw] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl"
   ],
   variants: {

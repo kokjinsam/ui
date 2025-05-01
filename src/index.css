@@ -69,19 +69,22 @@
   --font-sans: "Inter UI", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --color-*: initial;
-  --color-ui-primary: var(--bg1);
-  --color-ui-primary-alt: var(--bg2);
-  --color-ui-secondary: var(--bg2);
-  --color-ui-secondary-alt: var(--bg1);
-  --color-ui-line: var(--ui1);
-  --color-ui-line-hover: var(--ui2);
-  --color-ui-line-focus: var(--ui3);
-  --color-ui-cover: hsla(48,calc(100% - 70%),calc(97% - 20%),0.5);
-  --color-interactive-normal: var(--bg1);
-  --color-interactive-hover: var(--ui1);
-  --color-interactive-focus: var(--ui3);
-  --color-interactive-accent: var(--ax3);
-  --color-interactive-accent-hover: var(--ax1);
+  --color-surface-primary: var(--bg1);
+  --color-surface-primary-alt: var(--bg2);
+  --color-surface-secondary: var(--bg2);
+  --color-surface-secondary-alt: var(--bg1);
+  --color-line: var(--ui1);
+  --color-line-hover: var(--ui2);
+  --color-line-focus: var(--ui3);
+  --color-cover: hsla(48, calc(100% - 70%), calc(97% - 20%), 0.5);
+  /* Control elements (inputs, select dropdowns, form elements) */
+  --color-control: var(--bg1);
+  --color-control-hover: var(--ui1);
+  --color-control-focus: var(--ui3);
+  /* CTA elements (buttons, active indicators) */
+  --color-interactive: var(--ax3);
+  --color-interactive-hover: var(--ax1);
+  /* Status indicators */
   --color-modifier-success: rgb(var(--ink-green-400));
   --color-modifier-success-hover: rgb(var(--ink-green-600));
   --color-modifier-danger: rgb(var(--ink-red-400));
@@ -90,11 +93,12 @@
   --color-modifier-warning-hover: rgb(var(--ink-orange-600));
   --color-modifier-info: rgb(var(--ink-blue-400));
   --color-modifier-info-hover: rgb(var(--ink-blue-600));
+  --color-modifier-muted: var(--tx2);
 
   --text-*: initial;
-  --text-ui-sm: 12px;
-  --text-ui-base: 13px;
-  --text-ui-lg: 15px;
+  --text-sm: 12px;
+  --text-base: 13px;
+  --text-lg: 15px;
 
   --text-color-normal: var(--tx1);
   --text-color-muted: var(--tx2);
@@ -109,9 +113,9 @@
   --text-color-link: var(--ax1);
   --text-color-link-hover: var(--ax2);
 
-  --height-interactive-sm: 24px;
-  --height-interactive-md: 28px;
-  --height-interactive-lg: 32px;
+  --height-control-sm: 24px;
+  --height-control-md: 28px;
+  --height-control-lg: 32px;
 
   --z-index-*: initial;
   --z-index-cover: 5;
@@ -125,6 +129,6 @@
   --z-index-tooltip: 70;
   --z-index-dragged-item: 80;
 
-  --shadow-interactive: inset 0 0 0 1px rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0,0,0,.05), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;
-  --shadow-interactive-hover: inset 0 0 0 1px rgba(0, 0, 0, 0.17), 0 2px 3px 0 rgba(0,0,0,.1), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;
+  --shadow-control: inset 0 0 0 1px rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0,0,0,.05), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;
+  --shadow-control-hover: inset 0 0 0 1px rgba(0, 0, 0, 0.17), 0 2px 3px 0 rgba(0,0,0,.1), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;
 }

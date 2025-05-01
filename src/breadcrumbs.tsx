@@ -47,7 +47,7 @@ const BreadcrumbsItem = ({
   return (
     <Breadcrumb
       {...props}
-      className={cn("text-ui-base/5 flex items-center gap-2", props.className)}
+      className={cn("flex items-center gap-2 text-base/5", props.className)}
     >
       {({ isCurrent }) => (
         <>

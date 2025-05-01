@@ -51,7 +51,7 @@ const MenuTrigger = (props: MenuTriggerProps) => (
     {...props}
     className={cn(
       "relative inline text-left outline-hidden",
-      "focus-visible:ring-interactive-focus focus-visible:ring",
+      "focus-visible:ring-control-focus focus-visible:ring-2",
       props.className
     )}
   >
@@ -98,10 +98,7 @@ const MenuContent = <T extends object>({
     crossOffset={props.crossOffset}
     triggerRef={props.triggerRef}
     arrowBoundaryOffset={props.arrowBoundaryOffset}
-    className={cn(
-      "z-modal min-w-40 p-0 shadow-xs outline-hidden",
-      classNames?.popover
-    )}
+    className={cn("z-modal min-w-40 p-0 outline-hidden", classNames?.popover)}
   >
     <MenuPrimitive
       data-slot="menu-content"
@@ -138,7 +135,7 @@ const MenuItem = ({ isDanger = false, children, ...props }: MenuItemProps) => {
           className: renderProps.hasSubmenu
             ? cn(
                 "data-open:data-danger:bg-modifier-danger/10 data-open:data-danger:text-danger",
-                "data-open:bg-interactive-hover",
+                "data-open:bg-control-hover",
                 "data-open:*:data-[slot=icon]:text-accent data-open:*:[.text-muted]:text-accent",
                 className
               )
