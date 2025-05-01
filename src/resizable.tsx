@@ -37,8 +37,8 @@ const ResizableHandle = (props: ResizableHandleProps) => (
       "data-[panel-group-direction=vertical]:after:left-0",
       "data-[panel-group-direction=vertical]:after:w-full",
       "data-[panel-group-direction=vertical]:after:h-1",
-      "data-[resize-handle-state=hover]:after:bg-interactive-accent",
-      "data-[resize-handle-active]:after:bg-interactive-accent",
+      "data-[resize-handle-state=hover]:after:bg-interactive",
+      "data-[resize-handle-active]:after:bg-interactive",
       "[&[data-panel-group-direction=vertical]>div]:rotate-90",
       "focus-visible:outline-none",
       props.className
