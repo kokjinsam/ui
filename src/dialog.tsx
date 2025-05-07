@@ -26,14 +26,16 @@ const Dialog = ({ role = "dialog", ...props }: DialogProps) => (
 
 type DialogTriggerProps = React.ComponentProps<typeof ButtonPrimitive>
 
-const Trigger = (props: DialogTriggerProps) => <ButtonPrimitive {...props} />
+const DialogTrigger = (props: DialogTriggerProps) => (
+  <ButtonPrimitive {...props} />
+)
 
 type DialogHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   title?: string
   description?: string
 }
 
-const Header = (props: DialogHeaderProps) => {
+const DialogHeader = (props: DialogHeaderProps) => {
   const headerRef = React.useRef<HTMLHeadingElement>(null)
 
   React.useEffect(() => {
@@ -61,10 +63,12 @@ const Header = (props: DialogHeaderProps) => {
       ref={headerRef}
       className={cn("ring-line relative px-4 py-2.5 ring", props.className)}
     >
-      {props.title && <Title>{props.title}</Title>}
-      {props.description && <Description>{props.description}</Description>}
+      {props.title && <DialogTitle>{props.title}</DialogTitle>}
+      {props.description && (
+        <DialogDescription>{props.description}</DialogDescription>
+      )}
       {!props.title && typeof props.children === "string" ? (
-        <Title {...props} />
+        <DialogTitle {...props} />
       ) : (
         props.children
       )}
@@ -74,7 +78,7 @@ const Header = (props: DialogHeaderProps) => {
 
 type DialogTitleProps = HeadingProps
 
-const Title = (props: DialogTitleProps) => (
+const DialogTitle = (props: DialogTitleProps) => (
   <Heading
     slot="title"
     {...props}
@@ -84,7 +88,7 @@ const Title = (props: DialogTitleProps) => (
 
 type DialogDescriptionProps = React.ComponentProps<"div">
 
-const Description = (props: DialogDescriptionProps) => (
+const DialogDescription = (props: DialogDescriptionProps) => (
   <Text
     slot="description"
     {...props}
@@ -97,7 +101,7 @@ type DialogBodyProps = {
   children: React.ReactNode
 }
 
-const Body = (props: DialogBodyProps) => (
+const DialogBody = (props: DialogBodyProps) => (
   <div
     data-slot="dialog-body"
     className={cn(
@@ -111,7 +115,7 @@ const Body = (props: DialogBodyProps) => (
 
 type DialogFooterProps = React.ComponentProps<"div">
 
-const Footer = (props: DialogFooterProps) => {
+const DialogFooter = (props: DialogFooterProps) => {
   const footerRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
@@ -151,7 +155,7 @@ const Footer = (props: DialogFooterProps) => {
 
 type DialogCloseProps = ButtonProps
 
-const Close = ({ intent = "outline", ...props }: DialogCloseProps) => (
+const DialogClose = ({ intent = "outline", ...props }: DialogCloseProps) => (
   <Button slot="close" intent={intent} {...props} />
 )
 
@@ -160,7 +164,7 @@ type DialogCloseIndicatorProps = Omit<ButtonProps, "children"> & {
   isDismissable?: boolean | undefined
 }
 
-const CloseIndicator = (props: DialogCloseIndicatorProps) => {
+const DialogCloseIndicator = (props: DialogCloseIndicatorProps) => {
   return props.isDismissable ? (
     <ButtonPrimitive
       aria-label="Close"
@@ -178,14 +182,14 @@ const CloseIndicator = (props: DialogCloseIndicatorProps) => {
   ) : null
 }
 
-Dialog.Trigger = Trigger
-Dialog.Header = Header
-Dialog.Title = Title
-Dialog.Description = Description
-Dialog.Body = Body
-Dialog.Footer = Footer
-Dialog.Close = Close
-Dialog.CloseIndicator = CloseIndicator
+Dialog.Trigger = DialogTrigger
+Dialog.Header = DialogHeader
+Dialog.Title = DialogTitle
+Dialog.Description = DialogDescription
+Dialog.Body = DialogBody
+Dialog.Footer = DialogFooter
+Dialog.Close = DialogClose
+Dialog.CloseIndicator = DialogCloseIndicator
 
 export { Dialog }
 export type {
