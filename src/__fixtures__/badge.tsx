@@ -10,8 +10,8 @@ export default () => {
 
   return (
     <Center className="flex-col gap-2">
-      <Badge intent="primary" shape={shape}>
-        Primary
+      <Badge intent="monochrome" shape={shape}>
+        Monochrome
       </Badge>
       <Badge intent="success" shape={shape}>
         Success

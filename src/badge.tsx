@@ -5,7 +5,8 @@ import type { VariantProps } from "./utils"
 import { tv } from "./utils"
 
 const badgeIntents = {
-  primary: "bg-control text-normal group-hover:bg-control-hover",
+  monochrome:
+    "bg-modifier-monochrome text-on-accent group-hover:bg-modifier-monochrome-hover",
   success:
     "bg-modifier-success text-on-accent group-hover:bg-modifier-success-hover",
   info: "bg-modifier-info text-on-accent group-hover:bg-modifier-info-hover",
@@ -31,7 +32,7 @@ const badgeStyles = tv({
     shape: { ...badgeShapes }
   },
   defaultVariants: {
-    intent: "primary",
+    intent: "monochrome",
     shape: "circle"
   }
 })
@@ -39,14 +40,12 @@ const badgeStyles = tv({
 type BadgeProps = React.ComponentPropsWithoutRef<"span"> &
   VariantProps<typeof badgeStyles>
 
-const Badge = ({ intent, shape, ...props }: BadgeProps) => {
-  return (
-    <span
-      {...props}
-      className={badgeStyles({ intent, shape, className: props.className })}
-    />
-  )
-}
+const Badge = ({ intent, shape, ...props }: BadgeProps) => (
+  <span
+    {...props}
+    className={badgeStyles({ intent, shape, className: props.className })}
+  />
+)
 
 export { Badge, badgeIntents, badgeShapes, badgeStyles }
 export type { BadgeProps }
