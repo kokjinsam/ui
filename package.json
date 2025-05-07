@@ -34,8 +34,6 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format modern,es,cjs && cp src/index.css dist/index.css",
-    "watch": "microbundle watch --jsx React.createElement --jsxFragment React.Fragment --format modern,es,cjs --no-compress",
-    "deploy": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format modern,es,cjs && cp src/index.css dist/index.css",
     "cosmos": "cosmos",
     "cosmos-export": "cosmos-export"
   },
@@ -50,7 +48,6 @@
     "@react-stately/color": "^3.8.4",
     "@react-types/overlays": "^3.8.14",
     "clsx": "^2.1.1",
-    "embla-carousel-react": "^8.6.0",
     "motion": "^12.7.4",
     "react-aria": "^3.39.0",
     "react-aria-components": "^1.7.1",
