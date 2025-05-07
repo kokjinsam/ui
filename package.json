@@ -1,6 +1,6 @@
 {
   "name": "@kokjinsam/ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "author": {
     "name": "kokjinsam",
@@ -23,8 +23,11 @@
   "type": "module",
   "source": "src/index.tsx",
   "exports": {
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.modern.js"
+    ".": {
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.modern.js"
+    },
+    "./*.css": "./dist/*.css"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",
