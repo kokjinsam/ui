@@ -178,9 +178,9 @@ const TableHeader = <T extends object>({
       {...props}
       className={cn("border-line border-b", props.className)}
     >
-      {allowsDragging && <Column maxWidth={30} />}
+      {allowsDragging && <Column className="w-0 max-w-6" />}
       {selectionBehavior === "toggle" && (
-        <Column maxWidth={40} className="pl-4">
+        <Column className="w-0 max-w-8 pl-4">
           {selectionMode === "multiple" && <Checkbox slot="selection" />}
         </Column>
       )}
