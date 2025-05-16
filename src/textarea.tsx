@@ -16,18 +16,23 @@ import TextareaAutosizeImpl from "react-textarea-autosize"
 import { Description, FieldError, Label } from "./field"
 import { cn } from "./utils"
 
-const textareaClasses = () =>
+const textareaClasses = (className?: string) =>
   cn(
     "border-line field-sizing-content max-h-96 min-h-16 w-full min-w-0 rounded-sm border px-2.5 py-1 text-base shadow-xs outline-hidden",
     "focus-within:ring-control-focus focus-within:ring-2 focus-within:outline-none",
-    "disabled:opacity-50"
+    "disabled:opacity-50",
+    className
   )
 
-type TextareaProps = TextFieldPrimitiveProps & {
+type TextareaProps = Omit<TextFieldPrimitiveProps, "className"> & {
   label?: string
   placeholder?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
+  className?: string
+  classNames?: {
+    container?: string
+  }
 }
 
 const Textarea = ({
@@ -35,16 +40,17 @@ const Textarea = ({
   label,
   description,
   errorMessage,
+  classNames,
   ...props
 }: TextareaProps) => (
   <TextFieldPrimitive
     {...props}
-    className={cn("group flex flex-col gap-y-1.5", props.className)}
+    className={cn("group flex flex-col gap-y-1.5", classNames?.container)}
   >
     {label && <Label>{label}</Label>}
     <TextAreaPrimitive
       placeholder={placeholder}
-      className={textareaClasses()}
+      className={textareaClasses(props.className)}
     />
     {description && <Description>{description}</Description>}
     <FieldError>{errorMessage}</FieldError>
@@ -66,6 +72,9 @@ type TextareaAutosizeProps = TextFieldPrimitiveProps &
     placeholder?: string
     description?: string
     errorMessage?: string | ((validation: ValidationResult) => string)
+    classNames?: {
+      container?: string
+    }
   }
 
 const TextareaAutosize = ({
@@ -73,6 +82,7 @@ const TextareaAutosize = ({
   label,
   description,
   errorMessage,
+  classNames,
   ...props
 }: TextareaAutosizeProps) => {
   const { isDisabled, isReadOnly, isRequired, isInvalid, ...textareaProps } =
@@ -81,7 +91,7 @@ const TextareaAutosize = ({
   return (
     <TextFieldPrimitive
       {...props}
-      className={cn("group flex flex-col gap-y-1.5", props.className)}
+      className={cn("group flex flex-col gap-y-1.5", classNames?.container)}
     >
       {label && <Label>{label}</Label>}
       <TextareaAutosizePrimitive
@@ -90,7 +100,7 @@ const TextareaAutosize = ({
         disabled={props.isDisabled}
         required={props.isRequired}
         readOnly={props.isReadOnly}
-        className={textareaClasses()}
+        className={textareaClasses(props.className)}
       />
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
