@@ -29,7 +29,7 @@ const ResizableHandle = (props: ResizableHandleProps) => (
     {...props}
     className={cn(
       "relative flex w-px items-center justify-center",
-      "after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 after:-translate-x-1/2",
+      "after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2",
       "data-[panel-group-direction=vertical]:h-px",
       "data-[panel-group-direction=vertical]:w-full",
       "data-[panel-group-direction=vertical]:after:translate-x-0",
