@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type {
   ComboBoxProps as ComboboxPrimitiveProps,
@@ -15,11 +13,15 @@ import {
   useSlottedContext
 } from "react-aria-components"
 import { Button } from "./button"
-import { DropdownItem, DropdownLabel, DropdownSection } from "./dropdown"
+import {
+  DropdownDescription,
+  DropdownItem,
+  DropdownLabel,
+  DropdownSection
+} from "./dropdown"
 import { Description, FieldError, FieldGroup, Input, Label } from "./field"
 import { ListBox } from "./list-box"
-import type { PopoverContentProps } from "./popover"
-import { PopoverContent } from "./popover"
+import { PopoverContent, type PopoverContentProps } from "./popover"
 import { cn } from "./utils"
 
 type ComboBoxProps<T extends object> = Omit<
@@ -60,7 +62,6 @@ type ComboBoxListProps<T extends object> = Omit<
     }
   }
 
-// TODO: THERE ARE TWO SCROLLBARS
 const ComboBoxList = <T extends object>({
   items,
   classNames,
@@ -77,28 +78,33 @@ const ComboBoxList = <T extends object>({
       orientation="vertical"
       items={items}
       {...props}
-      className={cn("border-0 shadow-none", props.className)}
+      className={cn(
+        "max-h-[inherit] min-w-[inherit] border-0 shadow-none",
+        props.className
+      )}
     />
   </PopoverContent>
 )
 
-const ComboBoxInput = (props: InputProps) => {
+type ComboBoxInputProps = InputProps
+
+const ComboBoxInput = (props: ComboBoxInputProps) => {
   const context = useSlottedContext(ComboBoxContext)!
 
   return (
     <FieldGroup className="relative pl-0">
       <Input {...props} placeholder={props?.placeholder} />
       <Button
-        size="square-md"
+        size="square-sm"
         intent="plain"
         className={cn(
           "h-7 w-8 rounded outline-offset-0",
           "hover:bg-transparent",
           "active:bg-transparent",
           "data-[pressed]:bg-transparent",
-          "**:data-[slot=icon]:text-muted",
-          "**:data-[slot=icon]:data-[pressed]:text-normal",
-          "**:data-[slot=icon]:hover:text-normal"
+          "**:data-[slot=icon]:text-muted-foreground",
+          "**:data-[slot=icon]:data-[pressed]:text-foreground",
+          "**:data-[slot=icon]:hover:text-foreground"
         )}
       >
         {!context?.inputValue && (
@@ -121,8 +127,8 @@ const ComboBoxClearButton = () => {
   return (
     <ButtonPrimitive
       className={cn(
-        "text-muted absolute inset-y-0 right-0 flex items-center pr-2",
-        "hover:text-normal",
+        "text-muted-foreground absolute inset-y-0 right-0 flex items-center pr-2",
+        "hover:text-foreground",
         "focus:outline-hidden"
       )}
       slot={null}
@@ -137,14 +143,16 @@ const ComboBoxClearButton = () => {
   )
 }
 
+const ComboBoxSection = DropdownSection
 const ComboBoxOption = DropdownItem
 const ComboBoxLabel = DropdownLabel
-const ComboBoxSection = DropdownSection
+const ComboBoxDescription = DropdownDescription
 
 ComboBox.Input = ComboBoxInput
 ComboBox.List = ComboBoxList
 ComboBox.Option = ComboBoxOption
 ComboBox.Label = ComboBoxLabel
+ComboBox.Description = ComboBoxDescription
 ComboBox.Section = ComboBoxSection
 
 export { ComboBox }
