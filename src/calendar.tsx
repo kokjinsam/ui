@@ -123,7 +123,7 @@ const CalendarHeader = ({ isRange, ...props }: CalendarHeaderProps) => {
       <div className="flex items-center gap-1">
         <Button
           size="square-sm"
-          className="**:data-[slot=icon]:text-fg size-8 sm:size-7"
+          className="**:data-[slot=icon]:text-foreground size-8 sm:size-7"
           shape="circle"
           intent="plain"
           slot="previous"
@@ -136,7 +136,7 @@ const CalendarHeader = ({ isRange, ...props }: CalendarHeaderProps) => {
         </Button>
         <Button
           size="square-sm"
-          className="**:data-[slot=icon]:text-fg size-8 sm:size-7"
+          className="**:data-[slot=icon]:text-foreground size-8 sm:size-7"
           shape="circle"
           intent="plain"
           slot="next"

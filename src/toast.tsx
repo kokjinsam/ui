@@ -6,7 +6,7 @@ const Toast = ({ ...props }: ToasterProps) => (
     className="toaster group"
     style={
       {
-        "--normal-bg": "var(--popover)",
+        "--normal-background": "var(--popover)",
         "--normal-text": "var(--popover-foreground)",
         "--normal-border": "var(--border)"
       } as React.CSSProperties

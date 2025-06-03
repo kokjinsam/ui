@@ -53,23 +53,23 @@ const checkboxStyles = tv({
 })
 
 const boxStyles = tv({
-  base: "inset-ring-fg/10 text-bg flex size-4 shrink-0 items-center justify-center rounded inset-ring transition *:data-[slot=icon]:size-3",
+  base: "inset-ring-foreground/10 text-background flex size-4 shrink-0 items-center justify-center rounded inset-ring transition *:data-[slot=icon]:size-3",
   variants: {
     isSelected: {
       false: "bg-muted",
       true: [
-        "inset-ring-primary bg-primary text-primary-fg",
-        "group-invalid:inset-ring-danger/70 group-invalid:bg-danger group-invalid:text-danger-fg"
+        "inset-ring-primary bg-primary text-primary-foreground",
+        "group-invalid:inset-ring-danger/70 group-invalid:bg-danger group-invalid:text-danger-foreground"
       ]
     },
     isFocused: {
       true: [
         "inset-ring-primary ring-ring/20 ring-4",
-        "group-invalid:border-danger/70 group-invalid:text-danger-fg group-invalid:ring-danger/20"
+        "group-invalid:border-danger/70 group-invalid:text-danger-foreground group-invalid:ring-danger/20"
       ]
     },
     isInvalid: {
-      true: "border-danger/70 bg-danger/20 text-danger-fg ring-danger/20"
+      true: "border-danger/70 bg-danger/20 text-danger-foreground ring-danger/20"
     }
   }
 })

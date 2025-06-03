@@ -10,7 +10,7 @@ const buttonStyles = tv({
   base: [
     "relative isolate inline-flex items-center justify-center gap-x-2 font-medium",
     "outline-0 outline-offset-2 hover:no-underline focus-visible:outline-2",
-    "inset-ring-fg/20 pressed:bg-(--btn-overlay) dark:inset-ring-fg/15 bg-(--btn-bg) text-(--btn-fg) shadow-[shadow:inset_0_2px_--theme(--color-white/15%)] inset-ring hover:bg-(--btn-overlay) dark:shadow-none",
+    "inset-ring-foreground/20 pressed:bg-(--btn-overlay) dark:inset-ring-foreground/15 bg-(--btn-background) text-(--btn-foreground) shadow-[shadow:inset_0_2px_--theme(--color-white/15%)] inset-ring hover:bg-(--btn-overlay) dark:shadow-none",
     "forced-colors:outline-[Highlight] forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
     "pressed:*:data-[slot=icon]:text-current *:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-1 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:text-current/60 *:data-[slot=icon]:transition hover:*:data-[slot=icon]:text-current/90",
     "*:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:my-1 *:data-[slot=avatar]:*:size-4 *:data-[slot=avatar]:size-4 *:data-[slot=avatar]:shrink-0"
@@ -18,22 +18,22 @@ const buttonStyles = tv({
   variants: {
     intent: {
       primary: [
-        "outline-primary [--btn-bg:var(--color-primary)]/95 [--btn-fg:var(--color-primary-fg)] [--btn-overlay:var(--color-primary)]"
+        "outline-primary [--btn-background:var(--color-primary)]/95 [--btn-foreground:var(--color-primary-foreground)] [--btn-overlay:var(--color-primary)]"
       ],
       secondary: [
-        "outline-primary [--btn-bg:var(--color-secondary)]/90 [--btn-fg:var(--color-secondary-fg)] [--btn-overlay:var(--color-secondary)]"
+        "outline-primary [--btn-background:var(--color-secondary)]/90 [--btn-foreground:var(--color-secondary-foreground)] [--btn-overlay:var(--color-secondary)]"
       ],
       warning: [
-        "outline-warning [--btn-bg:var(--color-warning)]/95 [--btn-fg:var(--color-warning-fg)] [--btn-overlay:var(--color-warning)]"
+        "outline-warning [--btn-background:var(--color-warning)]/95 [--btn-foreground:var(--color-warning-foreground)] [--btn-overlay:var(--color-warning)]"
       ],
       danger: [
-        "outline-danger [--btn-bg:var(--color-danger)]/95 [--btn-fg:var(--color-danger-fg)] [--btn-overlay:var(--color-danger)]"
+        "outline-danger [--btn-background:var(--color-danger)]/95 [--btn-foreground:var(--color-danger-foreground)] [--btn-overlay:var(--color-danger)]"
       ],
       outline: [
-        "outline-primary shadow-none [--btn-fg:var(--color-fg)] [--btn-overlay:var(--color-secondary)]/90"
+        "outline-primary shadow-none [--btn-foreground:var(--color-foreground)] [--btn-overlay:var(--color-secondary)]/90"
       ],
       plain: [
-        "outline-primary shadow-none inset-ring-transparent [--btn-fg:var(--color-fg)] [--btn-overlay:var(--color-secondary)]/90 dark:inset-ring-transparent"
+        "outline-primary shadow-none inset-ring-transparent [--btn-foreground:var(--color-foreground)] [--btn-overlay:var(--color-secondary)]/90 dark:inset-ring-transparent"
       ]
     },
     size: {

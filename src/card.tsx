@@ -8,7 +8,7 @@ const Card = (props: CardProps) => (
     data-slot="card"
     {...props}
     className={cn(
-      "group/card bg-bg text-fg **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--card-spacing) rounded-lg border py-(--card-spacing) shadow-xs [--card-spacing:--spacing(6)] has-[table]:overflow-hidden has-[table]:not-has-data-[slot=card-footer]:pb-0 has-[table]:**:data-[slot=card-footer]:border-t **:[table]:overflow-hidden",
+      "group/card bg-background text-foreground **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--card-spacing) rounded-lg border py-(--card-spacing) shadow-xs [--card-spacing:--spacing(6)] has-[table]:overflow-hidden has-[table]:not-has-data-[slot=card-footer]:pb-0 has-[table]:**:data-[slot=card-footer]:border-t **:[table]:overflow-hidden",
       props.className
     )}
   />
@@ -58,7 +58,7 @@ const CardDescription = (props: CardDescriptionProps) => (
     data-slot="card-description"
     {...props}
     className={cn(
-      "text-muted-fg row-start-2 text-sm text-pretty",
+      "text-muted-foreground row-start-2 text-sm text-pretty",
       props.className
     )}
   />

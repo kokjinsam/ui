@@ -1,137 +1,45 @@
-:root {
-  --base-h: 48;
-  --base-s: 100%;
-  --base-l: 97%;
-
-  --accent-h: 175;
-  --accent-s: 57%;
-  --accent-l: 33%;
-  --accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
-
-  --base-paper: 255 252 240;
-  --base-50: 242 240 229;
-  --base-100: 230 228 217;
-  --base-150: 218 216 206;
-  --base-200: 206 205 195;
-  --base-300: 183 181 172;
-  --base-400: 159 157 150;
-  --base-500: 135 133 128;
-  --base-600: 111 110 105;
-  --base-700: 87 86 83;
-  --base-800: 64 62 60;
-  --base-850: 52 51 49;
-  --base-900: 40 39 38;
-  --base-950: 28 27 26;
-  --base-black: 16 15 15;
-
-  --ink-red-400: 209 77 65;
-  --ink-red-600: 175 48 41;
-
-  --ink-orange-400: 218 112 44;
-  --ink-orange-600: 188 82 21;
-
-  --ink-yellow-400: 208 162 21;
-  --ink-yellow-600: 173 131 1;
-
-  --ink-green-400: 135 154 57;
-  --ink-green-600: 102 128 11;
-
-  --ink-cyan-400: 58 169 159;
-  --ink-cyan-600: 36 131 123;
-
-  --ink-blue-400: 67 133 190;
-  --ink-blue-600: 32 94 166;
-
-  --ink-purple-400: 139 126 200;
-  --ink-purple-600: 94 64 157;
-
-  --ink-magenta-400: 206 93 151;
-  --ink-magenta-600: 160 47 111;
-
-  --bg1: rgb(var(--base-paper));
-  --bg2: rgb(var(--base-50));
-  --bg3: hsla(0, 3%, 6%, 0.05);
-  --ui1: rgb(var(--base-100));
-  --ui2: rgb(var(--base-150));
-  --ui3: rgb(var(--base-200));
-  --tx1: rgb(var(--base-black));
-  --tx2: rgb(var(--base-600));
-  --tx3: rgb(var(--base-300));
-  --tx4: hsl(var(--base-h), calc(var(--base-s) - 10%), calc(var(--base-l) - 60%));
-  --hl1: hsla(155, 32%, 80%, 0.3);
-  --hl2: hsla(48, 92%, 60%, 0.3);
-  --ax1: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
-  --ax2: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 8%));
-  --ax3: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 6%));
-  --sp1: rgb(var(--base-paper));
-}
-
 @theme {
-  --font-sans: "Inter UI", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-  --color-*: initial;
-  --color-surface-primary: var(--bg1);
-  --color-surface-primary-alt: var(--bg2);
-  --color-surface-secondary: var(--bg2);
-  --color-surface-secondary-alt: var(--bg1);
-  --color-line: var(--ui1);
-  --color-line-hover: var(--ui2);
-  --color-line-focus: var(--ui3);
-  --color-cover: hsla(48, calc(100% - 70%), calc(97% - 20%), 0.5);
-  /* Control elements (inputs, select dropdowns, form elements) */
-  --color-control: var(--bg1);
-  --color-control-hover: var(--ui1);
-  --color-control-focus: var(--ui3);
-  /* CTA elements (buttons, active indicators) */
-  --color-interactive: var(--ax3);
-  --color-interactive-hover: var(--ax1);
-  /* Status indicators */
-  --color-modifier-success: rgb(var(--ink-green-400));
-  --color-modifier-success-hover: rgb(var(--ink-green-600));
-  --color-modifier-danger: rgb(var(--ink-red-400));
-  --color-modifier-danger-hover: rgb(var(--ink-red-600));
-  --color-modifier-warning: rgb(var(--ink-orange-400));
-  --color-modifier-warning-hover: rgb(var(--ink-orange-600));
-  --color-modifier-info: rgb(var(--ink-blue-400));
-  --color-modifier-info-hover: rgb(var(--ink-blue-600));
-  --color-modifier-monochrome: rgb(var(--base-400));
-  --color-modifier-monochrome-hover: rgb(var(--base-600));
-  --color-modifier-muted: var(--tx2);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
 
-  --text-*: initial;
-  --text-sm: 12px;
-  --text-base: 13px;
-  --text-lg: 15px;
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
 
-  --text-color-normal: var(--tx1);
-  --text-color-muted: var(--tx2);
-  --text-color-faint: var(--tx3);
-  --text-color-on-accent: var(--sp1);
-  --text-color-success: rgb(var(--ink-green-600));
-  --text-color-danger: rgb(var(--ink-red-600));
-  --text-color-warning: rgb(var(--ink-orange-600));
-  --text-color-info: rgb(var(--ink-blue-600));
-  --text-color-accent: var(--ax1);
-  --text-color-accent-hover: var(--ax2);
-  --text-color-link: var(--ax1);
-  --text-color-link-hover: var(--ax2);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
 
-  --height-control-sm: 24px;
-  --height-control-md: 28px;
-  --height-control-lg: 32px;
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
 
-  --z-index-*: initial;
-  --z-index-cover: 5;
-  --z-index-sidedock: 10;
-  --z-index-status-bar: 15;
-  --z-index-popover: 30;
-  --z-index-slides: 45;
-  --z-index-modal: 50;
-  --z-index-notice: 60;
-  --z-index-menu: 65;
-  --z-index-tooltip: 70;
-  --z-index-dragged-item: 80;
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
 
-  --shadow-control: inset 0 0 0 1px rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0,0,0,.05), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;
-  --shadow-control-hover: inset 0 0 0 1px rgba(0, 0, 0, 0.17), 0 2px 3px 0 rgba(0,0,0,.1), 0 1px 1.5px 0 rgba(0,0,0,.03), 0 1px 2px 0 rgba(0,0,0,.04), 0 0 0 0 transparent;
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius: var(--radius);
+
+  --sidebar: var(--sidebar);
+  --sidebar-foreground: var(--sidebar-foreground);
+  --sidebar-primary: var(--sidebar-primary);
+  --sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --sidebar-accent: var(--sidebar-accent);
+  --sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --sidebar-border: var(--sidebar-border);
+  --sidebar-ring: var(--sidebar-ring);
 }
