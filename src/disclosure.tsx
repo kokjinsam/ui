@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type {
   ButtonProps,
@@ -23,8 +21,7 @@ const DisclosureGroup = (props: DisclosureGroupProps) => (
     data-slot="disclosure-group"
     {...props}
     className={cn(
-      "peer",
-      "disabled:cursor-not-allowed disabled:opacity-75",
+      "peer cursor-default disabled:cursor-not-allowed disabled:opacity-75",
       props.className
     )}
   >
@@ -45,8 +42,7 @@ const Disclosure = (props: DisclosureProps) => (
     data-slot="disclosure"
     {...props}
     className={cn(
-      "peer group/disclosure border-line w-full min-w-60 border-b",
-      "disabled:opacity-60",
+      "peer group/disclosure border-border w-full min-w-60 border-b disabled:opacity-60",
       "**:data-[slot=disclosure]:last:border-b-0",
       props.className
     )}
@@ -63,14 +59,16 @@ const DisclosureTrigger = (props: DisclosureTriggerProps) => (
       slot="trigger"
       {...props}
       className={cn(
-        "group/trigger text-normal flex w-full items-center justify-between gap-x-2 py-3 text-left text-base font-medium",
+        "group/trigger flex w-full items-center justify-between gap-x-2 py-3 text-left font-medium",
+        "sm:text-sm",
+        "open:text-foreground",
+        "focus:text-foreground",
         "focus:outline-hidden",
         "disabled:cursor-default disabled:opacity-50",
+        "**:data-[slot=disclosure-chevron]:size-4",
+        "**:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:-mx-0.5 **:data-[slot=icon]:shrink-0",
         "forced-colors:disabled:text-[GrayText]",
-        "**:data-[slot=disclosure-chevron]:text-muted **:data-[slot=disclosure-chevron]:size-4 **:data-[slot=disclosure-chevron]:shrink-0 **:data-[slot=disclosure-chevron]:transition **:data-[slot=disclosure-chevron]:duration-300",
-        "**:data-[slot=icon]:text-muted **:data-[slot=icon]:size-4 **:data-[slot=icon]:shrink-0",
-        "**:[span]:flex **:[span]:items-center **:[span]:gap-x-1",
-        "**:[span]:*:data-[slot=icon]:ml-1",
+        "**:[span]:flex **:[span]:items-center **:[span]:gap-x-1 **:[span]:*:data-[slot=icon]:mr-1",
         "[&[aria-expanded=true]_[data-slot=disclosure-chevron]]:-rotate-90",
         props.className
       )}
@@ -82,7 +80,7 @@ const DisclosureTrigger = (props: DisclosureTriggerProps) => (
             : props.children}
           <span
             data-slot="disclosure-chevron"
-            className="lucide-chevron-left internal-chevron ml-auto"
+            className="internal-chevron ml-auto shrink-0 transition duration-300"
           />
         </>
       )}
@@ -97,8 +95,8 @@ const DisclosurePanel = (props: DisclosurePanelProps) => (
     data-slot="disclosure-panel"
     {...props}
     className={cn(
-      "text-muted overflow-hidden text-base transition-all",
-      "**:data-[slot=disclosure-group]:border-line **:data-[slot=disclosure-group]:border-t",
+      "text-muted-foreground overflow-hidden text-sm transition-all",
+      "**:data-[slot=disclosure-group]:border-border **:data-[slot=disclosure-group]:border-t",
       "**:data-[slot=disclosure-group]:**:[.internal-chevron]:hidden",
       "has-data-[slot=disclosure-group]:**:[button]:px-4",
       props.className
@@ -109,7 +107,7 @@ const DisclosurePanel = (props: DisclosurePanelProps) => (
       className={cn(
         "pt-0",
         "not-has-data-[slot=disclosure-group]:group-data-expanded/disclosure:pb-3",
-        "[&:has([data-slot=disclosure-group])_&]:px-9"
+        "[&:has([data-slot=disclosure-group])_&]:px-11"
       )}
     >
       {props.children}
