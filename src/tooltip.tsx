@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type { TooltipProps as TooltipPrimitiveProps } from "react-aria-components"
 import {
@@ -14,8 +12,8 @@ import { cn, tv } from "./utils"
 
 const tooltipStyles = tv({
   base: [
-    "group z-tooltip bg-surface-primary text-normal border-line-hover rounded-lg border px-1.5 py-1 text-base will-change-transform [&_strong]:font-medium",
-    "[&_.arx]:fill-surface-primary [&_.arx]:stroke-line-hover"
+    "group bg-primary text-primary-foreground rounded-lg border px-2.5 py-1.5 text-sm will-change-transform dark:shadow-none [&_strong]:font-medium",
+    "[&_.arx]:fill-primary [&_.arx]:stroke-border"
   ],
   variants: {
     isEntering: {
@@ -59,7 +57,10 @@ const TooltipContent = ({
       {...props}
       offset={offset}
       className={composeRenderProps(props.className, (className, renderProps) =>
-        tooltipStyles({ ...renderProps, className })
+        tooltipStyles({
+          ...renderProps,
+          className
+        })
       )}
     >
       {showArrow && (
