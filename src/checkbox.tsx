@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type {
   CheckboxGroupProps as CheckboxGroupPrimitiveProps,
@@ -8,10 +6,11 @@ import type {
 } from "react-aria-components"
 import {
   CheckboxGroup as CheckboxGroupPrimitive,
-  Checkbox as CheckboxPrimitive
+  Checkbox as CheckboxPrimitive,
+  composeRenderProps
 } from "react-aria-components"
 import { Description, FieldError, Label } from "./field"
-import { cn } from "./utils"
+import { cn, tv } from "./utils"
 
 type CheckboxGroupProps = CheckboxGroupPrimitiveProps & {
   label?: string
@@ -44,6 +43,37 @@ const CheckboxGroup = ({
   </CheckboxGroupPrimitive>
 )
 
+const checkboxStyles = tv({
+  base: "group flex items-center gap-2 text-sm transition",
+  variants: {
+    isDisabled: {
+      true: "opacity-50"
+    }
+  }
+})
+
+const boxStyles = tv({
+  base: "inset-ring-fg/10 text-bg flex size-4 shrink-0 items-center justify-center rounded inset-ring transition *:data-[slot=icon]:size-3",
+  variants: {
+    isSelected: {
+      false: "bg-muted",
+      true: [
+        "inset-ring-primary bg-primary text-primary-fg",
+        "group-invalid:inset-ring-danger/70 group-invalid:bg-danger group-invalid:text-danger-fg"
+      ]
+    },
+    isFocused: {
+      true: [
+        "inset-ring-primary ring-ring/20 ring-4",
+        "group-invalid:border-danger/70 group-invalid:text-danger-fg group-invalid:ring-danger/20"
+      ]
+    },
+    isInvalid: {
+      true: "border-danger/70 bg-danger/20 text-danger-fg ring-danger/20"
+    }
+  }
+})
+
 type CheckboxProps = CheckboxPrimitiveProps & {
   description?: string
   label?: string
@@ -52,13 +82,11 @@ type CheckboxProps = CheckboxPrimitiveProps & {
 const Checkbox = ({ description, label, ...props }: CheckboxProps) => (
   <CheckboxPrimitive
     {...props}
-    className={cn(
-      "group flex items-center gap-2 text-sm transition",
-      "data-[disabled]:opacity-50",
-      props.className
+    className={composeRenderProps(props.className, (className, renderProps) =>
+      checkboxStyles({ ...renderProps, className })
     )}
   >
-    {({ isSelected, isIndeterminate }) => (
+    {({ isSelected, isIndeterminate, ...renderProps }) => (
       <div
         className={cn(
           "flex gap-x-2",
@@ -66,26 +94,28 @@ const Checkbox = ({ description, label, ...props }: CheckboxProps) => (
         )}
       >
         <div
-          className={cn(
-            "text-normal mt-[3px] flex size-4 shrink-0 items-center justify-center rounded-sm",
-            "*:data-[slot=icon]:size-3 *:data-[slot=icon]:align-middle",
-            "bg-control inset-ring-line inset-ring",
-            "group-data-[selected]:inset-ring-interactive group-data-[selected]:bg-interactive group-data-[selected]:text-on-accent",
-            "group-data-[indeterminate]:inset-ring-interactive group-data-[indeterminate]:bg-interactive group-data-[indeterminate]:text-on-accent",
-            "group-data-[focused]:border-control-focus group-data-[focused]:ring-control-focus group-data-[focused]:ring-2"
-          )}
+          className={boxStyles({
+            ...renderProps,
+            isSelected: isSelected || isIndeterminate
+          })}
         >
           {isIndeterminate ? (
-            <span data-slot="icon" className="lucide-minus" />
+            <span
+              data-slot="checkbox-indicator"
+              className="lucide-minus size-3.5"
+            />
           ) : isSelected ? (
-            <span data-slot="icon" className="lucide-check" />
+            <span
+              data-slot="checkbox-indicator"
+              className="lucide-check size-3.5"
+            />
           ) : null}
         </div>
 
         <div className="flex flex-col gap-1">
           <>
             {label ? (
-              <Label className={cn(description && "text-base/5 font-normal")}>
+              <Label className={cn(description && "text-sm/4 font-normal")}>
                 {label}
               </Label>
             ) : (
