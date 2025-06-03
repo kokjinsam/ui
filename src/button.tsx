@@ -1,59 +1,57 @@
-"use client"
-
 import * as React from "react"
+import type { ButtonProps as ButtonPrimitiveProps } from "react-aria-components"
 import {
   Button as ButtonPrimitive,
-  type ButtonProps as ButtonPrimitiveProps,
   composeRenderProps
 } from "react-aria-components"
-import type { VariantProps } from "./utils"
-import { tv } from "./utils"
-
-// primary outline plain danger
+import { tv, VariantProps } from "./utils"
 
 const buttonStyles = tv({
   base: [
-    "relative isolate inline-flex cursor-default items-center justify-center gap-x-1 font-medium outline-0",
+    "relative isolate inline-flex items-center justify-center gap-x-2 font-medium",
+    "outline-0 outline-offset-2 hover:no-underline focus-visible:outline-2",
+    "inset-ring-fg/20 pressed:bg-(--btn-overlay) dark:inset-ring-fg/15 bg-(--btn-bg) text-(--btn-fg) shadow-[shadow:inset_0_2px_--theme(--color-white/15%)] inset-ring hover:bg-(--btn-overlay) dark:shadow-none",
     "forced-colors:outline-[Highlight] forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
-    "*:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:align-middle *:data-[slot=icon]:text-current",
-    "*:data-[slot=avatar]:*:size-4 *:data-[slot=avatar]:size-4 *:data-[slot=avatar]:shrink-0"
+    "pressed:*:data-[slot=icon]:text-current *:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-1 *:data-[slot=icon]:size-4 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:text-current/60 *:data-[slot=icon]:transition hover:*:data-[slot=icon]:text-current/90",
+    "*:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:my-1 *:data-[slot=avatar]:*:size-4 *:data-[slot=avatar]:size-4 *:data-[slot=avatar]:shrink-0"
   ],
   variants: {
     intent: {
       primary: [
-        "bg-interactive text-on-accent shadow-control border-none",
-        "hover:bg-interactive-hover hover:shadow-control-hover"
+        "outline-primary [--btn-bg:var(--color-primary)]/95 [--btn-fg:var(--color-primary-fg)] [--btn-overlay:var(--color-primary)]"
       ],
-      outline: [
-        "bg-control text-normal shadow-control border-none",
-        "hover:bg-control-hover hover:shadow-control-hover"
+      secondary: [
+        "outline-primary [--btn-bg:var(--color-secondary)]/90 [--btn-fg:var(--color-secondary-fg)] [--btn-overlay:var(--color-secondary)]"
       ],
-      plain: [
-        "text-normal border-none bg-transparent shadow-none",
-        "hover:bg-control-hover"
+      warning: [
+        "outline-warning [--btn-bg:var(--color-warning)]/95 [--btn-fg:var(--color-warning-fg)] [--btn-overlay:var(--color-warning)]"
       ],
       danger: [
-        "text-on-accent border-modifier-danger bg-modifier-danger border",
-        "hover:bg-modifier-danger-hover"
+        "outline-danger [--btn-bg:var(--color-danger)]/95 [--btn-fg:var(--color-danger-fg)] [--btn-overlay:var(--color-danger)]"
+      ],
+      outline: [
+        "outline-primary shadow-none [--btn-fg:var(--color-fg)] [--btn-overlay:var(--color-secondary)]/90"
+      ],
+      plain: [
+        "outline-primary shadow-none inset-ring-transparent [--btn-fg:var(--color-fg)] [--btn-overlay:var(--color-secondary)]/90 dark:inset-ring-transparent"
       ]
     },
     size: {
-      "sm": "h-control-sm px-2 text-sm/5",
-      "md": "h-control-md px-3.5 text-base/5",
-      "lg": "h-control-lg px-3.5 text-lg/5",
-      "square-sm": "size-6 shrink-0",
-      "square-md": "size-7 shrink-0",
-      "square-lg": "size-8 shrink-0"
+      "xs": "h-8 px-[calc(var(--spacing)*2.7)] text-xs/4 **:data-[slot=avatar]:size-3.5 **:data-[slot=avatar]:*:size-3.5 **:data-[slot=icon]:size-3 lg:text-[0.800rem]/4",
+      "sm": "h-9 px-3.5 text-sm/5 sm:text-sm/5",
+      "md": "h-10 px-4 text-base sm:text-sm/6",
+      "lg": "h-11 px-4.5 text-base *:data-[slot=icon]:mx-[-1.5px] sm:*:data-[slot=icon]:size-5 lg:text-base/7",
+      "square-sm": "size-9 shrink-0"
     },
     shape: {
       square: "rounded-lg",
       circle: "rounded-full"
     },
     isDisabled: {
-      true: "cursor-default opacity-50 inset-ring-0 forced-colors:text-[GrayText]"
+      true: "opacity-50 inset-ring-0 forced-colors:text-[GrayText]"
     },
     isPending: {
-      true: "cursor-default opacity-50"
+      true: "opacity-50"
     }
   },
   defaultVariants: {
@@ -65,30 +63,28 @@ const buttonStyles = tv({
 
 type ButtonProps = ButtonPrimitiveProps & VariantProps<typeof buttonStyles>
 
-const Button = ({ intent, size, shape, ...props }: ButtonProps) => {
-  return (
-    <ButtonPrimitive
-      {...props}
-      className={composeRenderProps(props.className, (className, renderProps) =>
-        buttonStyles({
-          ...renderProps,
-          intent,
-          size,
-          shape,
-          className
-        })
-      )}
-    >
-      {(values) => (
-        <>
-          {typeof props.children === "function"
-            ? props.children(values)
-            : props.children}
-        </>
-      )}
-    </ButtonPrimitive>
-  )
-}
+const Button = ({ intent, size, shape, ...props }: ButtonProps) => (
+  <ButtonPrimitive
+    {...props}
+    className={composeRenderProps(props.className, (className, renderProps) =>
+      buttonStyles({
+        ...renderProps,
+        intent,
+        size,
+        shape,
+        className
+      })
+    )}
+  >
+    {(values) => (
+      <>
+        {typeof props.children === "function"
+          ? props.children(values)
+          : props.children}
+      </>
+    )}
+  </ButtonPrimitive>
+)
 
 export { Button, buttonStyles }
 export type { ButtonProps }

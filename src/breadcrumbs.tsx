@@ -1,28 +1,26 @@
-"use client"
-
 import * as React from "react"
-import { createContext, use } from "react"
 import type {
   BreadcrumbProps,
-  BreadcrumbsProps,
+  BreadcrumbsProps as BreadcrumbsPrimitiveProps,
   LinkProps
 } from "react-aria-components"
 import {
   Breadcrumb,
-  Breadcrumbs as BreadcrumbsPrimitive
+  Breadcrumbs as BreadcrumbsPrimitive,
+  Link
 } from "react-aria-components"
-import { Link } from "./link"
 import { cn } from "./utils"
 
 type BreadcrumbsContextProps = { separator?: "chevron" | "slash" | boolean }
 
-const BreadcrumbsProvider = createContext<BreadcrumbsContextProps>({
+const BreadcrumbsProvider = React.createContext<BreadcrumbsContextProps>({
   separator: "chevron"
 })
 
-const Breadcrumbs = <T extends object>(
-  props: BreadcrumbsProps<T> & BreadcrumbsContextProps
-) => (
+type BreadcrumbsProps<T> = BreadcrumbsPrimitiveProps<T> &
+  BreadcrumbsContextProps
+
+const Breadcrumbs = <T extends object>(props: BreadcrumbsProps<T>) => (
   <BreadcrumbsProvider value={{ separator: props.separator }}>
     <BreadcrumbsPrimitive
       {...props}
@@ -31,29 +29,28 @@ const Breadcrumbs = <T extends object>(
   </BreadcrumbsProvider>
 )
 
-type BreadcrumbsItemProps = LinkProps &
-  BreadcrumbProps &
-  BreadcrumbsContextProps
+type BreadcrumbItemProps = BreadcrumbProps & BreadcrumbsContextProps
 
-const BreadcrumbsItem = ({
-  href,
+const BreadcrumbItem = ({
   separator = true,
   ...props
-}: BreadcrumbsItemProps) => {
-  const { separator: contextSeparator } = use(BreadcrumbsProvider)
+}: BreadcrumbItemProps) => {
+  const { separator: contextSeparator } = React.use(BreadcrumbsProvider)
   separator = contextSeparator ?? separator
   const separatorValue = separator === true ? "chevron" : separator
 
   return (
     <Breadcrumb
       {...props}
-      className={cn("flex items-center gap-2 text-base/5", props.className)}
+      className={cn("flex items-center gap-2 text-sm", props.className)}
     >
-      {({ isCurrent }) => (
+      {({ isCurrent, ...otherRenderProps }) => (
         <>
-          <Link href={href} {...props} />
+          {typeof props.children === "function"
+            ? props.children({ isCurrent, ...otherRenderProps })
+            : props.children}
           {!isCurrent && separator !== false && (
-            <Separator separator={separatorValue} />
+            <BreadcrumbSeparator separator={separatorValue} />
           )}
         </>
       )}
@@ -61,22 +58,51 @@ const BreadcrumbsItem = ({
   )
 }
 
-const Separator = ({
-  separator = "chevron"
-}: {
-  separator?: BreadcrumbsItemProps["separator"]
-}) => {
+type BreadcrumbLinkProps = LinkProps & BreadcrumbProps & BreadcrumbsContextProps
+
+const BreadcrumbLink = ({
+  href,
+  separator = true,
+  ...props
+}: BreadcrumbLinkProps) => {
+  const { separator: contextSeparator } = React.use(BreadcrumbsProvider)
+  separator = contextSeparator ?? separator
+  const separatorValue = separator === true ? "chevron" : separator
+
   return (
-    <span className="*:text-muted *:shrink-0 *:data-[slot=icon]:size-3.5">
-      {separator === "chevron" && (
-        <span data-slot="icon" className="lucide-chevron-right align-middle" />
+    <Breadcrumb
+      {...props}
+      className={cn("flex items-center gap-2 text-sm", props.className)}
+    >
+      {({ isCurrent }) => (
+        <>
+          <Link href={href} {...props} />
+          {!isCurrent && separator !== false && (
+            <BreadcrumbSeparator separator={separatorValue} />
+          )}
+        </>
       )}
-      {separator === "slash" && <span>/</span>}
-    </span>
+    </Breadcrumb>
   )
 }
 
-Breadcrumbs.Item = BreadcrumbsItem
+type BreadcrumbSeparatorProps = {
+  separator?: BreadcrumbLinkProps["separator"]
+}
 
-export { Breadcrumbs, BreadcrumbsItem }
-export type { BreadcrumbsItemProps, BreadcrumbsProps }
+const BreadcrumbSeparator = ({
+  separator = "chevron"
+}: BreadcrumbSeparatorProps) => (
+  <span className="*:text-muted-foreground *:shrink-0 *:data-[slot=icon]:size-3.5">
+    {separator === "chevron" && (
+      <span data-slot="icon" className="lucide-chevron-right align-middle" />
+    )}
+    {separator === "slash" && <span>/</span>}
+  </span>
+)
+
+Breadcrumbs.Item = BreadcrumbItem
+Breadcrumbs.Link = BreadcrumbLink
+
+export { Breadcrumbs }
+export type { BreadcrumbItemProps, BreadcrumbLinkProps, BreadcrumbsProps }

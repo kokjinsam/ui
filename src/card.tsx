@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { cn } from "./utils"
 
@@ -10,42 +8,37 @@ const Card = (props: CardProps) => (
     data-slot="card"
     {...props}
     className={cn(
-      "group/card bg-bg text-fg **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--card-spacing) rounded-lg border py-(--card-spacing) shadow-xs [--card-spacing:theme(spacing.6)] has-[table]:overflow-hidden has-[table]:**:data-[slot=card-footer]:border-t **:[table]:overflow-hidden",
+      "group/card bg-bg text-fg **:data-[slot=table-header]:bg-muted/50 flex flex-col gap-(--card-spacing) rounded-lg border py-(--card-spacing) shadow-xs [--card-spacing:--spacing(6)] has-[table]:overflow-hidden has-[table]:not-has-data-[slot=card-footer]:pb-0 has-[table]:**:data-[slot=card-footer]:border-t **:[table]:overflow-hidden",
       props.className
     )}
   />
 )
 
-type CardHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
+type HeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   title?: string
   description?: string
 }
 
-const CardHeader = ({
-  title,
-  description,
-  children,
-  ...props
-}: CardHeaderProps) => (
+const CardHeader = ({ title, description, ...props }: HeaderProps) => (
   <div
     data-slot="card-header"
     {...props}
     className={cn(
-      "grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-(--card-spacing) has-[[data-slot=card-action]]:grid-cols-[1fr_auto]",
+      "grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-(--card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto]",
       props.className
     )}
   >
     {title && <CardTitle>{title}</CardTitle>}
     {description && <CardDescription>{description}</CardDescription>}
-    {!title && typeof children === "string" ? (
-      <CardTitle>{children}</CardTitle>
+    {!title && typeof props.children === "string" ? (
+      <CardTitle>{props.children}</CardTitle>
     ) : (
-      children
+      props.children
     )}
   </div>
 )
 
-type CardTitleProps = React.HTMLAttributes<HTMLDivElement>
+type CardTitleProps = React.ComponentProps<"div">
 
 const CardTitle = (props: CardTitleProps) => (
   <div
@@ -58,7 +51,7 @@ const CardTitle = (props: CardTitleProps) => (
   />
 )
 
-type CardDescriptionProps = React.HTMLAttributes<HTMLDivElement>
+type CardDescriptionProps = React.ComponentProps<"div">
 
 const CardDescription = (props: CardDescriptionProps) => (
   <div
@@ -90,10 +83,7 @@ const CardContent = (props: CardContentProps) => (
   <div
     data-slot="card-content"
     {...props}
-    className={cn(
-      "has-[[data-slot=table-header]]:bg-muted/40 px-(--card-spacing) group-has-[table]/card:border-t has-[table]:p-0 **:data-[slot=table-cell]:px-(--card-spacing) **:data-[slot=table-column]:px-(--card-spacing) [&:has(table)+[data-slot=card-footer]]:pt-(--card-spacing)",
-      props.className
-    )}
+    className={cn("px-(--card-spacing) has-[table]:border-t", props.className)}
   />
 )
 
@@ -104,7 +94,7 @@ const CardFooter = (props: CardFooterProps) => (
     data-slot="card-footer"
     {...props}
     className={cn(
-      "flex items-center px-(--card-spacing) [.border-t]:pt-6",
+      "flex items-center px-(--card-spacing) group-has-[table]/card:pt-(--card-spacing) [.border-t]:pt-6",
       props.className
     )}
   />
@@ -117,13 +107,12 @@ Card.Header = CardHeader
 Card.Title = CardTitle
 Card.Action = CardAction
 
-export { Card }
-export type {
-  CardActionProps,
-  CardContentProps,
-  CardDescriptionProps,
-  CardFooterProps,
-  CardHeaderProps,
-  CardProps,
-  CardTitleProps
+export {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
 }
