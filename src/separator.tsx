@@ -1,21 +1,20 @@
 import * as React from "react"
 import {
   Separator as Divider,
-  type SeparatorProps as DividerProps
+  type SeparatorProps
 } from "react-aria-components"
 import { cn } from "./utils"
 
-type SeparatorProps = DividerProps & {
-  className?: string
-}
-
-const Separator = ({ className, ...props }: SeparatorProps) => (
+const Separator = ({
+  orientation = "horizontal",
+  ...props
+}: SeparatorProps) => (
   <Divider
     {...props}
     className={cn(
       "bg-border shrink-0 forced-colors:bg-[ButtonBorder]",
-      props.orientation === "horizontal" ? "h-px w-full" : "w-px",
-      className
+      orientation === "horizontal" ? "h-px w-full" : "h-full w-px",
+      props.className
     )}
   />
 )

@@ -1,10 +1,135 @@
-"use client"
-
 import * as React from "react"
 import { ProgressBar } from "react-aria-components"
 import type { VariantProps } from "./utils"
 import { cn, tv } from "./utils"
 
+const loaderStyles = tv({
+  base: "relative",
+  variants: {
+    intent: {
+      current: "text-current",
+      primary: "text-primary",
+      secondary: "text-muted-foreground",
+      success: "text-green-500",
+      warning: "text-yellow-500",
+      danger: "text-red-500"
+    },
+    size: {
+      sm: "size-4",
+      md: "size-6",
+      lg: "size-8",
+      xl: "size-10"
+    }
+  },
+  defaultVariants: {
+    intent: "current",
+    size: "sm"
+  }
+})
+
+type LoaderVariantProps = VariantProps<typeof loaderStyles>
+
+const Bars = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    className={cn("size-4", className)}
+    data-slot="icon"
+    viewBox="0 0 135 140"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    {...props}
+  >
+    <rect y="10" width="15" height="120" rx="6">
+      <animate
+        attributeName="height"
+        begin="0.5s"
+        dur="1s"
+        values="120;110;100;90;80;70;60;50;40;140;120"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="y"
+        begin="0.5s"
+        dur="1s"
+        values="10;15;20;25;30;35;40;45;50;0;10"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+    </rect>
+    <rect x="30" y="10" width="15" height="120" rx="6">
+      <animate
+        attributeName="height"
+        begin="0.25s"
+        dur="1s"
+        values="120;110;100;90;80;70;60;50;40;140;120"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="y"
+        begin="0.25s"
+        dur="1s"
+        values="10;15;20;25;30;35;40;45;50;0;10"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+    </rect>
+    <rect x="60" width="15" height="140" rx="6">
+      <animate
+        attributeName="height"
+        begin="0s"
+        dur="1s"
+        values="120;110;100;90;80;70;60;50;40;140;120"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="y"
+        begin="0s"
+        dur="1s"
+        values="10;15;20;25;30;35;40;45;50;0;10"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+    </rect>
+    <rect x="90" y="10" width="15" height="120" rx="6">
+      <animate
+        attributeName="height"
+        begin="0.25s"
+        dur="1s"
+        values="120;110;100;90;80;70;60;50;40;140;120"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="y"
+        begin="0.25s"
+        dur="1s"
+        values="10;15;20;25;30;35;40;45;50;0;10"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+    </rect>
+    <rect x="120" y="10" width="15" height="120" rx="6">
+      <animate
+        attributeName="height"
+        begin="0.5s"
+        dur="1s"
+        values="120;110;100;90;80;70;60;50;40;140;120"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="y"
+        begin="0.5s"
+        dur="1s"
+        values="10;15;20;25;30;35;40;45;50;0;10"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+    </rect>
+  </svg>
+)
 const Ring = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -32,12 +157,10 @@ const Ring = (props: React.SVGProps<SVGSVGElement>) => (
 
 const Spin = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 2400 2400"
-    data-slot="icon"
-    aria-hidden="true"
-    {...props}
     className={cn("size-4", className)}
+    data-slot="icon"
+    viewBox="0 0 2400 2400"
+    {...props}
   >
     <g strokeWidth="200" strokeLinecap="round" fill="none">
       <line x1="1200" y1="600" x2="1200" y2="100" />
@@ -67,29 +190,13 @@ const Spin = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-const loaderStyles = tv({
-  base: "relative",
-  variants: {
-    size: {
-      sm: "size-4",
-      md: "size-6",
-      lg: "size-8",
-      xl: "size-10"
-    }
-  },
-  defaultVariants: {
-    size: "sm"
-  }
-})
-
 const LOADERS = {
+  bars: Bars,
   ring: Ring,
   spin: Spin
 }
 
 const DEFAULT_SPINNER = "spin"
-
-type LoaderVariantProps = VariantProps<typeof loaderStyles>
 
 type LoaderProps = Omit<
   React.ComponentPropsWithoutRef<"svg">,
@@ -103,12 +210,8 @@ type LoaderProps = Omit<
     ref?: React.RefObject<SVGSVGElement>
   }
 
-const Loader = ({
-  isIndeterminate = true,
-  variant = DEFAULT_SPINNER,
-  size,
-  ...props
-}: LoaderProps) => {
+const Loader = ({ isIndeterminate = true, ref, ...props }: LoaderProps) => {
+  const { variant = DEFAULT_SPINNER, intent, size, ...spinnerProps } = props
   const LoaderPrimitive =
     LOADERS[variant in LOADERS ? variant : DEFAULT_SPINNER]
 
@@ -120,14 +223,16 @@ const Loader = ({
     >
       <LoaderPrimitive
         role="presentation"
-        {...props}
-        className={cn(
-          loaderStyles({ size }),
-          "text-current",
-          ["ring"].includes(variant) && "animate-spin",
-          variant === "spin" && "stroke-current",
-          props.className
-        )}
+        {...spinnerProps}
+        className={loaderStyles({
+          intent,
+          size,
+          className: cn(
+            ["ring"].includes(variant) && "animate-spin",
+            variant === "spin" && "stroke-current",
+            spinnerProps.className
+          )
+        })}
       />
     </ProgressBar>
   )
