@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type {
   ButtonProps,
@@ -21,38 +19,52 @@ import {
   SubmenuTrigger as SubmenuTriggerPrimitive,
   composeRenderProps
 } from "react-aria-components"
-import type { VariantProps } from "tailwind-variants"
 import {
-  DropdownItemDetails,
+  DropdownDescription,
   DropdownKeyboard,
   DropdownLabel,
   DropdownSeparator,
   dropdownItemStyles,
   dropdownSectionStyles
 } from "./dropdown"
-import { PopoverContent } from "./popover"
-import { cn } from "./utils"
+import { PopoverContent, PopoverContentProps } from "./popover"
+import { cn, composeClassName, type VariantProps } from "./utils"
 
-type MenuProps = MenuTriggerPrimitiveProps
+type MenuContextProps = {
+  respectScreen: boolean
+}
 
-const Menu = (props: MenuProps) => <MenuTriggerPrimitive {...props} />
+const MenuContext = React.createContext<MenuContextProps>({
+  respectScreen: true
+})
+
+type MenuProps = MenuTriggerPrimitiveProps & {
+  respectScreen?: boolean
+}
+
+const Menu = ({ respectScreen = true, ...props }: MenuProps) => (
+  <MenuContext value={{ respectScreen }}>
+    <MenuTriggerPrimitive {...props}>{props.children}</MenuTriggerPrimitive>
+  </MenuContext>
+)
 
 type MenuSubMenuProps = SubmenuTriggerPrimitiveProps
 
 const MenuSubMenu = ({ delay = 0, ...props }: MenuSubMenuProps) => (
-  <SubmenuTriggerPrimitive {...props} delay={delay} />
+  <SubmenuTriggerPrimitive {...props} delay={delay}>
+    {props.children}
+  </SubmenuTriggerPrimitive>
 )
 
 type MenuTriggerProps = ButtonProps
 
-const MenuTrigger = (props: MenuTriggerProps) => (
+const MenuTrigger = ({ className, ...props }: MenuTriggerProps) => (
   <Button
     data-slot="menu-trigger"
     {...props}
-    className={cn(
-      "relative inline text-left outline-hidden",
-      "focus-visible:ring-control-focus focus-visible:ring-2",
-      props.className
+    className={composeClassName(
+      className,
+      "focus-visible:ring-primary relative inline text-left outline-hidden focus-visible:ring-1"
     )}
   >
     {(values) => (
@@ -78,67 +90,74 @@ type MenuContentProps<T> = Pick<
 > &
   MenuPrimitiveProps<T> & {
     classNames?: {
-      popover?: string
+      popover?: PopoverContentProps["className"]
     }
     showArrow?: boolean
+    respectScreen?: boolean
   }
 
 const MenuContent = <T extends object>({
   classNames,
   showArrow = false,
+  respectScreen = true,
   ...props
-}: MenuContentProps<T>) => (
-  <PopoverContent
-    isOpen={props.isOpen}
-    onOpenChange={props.onOpenChange}
-    shouldFlip={props.shouldFlip}
-    showArrow={showArrow}
-    offset={props.offset}
-    placement={props.placement}
-    crossOffset={props.crossOffset}
-    triggerRef={props.triggerRef}
-    arrowBoundaryOffset={props.arrowBoundaryOffset}
-    className={cn("z-modal min-w-40 p-0 outline-hidden", classNames?.popover)}
-  >
-    <MenuPrimitive
-      data-slot="menu-content"
-      {...props}
-      className={cn(
-        // TODO Why are we using --visual-viewport-height here?
-        "grid max-h-[calc(var(--visual-viewport-height)-10rem)] grid-cols-[auto_1fr] overflow-auto rounded-md p-1 outline-hidden",
-        "sm:max-h-[inherit]",
-        // TODO Do we need margin between separators?
-        "*:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1",
-        props.className
+}: MenuContentProps<T>) => {
+  const { respectScreen: respectScreenContext } = React.use(MenuContext)
+  const respectScreenInternal = respectScreenContext ?? respectScreen
+
+  return (
+    <PopoverContent
+      isOpen={props.isOpen}
+      onOpenChange={props.onOpenChange}
+      shouldFlip={props.shouldFlip}
+      respectScreen={respectScreenInternal}
+      showArrow={showArrow}
+      offset={props.offset}
+      placement={props.placement}
+      crossOffset={props.crossOffset}
+      triggerRef={props.triggerRef}
+      arrowBoundaryOffset={props.arrowBoundaryOffset}
+      className={composeClassName(
+        classNames?.popover,
+        "z-50 p-0 shadow-xs outline-hidden sm:min-w-40"
       )}
-    />
-  </PopoverContent>
-)
+    >
+      <MenuPrimitive
+        data-slot="menu-content"
+        {...props}
+        className={composeClassName(
+          props.className,
+          "grid max-h-[calc(var(--visual-viewport-height)-10rem)] grid-cols-[auto_1fr] overflow-auto rounded-xl p-1 outline-hidden [clip-path:inset(0_0_0_0_round_calc(var(--radius-lg)-2px))] sm:max-h-[inherit] *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
+        )}
+      />
+    </PopoverContent>
+  )
+}
 
 type MenuItemProps = MenuItemPrimitiveProps &
   VariantProps<typeof dropdownItemStyles> & {
     isDanger?: boolean
   }
 
-const MenuItem = ({ isDanger = false, children, ...props }: MenuItemProps) => {
+const MenuItem = ({ isDanger = false, ...props }: MenuItemProps) => {
   const textValue =
-    props.textValue || (typeof children === "string" ? children : undefined)
+    props.textValue ||
+    (typeof props.children === "string" ? props.children : undefined)
 
   return (
     <MenuItemPrimitive
+      textValue={textValue}
       data-danger={isDanger ? "true" : undefined}
       {...props}
-      textValue={textValue}
       className={composeRenderProps(props.className, (className, renderProps) =>
         dropdownItemStyles({
           ...renderProps,
           className: renderProps.hasSubmenu
-            ? cn(
-                "data-open:data-danger:bg-modifier-danger/10 data-open:data-danger:text-danger",
-                "data-open:bg-control-hover",
-                "data-open:*:data-[slot=icon]:text-accent data-open:*:[.text-muted]:text-accent",
+            ? cn([
+                "data-open:data-danger:bg-danger/10 data-open:data-danger:text-danger",
+                "data-open:bg-accent data-open:text-accent-foreground data-open:*:data-[slot=icon]:text-accent-foreground data-open:*:[.text-muted-foreground]:text-accent-foreground",
                 className
-              )
+              ])
             : className
         })
       )}
@@ -146,16 +165,18 @@ const MenuItem = ({ isDanger = false, children, ...props }: MenuItemProps) => {
       {(values) => (
         <>
           {values.isSelected && (
-            <div
+            <span
               className="lucide-check mr-2 size-4"
               data-slot="checked-icon"
             />
           )}
 
-          {typeof children === "function" ? children(values) : children}
+          {typeof props.children === "function"
+            ? props.children(values)
+            : props.children}
 
           {values.hasSubmenu && (
-            <div
+            <span
               data-slot="chevron"
               className="lucide-chevron-right absolute right-2 size-3.5"
             />
@@ -174,7 +195,7 @@ const MenuHeader = ({ separator = false, ...props }: MenuHeaderProps) => (
   <Header
     {...props}
     className={cn(
-      "col-span-full px-2 py-1.5 text-base font-semibold sm:text-sm",
+      "col-span-full px-2.5 py-2 text-base font-semibold sm:text-sm",
       separator && "-mx-1 mb-1 border-b sm:px-3 sm:pb-[0.625rem]",
       props.className
     )}
@@ -183,29 +204,32 @@ const MenuHeader = ({ separator = false, ...props }: MenuHeaderProps) => (
 
 const { section, header } = dropdownSectionStyles()
 
-type MenuSectionProps<T> = MenuSectionPrimitiveProps<T> & {
+interface MenuSectionProps<T> extends MenuSectionPrimitiveProps<T> {
+  ref?: React.Ref<HTMLDivElement>
   title?: string
 }
 
 const MenuSection = <T extends object>({
-  title,
+  className,
+  ref,
   ...props
 }: MenuSectionProps<T>) => {
   return (
     <MenuSectionPrimitive
+      ref={ref}
+      className={section({ className })}
       {...props}
-      className={section({ className: props.className })}
     >
-      {title && <Header className={header()}>{title}</Header>}
+      {"title" in props && <Header className={header()}>{props.title}</Header>}
       <Collection items={props.items}>{props.children}</Collection>
     </MenuSectionPrimitive>
   )
 }
 
 const MenuSeparator = DropdownSeparator
-const MenuItemDetails = DropdownItemDetails
 const MenuKeyboard = DropdownKeyboard
 const MenuLabel = DropdownLabel
+const MenuDescription = DropdownDescription
 
 Menu.Keyboard = MenuKeyboard
 Menu.Content = MenuContent
@@ -213,7 +237,7 @@ Menu.Header = MenuHeader
 Menu.Item = MenuItem
 Menu.Section = MenuSection
 Menu.Separator = MenuSeparator
-Menu.ItemDetails = MenuItemDetails
+Menu.Description = MenuDescription
 Menu.Label = MenuLabel
 Menu.Trigger = MenuTrigger
 Menu.Submenu = MenuSubMenu
