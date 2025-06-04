@@ -13,23 +13,10 @@ module.exports = plugin(({ matchComponents }) => {
       const name = path.basename(file, ".svg")
       const fullPath = path.join(iconsDir, file)
 
-      // TODO: for now we don't provide option to configure stroke width.
-      values[`${name}-light`] = {
-        name,
-        fullPath,
-        strokeWidth: 1.5,
-        absoluteStrokeWidth: true
-      }
       values[name] = {
         name,
         fullPath,
         strokeWidth: 1.8,
-        absoluteStrokeWidth: true
-      }
-      values[`${name}-medium`] = {
-        name,
-        fullPath,
-        strokeWidth: 2,
         absoluteStrokeWidth: true
       }
     }
