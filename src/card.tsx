@@ -107,12 +107,4 @@ Card.Header = CardHeader
 Card.Title = CardTitle
 Card.Action = CardAction
 
-export {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-}
+export { Card }
