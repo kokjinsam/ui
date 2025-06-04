@@ -1,14 +1,12 @@
-"use client"
-
 import * as React from "react"
 import * as ResizablePrimitive from "react-resizable-panels"
 import { cn } from "./utils"
 
-type ResizablePanelGroupProps = React.ComponentProps<
+type PanelGroupProps = React.ComponentProps<
   typeof ResizablePrimitive.PanelGroup
 >
 
-const ResizablePanelGroup = (props: ResizablePanelGroupProps) => (
+const PanelGroup = (props: PanelGroupProps) => (
   <ResizablePrimitive.PanelGroup
     {...props}
     className={cn(
@@ -18,13 +16,15 @@ const ResizablePanelGroup = (props: ResizablePanelGroupProps) => (
   />
 )
 
-const ResizablePanel = ResizablePrimitive.Panel
+type PanelProps = React.ComponentProps<typeof ResizablePrimitive.Panel>
 
-type ResizableHandleProps = React.ComponentProps<
+const Panel = ResizablePrimitive.Panel
+
+type PanelResizableHandleProps = React.ComponentProps<
   typeof ResizablePrimitive.PanelResizeHandle
 >
 
-const ResizableHandle = (props: ResizableHandleProps) => (
+const PanelResizableHandle = (props: PanelResizableHandleProps) => (
   <ResizablePrimitive.PanelResizeHandle
     {...props}
     className={cn(
@@ -46,5 +46,5 @@ const ResizableHandle = (props: ResizableHandleProps) => (
   />
 )
 
-export { ResizableHandle, ResizablePanel, ResizablePanelGroup }
-export type { ResizableHandleProps, ResizablePanelGroupProps }
+export { Panel, PanelGroup, PanelResizableHandle }
+export type { PanelGroupProps, PanelProps, PanelResizableHandleProps }
