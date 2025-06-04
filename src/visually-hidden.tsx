@@ -1,15 +1,14 @@
-"use client"
-
 import * as React from "react"
 import { useVisuallyHidden } from "react-aria"
 
-type VisuallyHiddenProps = React.HTMLAttributes<HTMLSpanElement>
+type VisuallyHiddenSpanProps = {
+  children: React.ReactNode
+}
 
-const VisuallyHidden = (props: VisuallyHiddenProps) => {
+const VisuallyHidden = (props: VisuallyHiddenSpanProps) => {
   const { visuallyHiddenProps } = useVisuallyHidden()
 
-  return <span {...visuallyHiddenProps} {...props} />
+  return <span {...props} {...visuallyHiddenProps} />
 }
 
 export { VisuallyHidden }
-export type { VisuallyHiddenProps }
