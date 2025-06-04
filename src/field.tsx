@@ -13,9 +13,11 @@ import {
   Group,
   Input as InputPrimitive,
   Label as LabelPrimitive,
-  Text
+  Text,
+  composeRenderProps
 } from "react-aria-components"
-import { cn, tv } from "./utils"
+import { focusStyles } from "./primitive"
+import { composeClassName, tv } from "./utils"
 
 type FieldProps = {
   "label"?: string
@@ -28,13 +30,10 @@ type FieldProps = {
 
 const fieldStyles = tv({
   slots: {
-    description: "text-muted text-base/5 text-pretty",
-    label: "text-normal w-fit cursor-default text-base/5 font-medium",
-    fieldError: [
-      "text-danger text-base/5",
-      "forced-colors:text-[Mark]",
-      "*:data-[slot=icon]:mr-1 *:data-[slot=icon]:size-4 *:data-[slot=icon]:align-middle"
-    ]
+    description: "text-muted-foreground text-sm/6 text-pretty",
+    label:
+      "text-secondary-foreground w-fit cursor-default text-sm/6 font-medium",
+    fieldError: "text-danger text-sm/6 forced-colors:text-[Mark]"
   }
 })
 
@@ -51,55 +50,64 @@ type DescriptionProps = TextProps & {
   isWarning?: boolean
 }
 
-const Description = ({ isWarning = false, ...props }: DescriptionProps) => (
-  <Text
-    {...props}
-    slot="description"
-    className={description({
-      className: isWarning ? "text-warning" : props.className
-    })}
-  />
-)
+const Description = (props: DescriptionProps) => {
+  const isWarning = props.isWarning ?? false
+
+  return (
+    <Text
+      slot="description"
+      {...props}
+      className={description({
+        className: isWarning ? "text-warning" : props.className
+      })}
+    />
+  )
+}
 
 type FieldErrorProps = FieldErrorPrimitiveProps
 
 const FieldError = (props: FieldErrorProps) => (
-  <FieldErrorPrimitive {...props} className={cn(fieldError(), props.className)}>
-    {(values) =>
-      typeof props.children === "function" ? (
-        props.children(values)
-      ) : (
-        <>
-          <span data-slot="icon" className="lucide-circle-x" />
-          {props.children}
-        </>
-      )
-    }
-  </FieldErrorPrimitive>
+  <FieldErrorPrimitive
+    {...props}
+    className={composeClassName(props.className, fieldError())}
+  />
 )
+
+const fieldGroupStyles = tv({
+  base: [
+    "[--gutter-x:--spacing(2.5)] [--padding-inset:--spacing(6)]",
+    "group border-input flex h-10 items-center overflow-hidden rounded-lg border shadow-xs transition duration-200 ease-out",
+    "group-invalid:focus-within:border-danger group-invalid:focus-within:ring-danger/20 relative focus-within:ring-4",
+    "[&>[role=progressbar]:first-child]:ml-(--gutter-x) [&>[role=progressbar]:last-child]:mr-(--gutter-x)",
+    "*:data-[slot=icon]:z-10 **:data-[slot=icon]:size-4 **:data-[slot=icon]:shrink-0 **:[button]:shrink-0",
+    "[&>button:has([data-slot=icon])]:absolute [&>button:has([data-slot=icon]):first-child]:left-0 [&>button:has([data-slot=icon]):last-child]:right-0",
+    "*:data-[slot=icon]:text-muted-foreground *:data-[slot=icon]:pointer-events-none *:data-[slot=icon]:absolute *:data-[slot=icon]:top-[calc(var(--spacing)*2.7)]",
+    "[&>[data-slot=icon]:first-child]:left-(--gutter-x) [&>[data-slot=icon]:last-child]:right-(--gutter-x)",
+    "[&:has([data-slot=icon]+input)]:pl-(--padding-inset) [&:has(input+[data-slot=icon])]:pr-(--padding-inset)",
+    "[&:has([data-slot=icon]+[role=group])]:pl-(--padding-inset) [&:has([role=group]+[data-slot=icon])]:pr-(--padding-inset)",
+    "has-[[data-slot=icon]:last-child]:[&_input]:pr-[calc(var(--padding-inset)+1)]",
+    "*:[button]:h-8 *:[button]:rounded-[calc(var(--radius-sm)-1px)] *:[button]:px-(--gutter-x)",
+    "[&>button:first-child]:ml-[calc(var(--spacing)*0.7)] [&>button:last-child]:mr-[calc(var(--spacing)*0.7)]"
+  ],
+  variants: {
+    isFocusWithin: focusStyles.variants.isFocused,
+    isInvalid: focusStyles.variants.isInvalid,
+    isDisabled: {
+      true: "opacity-50 forced-colors:border-[GrayText]"
+    }
+  }
+})
 
 type FieldGroupProps = GroupProps
 
 const FieldGroup = (props: FieldGroupProps) => (
   <Group
     {...props}
-    className={cn(
-      "group border-line h-control-lg relative flex items-center overflow-hidden rounded-sm border shadow-xs",
-      "focus-within:ring-control-focus focus-within:ring-2 focus-within:outline-none",
-      "focus-within:forced-colors:border-[Highlight]",
-      "data-[disabled]:opacity-50 data-[disabled]:forced-colors:border-[GrayText]",
-      "[&>[role=progressbar]:first-child]:ml-2.5 [&>[role=progressbar]:last-child]:mr-2.5",
-      "**:data-[slot=icon]:size-4 **:data-[slot=icon]:shrink-0",
-      "[&>button:has([data-slot=icon])]:absolute [&>button:has([data-slot=icon]):first-child]:left-0 [&>button:has([data-slot=icon]):last-child]:right-0",
-      "*:data-[slot=icon]:text-muted *:data-[slot=icon]:pointer-events-none *:data-[slot=icon]:absolute *:data-[slot=icon]:top-[calc(var(--spacing)*2)] *:data-[slot=icon]:z-10 *:data-[slot=icon]:size-4",
-      "[&>[data-slot=icon]:first-child]:left-2.5 [&>[data-slot=icon]:last-child]:right-2.5",
-      "[&:has([data-slot=icon]+input)]:pl-6 [&:has(input+[data-slot=icon])]:pr-6",
-      "[&:has([data-slot=icon]+[role=group])]:pl-6 [&:has([role=group]+[data-slot=icon])]:pr-6",
-      "has-[[data-slot=icon]:last-child]:[&_input]:pr-7",
-      "*:[button]:h-8 *:[button]:rounded-[calc(var(--radius-sm)-1px)] *:[button]:px-2.5",
-      "**:[button]:shrink-0",
-      "[&>button:first-child]:ml-[calc(var(--spacing)*0.7)] [&>button:last-child]:mr-[calc(var(--spacing)*0.7)]",
-      props.className
+    className={composeRenderProps(props.className, (className, renderProps) =>
+      fieldGroupStyles({
+        ...renderProps,
+        className
+      })
     )}
   />
 )
@@ -109,15 +117,12 @@ type InputProps = InputPrimitiveProps
 const Input = (props: InputProps) => (
   <InputPrimitive
     {...props}
-    className={cn(
-      "text-normal placeholder-modifier-muted h-full w-full min-w-0 border-none bg-transparent px-2.5 py-1 text-base outline-none",
-      "focus:border-none focus:ring-0 focus:outline-none",
-      "focus-visible:border-none focus-visible:ring-0 focus-visible:outline-none",
-      "[&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden",
-      props.className
+    className={composeClassName(
+      props.className,
+      "text-foreground placeholder-muted-foreground w-full min-w-0 bg-transparent px-(--gutter-x) py-2 text-base outline-hidden focus:outline-hidden sm:text-sm/6 [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden"
     )}
   />
 )
 
-export { Description, FieldError, FieldGroup, fieldStyles, Input, Label }
-export type { FieldErrorProps, FieldProps, InputProps }
+export { Description, FieldError, FieldGroup, Input, Label, fieldStyles }
+export type { DescriptionProps, FieldErrorProps, FieldProps, InputProps }
