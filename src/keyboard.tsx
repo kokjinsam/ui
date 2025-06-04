@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { Keyboard as KeyboardPrimitive } from "react-aria-components"
 import { cn } from "./utils"
@@ -16,12 +14,7 @@ const Keyboard = ({ keys, classNames, ...props }: KeyboardProps) => (
   <KeyboardPrimitive
     {...props}
     className={cn(
-      "hidden font-mono text-current/60",
-      "group-hover:text-fg",
-      "group-focus:text-fg group-focus:opacity-90",
-      "group-disabled:opacity-50",
-      "forced-colors:group-focus:text-[HighlightText]",
-      "lg:inline-flex",
+      "group-hover:text-foreground group-focus:text-foreground hidden font-mono text-current/60 group-focus:opacity-90 group-disabled:opacity-50 lg:inline-flex forced-colors:group-focus:text-[HighlightText]",
       classNames?.base
     )}
   >
