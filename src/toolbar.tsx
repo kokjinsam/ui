@@ -11,7 +11,7 @@ import {
 } from "react-aria-components"
 import { Separator } from "./separator"
 import { Toggle, type ToggleProps } from "./toggle"
-import { cn } from "./utils"
+import { cn, composeClassName } from "./utils"
 
 const ToolbarContext = React.createContext<{
   orientation?: ToolbarProps["orientation"]
@@ -47,9 +47,9 @@ const ToolbarGroup = ({ isDisabled, ...props }: ToolbarGroupProps) => (
   <ToolbarGroupContext.Provider value={{ isDisabled }}>
     <Group
       {...props}
-      className={cn(
-        "flex gap-2 group-data-[orientation=vertical]:flex-col group-data-[orientation=vertical]:items-start",
-        props.className
+      className={composeClassName(
+        props.className,
+        "flex gap-2 group-data-[orientation=vertical]:flex-col group-data-[orientation=vertical]:items-start"
       )}
     >
       {props.children}

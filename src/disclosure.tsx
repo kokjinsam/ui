@@ -12,7 +12,7 @@ import {
   Disclosure as DisclosurePrimitive,
   Heading
 } from "react-aria-components"
-import { cn } from "./utils"
+import { cn, composeClassName } from "./utils"
 
 type DisclosureGroupProps = DisclosureGroupPrimitiveProps
 
@@ -20,9 +20,9 @@ const DisclosureGroup = (props: DisclosureGroupProps) => (
   <DisclosureGroupPrimitive
     data-slot="disclosure-group"
     {...props}
-    className={cn(
-      "peer cursor-default disabled:cursor-not-allowed disabled:opacity-75",
-      props.className
+    className={composeClassName(
+      props.className,
+      "peer cursor-default disabled:cursor-not-allowed disabled:opacity-75"
     )}
   >
     {(values) => (
@@ -41,10 +41,10 @@ const Disclosure = (props: DisclosureProps) => (
   <DisclosurePrimitive
     data-slot="disclosure"
     {...props}
-    className={cn(
+    className={composeClassName(
+      props.className,
       "peer group/disclosure border-border w-full min-w-60 border-b disabled:opacity-60",
-      "**:data-[slot=disclosure]:last:border-b-0",
-      props.className
+      "**:data-[slot=disclosure]:last:border-b-0"
     )}
   >
     {props.children}
@@ -58,7 +58,8 @@ const DisclosureTrigger = (props: DisclosureTriggerProps) => (
     <Button
       slot="trigger"
       {...props}
-      className={cn(
+      className={composeClassName(
+        props.className,
         "group/trigger flex w-full items-center justify-between gap-x-2 py-3 text-left font-medium",
         "sm:text-sm",
         "open:text-foreground",
@@ -69,8 +70,7 @@ const DisclosureTrigger = (props: DisclosureTriggerProps) => (
         "**:data-[slot=icon]:text-muted-foreground **:data-[slot=icon]:-mx-0.5 **:data-[slot=icon]:shrink-0",
         "forced-colors:disabled:text-[GrayText]",
         "**:[span]:flex **:[span]:items-center **:[span]:gap-x-1 **:[span]:*:data-[slot=icon]:mr-1",
-        "[&[aria-expanded=true]_[data-slot=disclosure-chevron]]:-rotate-90",
-        props.className
+        "[&[aria-expanded=true]_[data-slot=disclosure-chevron]]:-rotate-90"
       )}
     >
       {(values) => (
@@ -94,12 +94,12 @@ const DisclosurePanel = (props: DisclosurePanelProps) => (
   <DisclosurePanelPrimitive
     data-slot="disclosure-panel"
     {...props}
-    className={cn(
+    className={composeClassName(
+      props.className,
       "text-muted-foreground overflow-hidden text-sm transition-all",
       "**:data-[slot=disclosure-group]:border-border **:data-[slot=disclosure-group]:border-t",
       "**:data-[slot=disclosure-group]:**:[.internal-chevron]:hidden",
-      "has-data-[slot=disclosure-group]:**:[button]:px-4",
-      props.className
+      "has-data-[slot=disclosure-group]:**:[button]:px-4"
     )}
   >
     <div

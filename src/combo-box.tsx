@@ -22,7 +22,7 @@ import {
 import { Description, FieldError, FieldGroup, Input, Label } from "./field"
 import { ListBox } from "./list-box"
 import { PopoverContent, type PopoverContentProps } from "./popover"
-import { cn } from "./utils"
+import { cn, composeClassName } from "./utils"
 
 type ComboBoxProps<T extends object> = Omit<
   ComboboxPrimitiveProps<T>,
@@ -43,7 +43,10 @@ const ComboBox = <T extends object>({
 }: ComboBoxProps<T>) => (
   <ComboboxPrimitive
     {...props}
-    className={cn("group flex w-full flex-col gap-y-1.5", props.className)}
+    className={composeClassName(
+      props.className,
+      "group flex w-full flex-col gap-y-1.5"
+    )}
   >
     {label && <Label>{label}</Label>}
     {props.children}
@@ -78,9 +81,9 @@ const ComboBoxList = <T extends object>({
       orientation="vertical"
       items={items}
       {...props}
-      className={cn(
-        "max-h-[inherit] min-w-[inherit] border-0 shadow-none",
-        props.className
+      className={composeClassName(
+        props.className,
+        "max-h-[inherit] min-w-[inherit] border-0 shadow-none"
       )}
     />
   </PopoverContent>

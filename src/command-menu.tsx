@@ -27,7 +27,7 @@ import {
 import { DropdownKeyboard } from "./dropdown"
 import { Loader } from "./loader"
 import { Menu, type MenuSectionProps } from "./menu"
-import { cn } from "./utils"
+import { cn, composeClassName } from "./utils"
 
 type CommandMenuProviderProps = {
   isPending?: boolean
@@ -145,9 +145,9 @@ const CommandMenuSearch = ({
       aria-label="Quick search"
       autoFocus
       {...props}
-      className={cn(
-        "flex w-full items-center border-b px-2.5 py-1",
-        props.className
+      className={composeClassName(
+        props.className,
+        "flex w-full items-center border-b px-2.5 py-1"
       )}
     >
       {isPending ? (
@@ -178,9 +178,9 @@ const CommandMenuList = <T extends object>(props: MenuProps<T>) => (
   <CollectionRendererContext.Provider value={renderer}>
     <MenuPrimitive
       {...props}
-      className={cn(
-        "grid max-h-full grid-cols-[auto_1fr] overflow-y-auto p-2 sm:max-h-110 *:[[role=group]]:mb-6 *:[[role=group]]:last:mb-0",
-        props.className
+      className={composeClassName(
+        props.className,
+        "grid max-h-full grid-cols-[auto_1fr] overflow-y-auto p-2 sm:max-h-110 *:[[role=group]]:mb-6 *:[[role=group]]:last:mb-0"
       )}
     />
   </CollectionRendererContext.Provider>
@@ -220,7 +220,7 @@ const CommandMenuItem = (props: CommandMenuItemProps) => {
     <Menu.Item
       {...props}
       textValue={textValue}
-      className={cn("gap-y-0.5 px-2.5 py-2", props.className)}
+      className={composeClassName(props.className, "gap-y-0.5 px-2.5 py-2")}
     />
   )
 }

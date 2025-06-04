@@ -28,36 +28,34 @@ const DateField = <T extends DateValue>({
   description,
   errorMessage,
   ...props
-}: DateFieldProps<T>) => {
-  return (
-    <DateFieldPrimitive
-      {...props}
-      className={composeClassName(
-        props.className,
-        "group flex flex-col gap-y-1.5"
+}: DateFieldProps<T>) => (
+  <DateFieldPrimitive
+    {...props}
+    className={composeClassName(
+      props.className,
+      "group flex flex-col gap-y-1.5"
+    )}
+  >
+    {label && <Label>{label}</Label>}
+    <FieldGroup>
+      {prefix && typeof prefix === "string" ? (
+        <span className="text-muted-foreground ml-2">{prefix}</span>
+      ) : (
+        prefix
       )}
-    >
-      {label && <Label>{label}</Label>}
-      <FieldGroup>
-        {prefix && typeof prefix === "string" ? (
-          <span className="text-muted-foreground ml-2">{prefix}</span>
+      <DateInput />
+      {suffix ? (
+        typeof suffix === "string" ? (
+          <span className="text-muted-foreground mr-2">{suffix}</span>
         ) : (
-          prefix
-        )}
-        <DateInput />
-        {suffix ? (
-          typeof suffix === "string" ? (
-            <span className="text-muted-foreground mr-2">{suffix}</span>
-          ) : (
-            suffix
-          )
-        ) : null}
-      </FieldGroup>
-      {description && <Description>{description}</Description>}
-      <FieldError>{errorMessage}</FieldError>
-    </DateFieldPrimitive>
-  )
-}
+          suffix
+        )
+      ) : null}
+    </FieldGroup>
+    {description && <Description>{description}</Description>}
+    <FieldError>{errorMessage}</FieldError>
+  </DateFieldPrimitive>
+)
 
 const segmentStyles = tv({
   base: "type-literal:px-0 text-foreground inline shrink-0 rounded p-0.5 tracking-wider tabular-nums caret-transparent outline-0 forced-color-adjust-none sm:text-sm forced-colors:text-[ButtonText]",
@@ -79,19 +77,17 @@ const segmentStyles = tv({
 
 type DateInputProps = Omit<DateInputPrimitiveProps, "children">
 
-const DateInput = (props: Omit<DateInputProps, "children">) => {
-  return (
-    <DateInputPrimitive
-      {...props}
-      className={composeClassName(
-        props.className,
-        "text-foreground placeholder-muted-foreground bg-transparent p-2 text-base"
-      )}
-    >
-      {(segment) => <DateSegment segment={segment} className={segmentStyles} />}
-    </DateInputPrimitive>
-  )
-}
+const DateInput = (props: Omit<DateInputProps, "children">) => (
+  <DateInputPrimitive
+    {...props}
+    className={composeClassName(
+      props.className,
+      "text-foreground placeholder-muted-foreground bg-transparent p-2 text-base"
+    )}
+  >
+    {(segment) => <DateSegment segment={segment} className={segmentStyles} />}
+  </DateInputPrimitive>
+)
 
 export { DateField, DateInput, segmentStyles }
 export type { DateFieldProps }

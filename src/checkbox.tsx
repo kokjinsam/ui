@@ -10,7 +10,7 @@ import {
   composeRenderProps
 } from "react-aria-components"
 import { Description, FieldError, Label } from "./field"
-import { cn, tv } from "./utils"
+import { cn, composeClassName, tv } from "./utils"
 
 type CheckboxGroupProps = CheckboxGroupPrimitiveProps & {
   label?: string
@@ -26,7 +26,7 @@ const CheckboxGroup = ({
 }: CheckboxGroupProps) => (
   <CheckboxGroupPrimitive
     {...props}
-    className={cn("flex flex-col gap-y-2", props.className)}
+    className={composeClassName(props.className, "flex flex-col gap-y-2")}
   >
     {(values) => (
       <>

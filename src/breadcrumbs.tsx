@@ -9,7 +9,7 @@ import {
   Breadcrumbs as BreadcrumbsPrimitive,
   Link
 } from "react-aria-components"
-import { cn } from "./utils"
+import { cn, composeClassName } from "./utils"
 
 type BreadcrumbsContextProps = { separator?: "chevron" | "slash" | boolean }
 
@@ -42,7 +42,10 @@ const BreadcrumbItem = ({
   return (
     <Breadcrumb
       {...props}
-      className={cn("flex items-center gap-2 text-sm", props.className)}
+      className={composeClassName(
+        props.className,
+        "flex items-center gap-2 text-sm"
+      )}
     >
       {({ isCurrent, ...otherRenderProps }) => (
         <>
