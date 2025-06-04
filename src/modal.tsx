@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type {
   DialogProps,
@@ -7,7 +5,7 @@ import type {
   ModalOverlayProps
 } from "react-aria-components"
 import {
-  DialogTrigger,
+  DialogTrigger as DialogTriggerPrimitive,
   ModalOverlay,
   Modal as ModalPrimitive,
   composeRenderProps
@@ -16,17 +14,20 @@ import { Dialog } from "./dialog"
 import type { VariantProps } from "./utils"
 import { tv } from "./utils"
 
-type ModalProps = DialogTriggerProps
-
-const Modal = (props: ModalProps) => <DialogTrigger {...props} />
+const Modal = (props: DialogTriggerProps) => (
+  <DialogTriggerPrimitive {...props} />
+)
 
 const modalOverlayStyles = tv({
   base: [
-    "[--visual-viewport-vertical-padding:16px] sm:[--visual-viewport-vertical-padding:32px]",
-    "z-modal fixed top-0 left-0 isolate flex h-(--visual-viewport-height) w-full items-end justify-end bg-cover text-center",
-    "sm:block"
+    "fixed top-0 left-0 isolate z-50 h-(--visual-viewport-height) w-full",
+    "bg-foreground/15 dark:bg-background/40 flex items-end justify-end text-center sm:block",
+    "[--visual-viewport-vertical-padding:16px] sm:[--visual-viewport-vertical-padding:32px]"
   ],
   variants: {
+    isBlurred: {
+      true: "bg-background supports-backdrop-filter:bg-background/15 dark:supports-backdrop-filter:bg-background/40 supports-backdrop-filter:backdrop-blur"
+    },
     isEntering: {
       true: "fade-in animate-in duration-200 ease-out"
     },
@@ -38,8 +39,9 @@ const modalOverlayStyles = tv({
 
 const modalContentStyles = tv({
   base: [
-    "bg-surface-primary text-normal ring-line-hover max-h-full w-full overflow-hidden rounded-t-2xl text-left align-middle shadow-lg ring",
-    "sm:fixed sm:top-1/2 sm:left-[50vw] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl"
+    "bg-overlay text-overlay-foreground ring-foreground/5 max-h-full w-full rounded-t-2xl text-left align-middle shadow-lg ring-1",
+    "dark:ring-border overflow-hidden sm:rounded-2xl",
+    "sm:fixed sm:top-1/2 sm:left-[50vw] sm:-translate-x-1/2 sm:-translate-y-1/2"
   ],
   variants: {
     isEntering: {
@@ -84,7 +86,7 @@ type ModalContentProps = Omit<ModalOverlayProps, "className" | "children"> &
 const ModalContent = ({
   classNames,
   isDismissable: isDismissableInternal,
-  children,
+  isBlurred = false,
   size,
   role = "dialog",
   closeButton = true,
@@ -98,7 +100,11 @@ const ModalContent = ({
       className={composeRenderProps(
         classNames?.overlay,
         (className, renderProps) =>
-          modalOverlayStyles({ ...renderProps, className })
+          modalOverlayStyles({
+            ...renderProps,
+            isBlurred,
+            className
+          })
       )}
       {...props}
     >
@@ -118,7 +124,9 @@ const ModalContent = ({
         <Dialog role={role}>
           {(values) => (
             <>
-              {typeof children === "function" ? children(values) : children}
+              {typeof props.children === "function"
+                ? props.children(values)
+                : props.children}
               {closeButton && (
                 <Dialog.CloseIndicator isDismissable={isDismissable} />
               )}
@@ -148,4 +156,3 @@ Modal.Close = ModalClose
 Modal.Content = ModalContent
 
 export { Modal }
-export type { ModalContentProps, ModalProps }
