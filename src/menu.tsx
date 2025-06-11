@@ -133,11 +133,11 @@ const MenuItem = ({ isDanger = false, ...props }: MenuItemProps) => {
         dropdownItemStyles({
           ...renderProps,
           className: renderProps.hasSubmenu
-            ? cn([
+            ? cn(
                 "data-open:data-danger:bg-danger/10 data-open:data-danger:text-danger",
                 "data-open:bg-accent data-open:text-accent-foreground data-open:*:data-[slot=icon]:text-accent-foreground data-open:*:[.text-muted-foreground]:text-accent-foreground",
                 className
-              ])
+              )
             : className
         })
       )}

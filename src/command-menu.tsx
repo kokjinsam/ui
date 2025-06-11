@@ -99,21 +99,21 @@ const CommandMenu = ({
       >
         <ModalOverlay
           isDismissable={isDismissable}
-          className={cn([
+          className={cn(
             "fixed inset-0 z-50 max-h-(--visual-viewport-height) bg-black/15 dark:bg-black/40",
             "data-entering:fade-in data-exiting:fade-out data-entering:animate-in data-exiting:animate-in",
             isBlurred && props.isOpen ? "backdrop-blur" : "",
             classNames?.overlay ?? ""
-          ])}
+          )}
         >
           <Modal
             {...props}
-            className={cn([
+            className={cn(
               "bg-overlay text-overlay-foreground ring-foreground/10 dark:ring-border fixed top-auto bottom-0 left-[50%] z-50 grid h-[calc(100vh-30%)] w-full max-w-full translate-x-[-50%] gap-4 overflow-hidden rounded-t-2xl shadow-lg ring-1 sm:top-[6rem] sm:bottom-auto sm:h-auto sm:w-full sm:max-w-2xl sm:rounded-xl forced-colors:border",
               "data-entering:fade-in-0 data-entering:slide-in-from-bottom sm:data-entering:slide-in-from-bottom-0 sm:data-entering:zoom-in-95 data-entering:animate-in data-entering:duration-300 sm:data-entering:duration-300",
               "data-exiting:fade-out sm:data-exiting:zoom-out-95 data-exiting:slide-out-to-bottom-56 sm:data-exiting:slide-out-to-bottom-0 data-exiting:animate-out data-exiting:duration-200",
               classNames?.content ?? ""
-            ])}
+            )}
           >
             <Dialog
               aria-label={props["aria-label"] ?? "Command Menu"}
