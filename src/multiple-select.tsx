@@ -206,7 +206,6 @@ const MultipleSelect = <T extends object>({
               </div>
               <PopoverContent
                 showArrow={false}
-                respectScreen={false}
                 triggerRef={triggerRef}
                 className="min-w-(--trigger-width) overflow-hidden"
                 style={{
