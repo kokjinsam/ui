@@ -188,7 +188,9 @@ const SelectMonth = ({ state }: SelectMonthProps) => {
       <Select.Trigger className="h-8 w-22 text-xs group-data-open:ring-3 focus:ring-3 **:data-[slot=select-value]:inline-block **:data-[slot=select-value]:truncate" />
       <Select.List
         className="w-34 max-w-34 min-w-34"
-        popoverClassName="w-34 max-w-34 min-w-34"
+        classNames={{
+          popover: "w-34 max-w-34 min-w-34"
+        }}
       >
         {months.map((month, index) => (
           <Select.Option
@@ -234,7 +236,9 @@ const SelectYear = ({ state }: SelectYearProps) => {
       <Select.Trigger className="h-8 text-xs group-data-open:ring-3 focus:ring-3" />
       <Select.List
         className="w-34 max-w-34 min-w-34"
-        popoverClassName="w-34 max-w-34 min-w-34"
+        classNames={{
+          popover: "w-34 max-w-34 min-w-34"
+        }}
       >
         {years.map((year, i) => (
           <Select.Option key={i} id={i} textValue={year.formatted}>
