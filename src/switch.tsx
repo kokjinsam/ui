@@ -1,41 +1,25 @@
-"use client"
-
 import * as React from "react"
 import type { SwitchProps as SwitchPrimitiveProps } from "react-aria-components"
 import { Switch as SwitchPrimitive } from "react-aria-components"
-import { cn } from "./utils"
+import { composeClassName } from "./utils"
 
-type SwitchProps = SwitchPrimitiveProps
+type SwitchProps = SwitchPrimitiveProps & {
+  ref?: React.RefObject<HTMLLabelElement>
+}
 
 const Switch = (props: SwitchProps) => (
   <SwitchPrimitive
     {...props}
-    className={cn(
-      "group inline-flex touch-none items-center text-base",
-      props.className
+    className={composeClassName(
+      props.className,
+      "group inline-flex touch-none items-center sm:text-sm"
     )}
     style={{ WebkitTapHighlightColor: "transparent" }}
   >
     {(values) => (
       <>
-        <span
-          className={cn(
-            "bg-line mr-2 h-5 w-8 cursor-pointer rounded-full border-2 border-transparent transition duration-200",
-            "group-data-[hovered]:bg-line-hover",
-            "group-data-[focused]:ring-control-focus group-data-[focused]:ring-2",
-            "group-data-[disabled]:cursor-default group-data-[disabled]:opacity-50",
-            "group-data-[selected]:bg-interactive"
-          )}
-        >
-          <span
-            className={cn(
-              "bg-control block size-4 origin-right rounded-full shadow-sm transition-all duration-200",
-              "forced-colors:disabled:outline-[GrayText]",
-              "group-data-[selected]:ml-3",
-              "group-data-[selected]:group-data-[pressed]:ml-2",
-              "group-data-[pressed]:w-5"
-            )}
-          />
+        <span className="group-invalid:ring-danger/20 group-focus:ring-ring/20 group-selected:bg-primary mr-2 h-5 w-8 cursor-default rounded-full border-2 border-transparent bg-(--switch) transition duration-200 [--switch:color-mix(in_oklab,var(--color-muted)_90%,black_10%)] group-focus:ring-4 group-disabled:cursor-default group-disabled:opacity-50 dark:[--switch:color-mix(in_oklab,var(--color-muted)_85%,white_15%)]">
+          <span className="bg-primary-foreground group-selected:ml-3 group-pressed:w-5 group-selected:group-data-[pressed]:ml-2 block size-4 origin-right rounded-full shadow-sm transition-all duration-200 forced-colors:disabled:outline-[GrayText]" />
         </span>
         {typeof props.children === "function"
           ? props.children(values)
