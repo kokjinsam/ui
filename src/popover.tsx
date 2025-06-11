@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type {
   DialogProps,
@@ -8,7 +6,7 @@ import type {
   PopoverProps as PopoverPrimitiveProps
 } from "react-aria-components"
 import {
-  DialogTrigger,
+  DialogTrigger as DialogTriggerPrimitive,
   OverlayArrow,
   PopoverContext,
   Popover as PopoverPrimitive,
@@ -25,35 +23,52 @@ import { Dialog } from "./dialog"
 import { cn, tv } from "./utils"
 
 type PopoverProps = DialogTriggerProps
+const Popover = (props: PopoverProps) => {
+  return <DialogTriggerPrimitive {...props} />
+}
 
-const Popover = (props: PopoverProps) => <DialogTrigger {...props} />
+type PopoverTitleProps = DialogTitleProps
 
-const PopoverTitle = (props: DialogTitleProps) => (
-  <Dialog.Title {...props} className={cn("sm:leading-none", props.className)} />
+const PopoverTitle = ({ level = 2, ...props }: PopoverTitleProps) => (
+  <Dialog.Title
+    {...props}
+    className={cn(
+      "sm:leading-none",
+      level === 2 && "sm:text-lg",
+      props.className
+    )}
+  />
 )
 
-const PopoverHeader = (props: DialogHeaderProps) => (
+type PopoverHeaderProps = DialogHeaderProps
+
+const PopoverHeader = (props: PopoverHeaderProps) => (
   <Dialog.Header {...props} className={cn("sm:p-4", props.className)} />
 )
 
-const PopoverFooter = (props: DialogFooterProps) => (
+type PopoverFooterProps = DialogFooterProps
+
+const PopoverFooter = (props: PopoverFooterProps) => (
   <Dialog.Footer {...props} className={cn("sm:p-4", props.className)} />
 )
 
-const PopoverBody = (props: DialogBodyProps) => (
+type PopoverBodyProps = DialogBodyProps
+
+const PopoverBody = (props: PopoverBodyProps) => (
   <Dialog.Body {...props} className={cn("sm:px-4 sm:pt-0", props.className)} />
 )
 
 const content = tv({
   base: [
-    "peer/popover-content bg-surface-primary text-normal border-line-hover max-w-xs rounded-lg border bg-clip-padding shadow-xs transition-transform",
-    "sm:max-w-3xl",
-    "forced-colors:bg-[Canvas]"
+    "peer/popover-content bg-overlay text-overlay-foreground max-w-xs rounded-xl border bg-clip-padding shadow-xs transition-transform [scrollbar-width:thin] sm:max-w-3xl sm:text-sm dark:backdrop-saturate-200 forced-colors:bg-[Canvas] [&::-webkit-scrollbar]:size-0.5"
   ],
   variants: {
     isPicker: {
-      true: "max-h-72 max-w-(--trigger-width) overflow-hidden",
-      false: ""
+      true: "min-w-(--trigger-width)",
+      false: "min-w-80"
+    },
+    isMenu: {
+      true: ""
     },
     isEntering: {
       true: [
@@ -111,13 +126,7 @@ const PopoverContent = ({
             width={12}
             height={12}
             viewBox="0 0 12 12"
-            className={cn(
-              "fill-surface-primary stroke-line-hover block",
-              "group-data-[placement=bottom]:rotate-180",
-              "group-data-[placement=left]:-rotate-90",
-              "group-data-[placement=right]:rotate-90",
-              "forced-colors:fill-[Canvas] forced-colors:stroke-[ButtonBorder]"
-            )}
+            className="fill-overlay stroke-border block group-data-[placement=bottom]:rotate-180 group-data-[placement=left]:-rotate-90 group-data-[placement=right]:rotate-90 forced-colors:fill-[Canvas] forced-colors:stroke-[ButtonBorder]"
           >
             <path d="M0 0 L6 6 L12 0" />
           </svg>
