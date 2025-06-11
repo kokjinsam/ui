@@ -1,38 +1,29 @@
-"use client"
-
 import * as React from "react"
 import type {
   TextFieldProps as TextFieldPrimitiveProps,
   ValidationResult
 } from "react-aria-components"
 import {
-  TextAreaContext,
   TextArea as TextAreaPrimitive,
   TextField as TextFieldPrimitive,
-  useContextProps
+  composeRenderProps
 } from "react-aria-components"
-import type { TextareaAutosizeProps as TextareaAutosizeImplProps } from "react-textarea-autosize"
-import TextareaAutosizeImpl from "react-textarea-autosize"
 import { Description, FieldError, Label } from "./field"
-import { cn } from "./utils"
+import { focusStyles } from "./primitive"
+import { composeClassName, tv } from "./utils"
 
-const textareaClasses = (className?: string) =>
-  cn(
-    "border-line field-sizing-content max-h-96 min-h-16 w-full min-w-0 rounded-sm border px-2.5 py-1 text-base shadow-xs outline-hidden",
-    "focus-within:ring-control-focus focus-within:ring-2 focus-within:outline-none",
-    "disabled:opacity-50",
-    className
-  )
+const textareaStyles = tv({
+  extend: focusStyles,
+  base: "border-input placeholder-muted-foreground field-sizing-content max-h-96 min-h-16 w-full min-w-0 rounded-lg border px-2.5 py-2 text-base shadow-xs outline-hidden transition duration-200 disabled:opacity-50 sm:text-sm"
+})
 
 type TextareaProps = Omit<TextFieldPrimitiveProps, "className"> & {
+  autoSize?: boolean
   label?: string
   placeholder?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
   className?: string
-  classNames?: {
-    container?: string
-  }
 }
 
 const Textarea = ({
@@ -40,73 +31,29 @@ const Textarea = ({
   label,
   description,
   errorMessage,
-  classNames,
   ...props
 }: TextareaProps) => (
   <TextFieldPrimitive
     {...props}
-    className={cn("group flex flex-col gap-y-1.5", classNames?.container)}
+    className={composeClassName(
+      props.className,
+      "group flex flex-col gap-y-1.5"
+    )}
   >
     {label && <Label>{label}</Label>}
     <TextAreaPrimitive
       placeholder={placeholder}
-      className={textareaClasses(props.className)}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        textareaStyles({
+          ...renderProps,
+          className
+        })
+      )}
     />
     {description && <Description>{description}</Description>}
     <FieldError>{errorMessage}</FieldError>
   </TextFieldPrimitive>
 )
 
-type TextareaAutosizePrimitiveProps = TextareaAutosizeImplProps
-
-const TextareaAutosizePrimitive = (props: TextareaAutosizePrimitiveProps) => {
-  const ref = React.useRef(null)
-  const [textareaProps, _ref] = useContextProps(props, ref, TextAreaContext)
-
-  return <TextareaAutosizeImpl ref={ref} {...textareaProps} {...props} />
-}
-
-type TextareaAutosizeProps = TextFieldPrimitiveProps &
-  TextareaAutosizePrimitiveProps & {
-    label?: string
-    placeholder?: string
-    description?: string
-    errorMessage?: string | ((validation: ValidationResult) => string)
-    classNames?: {
-      container?: string
-    }
-  }
-
-const TextareaAutosize = ({
-  placeholder,
-  label,
-  description,
-  errorMessage,
-  classNames,
-  ...props
-}: TextareaAutosizeProps) => {
-  const { isDisabled, isReadOnly, isRequired, isInvalid, ...textareaProps } =
-    props
-
-  return (
-    <TextFieldPrimitive
-      {...props}
-      className={cn("group flex flex-col gap-y-1.5", classNames?.container)}
-    >
-      {label && <Label>{label}</Label>}
-      <TextareaAutosizePrimitive
-        {...textareaProps}
-        placeholder={placeholder}
-        disabled={props.isDisabled}
-        required={props.isRequired}
-        readOnly={props.isReadOnly}
-        className={textareaClasses(props.className)}
-      />
-      {description && <Description>{description}</Description>}
-      <FieldError>{errorMessage}</FieldError>
-    </TextFieldPrimitive>
-  )
-}
-
-export { Textarea, TextareaAutosize }
-export type { TextareaAutosizeProps, TextareaProps }
+export { Textarea }
+export type { TextareaProps }
