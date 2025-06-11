@@ -98,7 +98,9 @@ const fieldGroupStyles = tv({
   }
 })
 
-type FieldGroupProps = GroupProps
+type FieldGroupProps = GroupProps & {
+  ref?: React.RefObject<HTMLDivElement>
+}
 
 const FieldGroup = (props: FieldGroupProps) => (
   <Group
@@ -112,7 +114,9 @@ const FieldGroup = (props: FieldGroupProps) => (
   />
 )
 
-type InputProps = InputPrimitiveProps
+type InputProps = InputPrimitiveProps & {
+  ref?: React.RefObject<HTMLInputElement>
+}
 
 const Input = (props: InputProps) => (
   <InputPrimitive
