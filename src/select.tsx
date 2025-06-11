@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type {
   ListBoxProps,
@@ -14,8 +12,8 @@ import {
   composeRenderProps
 } from "react-aria-components"
 import {
+  DropdownDescription,
   DropdownItem,
-  DropdownItemDetails,
   DropdownLabel,
   DropdownSection,
   DropdownSeparator
@@ -24,22 +22,19 @@ import { Description, FieldError, Label } from "./field"
 import { ListBox } from "./list-box"
 import type { PopoverContentProps } from "./popover"
 import { PopoverContent } from "./popover"
-import { cn, tv } from "./utils"
+import { focusStyles } from "./primitive"
+import { composeClassName, tv } from "./utils"
 
 const selectTriggerStyles = tv({
+  extend: focusStyles,
   base: [
-    "text-normal border-line h-control-lg flex w-full cursor-default items-center gap-4 gap-x-2 rounded-lg border px-2.5 py-1 text-start text-base transition",
-    "group-data-[open]:ring-control-focus group-data-[open]:ring-2",
-    "group-data-[disabled]:opacity-50",
-    "forced-colors:group-invalid:border-[Mark]",
-    "**:data-[slot=icon]:size-4"
+    "btr border-input flex h-10 w-full cursor-default items-center gap-4 gap-x-2 rounded-lg border py-2 pr-2 pl-3 text-start shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] transition group-disabled:opacity-50 **:data-[slot=icon]:size-4 dark:shadow-none",
+    "group-data-open:border-ring/70 group-data-open:ring-ring/20 group-data-open:ring-4",
+    "text-foreground group-invalid:border-danger group-invalid:ring-danger/20 forced-colors:group-invalid:border-[Mark]"
   ],
   variants: {
     isDisabled: {
-      true: [
-        "opacity-50",
-        "forced-colors:border-[GrayText] forced-colors:text-[GrayText]"
-      ]
+      true: "opacity-50 forced-colors:border-[GrayText] forced-colors:text-[GrayText]"
     }
   }
 })
@@ -49,6 +44,7 @@ type SelectProps<T extends object> = SelectPrimitiveProps<T> & {
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
   items?: Iterable<T>
+  className?: string
 }
 
 const Select = <T extends object>({
@@ -59,7 +55,10 @@ const Select = <T extends object>({
 }: SelectProps<T>) => (
   <SelectPrimitive
     {...props}
-    className={cn("group flex w-full flex-col gap-y-1.5", props.className)}
+    className={composeClassName(
+      props.className,
+      "group flex w-full flex-col gap-y-1.5"
+    )}
   >
     {(values) => (
       <>
@@ -98,16 +97,18 @@ const SelectList = <T extends object>({
     <ListBox
       layout="stack"
       orientation="vertical"
+      className={composeClassName(
+        props.className,
+        "max-h-[inherit] min-w-[inherit] border-0 shadow-none"
+      )}
       items={items}
       {...props}
-      className={cn("border-0 shadow-none", props.className)}
     />
   </PopoverContent>
 )
 
 type SelectTriggerProps = React.ComponentProps<typeof Button> & {
   prefix?: React.ReactNode
-  className?: string
 }
 
 const SelectTrigger = (props: SelectTriggerProps) => (
@@ -122,23 +123,12 @@ const SelectTrigger = (props: SelectTriggerProps) => (
     {props.prefix && <span className="-mr-1">{props.prefix}</span>}
     <SelectValue
       data-slot="select-value"
-      className={cn(
-        "data-placeholder:text-muted",
-        "grid flex-1 grid-cols-[auto_1fr] items-center text-base",
-        "*:data-[slot=avatar]:*:-mx-0.5 *:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:*:mr-2 *:data-[slot=avatar]:mr-2",
-        "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:mr-2",
-        "[&_[slot=description]]:hidden"
-      )}
+      className="data-placeholder:text-muted-foreground grid flex-1 grid-cols-[auto_1fr] items-center text-base *:data-[slot=avatar]:*:-mx-0.5 *:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:*:mr-2 *:data-[slot=avatar]:mr-2 *:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:mr-2 sm:text-sm [&_[slot=description]]:hidden"
     />
     <span
-      data-slot="icon"
       aria-hidden
-      className={cn(
-        "lucide-chevron-down text-muted size-4 shrink-0 duration-300",
-        "group-data-[open]:text-normal group-data-[open]:rotate-180",
-        "group-data-[disabled]:opacity-50",
-        "forced-colors:text-[ButtonText] forced-colors:group-data-[disabled]:text-[GrayText]"
-      )}
+      data-slot="icon"
+      className="lucide-chevron-down text-muted-foreground group-data-open:text-foreground size-4 shrink-0 duration-300 group-disabled:opacity-50 group-data-open:rotate-180 forced-colors:text-[ButtonText] forced-colors:group-disabled:text-[GrayText]"
     />
   </Button>
 )
@@ -146,10 +136,10 @@ const SelectTrigger = (props: SelectTriggerProps) => (
 const SelectSection = DropdownSection
 const SelectSeparator = DropdownSeparator
 const SelectLabel = DropdownLabel
-const SelectOptionDetails = DropdownItemDetails
+const SelectDescription = DropdownDescription
 const SelectOption = DropdownItem
 
-Select.OptionDetails = SelectOptionDetails
+Select.Description = SelectDescription
 Select.Option = SelectOption
 Select.Label = SelectLabel
 Select.Separator = SelectSeparator
@@ -158,4 +148,4 @@ Select.Trigger = SelectTrigger
 Select.List = SelectList
 
 export { Select }
-export type { SelectListProps, SelectProps, SelectTriggerProps }
+export type { SelectProps, SelectTriggerProps }
