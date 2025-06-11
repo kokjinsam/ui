@@ -30,23 +30,9 @@ import {
 import { PopoverContent, PopoverContentProps } from "./popover"
 import { cn, composeClassName, type VariantProps } from "./utils"
 
-type MenuContextProps = {
-  respectScreen: boolean
-}
+type MenuProps = MenuTriggerPrimitiveProps
 
-const MenuContext = React.createContext<MenuContextProps>({
-  respectScreen: true
-})
-
-type MenuProps = MenuTriggerPrimitiveProps & {
-  respectScreen?: boolean
-}
-
-const Menu = ({ respectScreen = true, ...props }: MenuProps) => (
-  <MenuContext value={{ respectScreen }}>
-    <MenuTriggerPrimitive {...props}>{props.children}</MenuTriggerPrimitive>
-  </MenuContext>
-)
+const Menu = (props: MenuProps) => <MenuTriggerPrimitive {...props} />
 
 type MenuSubMenuProps = SubmenuTriggerPrimitiveProps
 
@@ -101,38 +87,32 @@ const MenuContent = <T extends object>({
   showArrow = false,
   respectScreen = true,
   ...props
-}: MenuContentProps<T>) => {
-  const { respectScreen: respectScreenContext } = React.use(MenuContext)
-  const respectScreenInternal = respectScreenContext ?? respectScreen
-
-  return (
-    <PopoverContent
-      isOpen={props.isOpen}
-      onOpenChange={props.onOpenChange}
-      shouldFlip={props.shouldFlip}
-      respectScreen={respectScreenInternal}
-      showArrow={showArrow}
-      offset={props.offset}
-      placement={props.placement}
-      crossOffset={props.crossOffset}
-      triggerRef={props.triggerRef}
-      arrowBoundaryOffset={props.arrowBoundaryOffset}
+}: MenuContentProps<T>) => (
+  <PopoverContent
+    isOpen={props.isOpen}
+    onOpenChange={props.onOpenChange}
+    shouldFlip={props.shouldFlip}
+    showArrow={showArrow}
+    offset={props.offset}
+    placement={props.placement}
+    crossOffset={props.crossOffset}
+    triggerRef={props.triggerRef}
+    arrowBoundaryOffset={props.arrowBoundaryOffset}
+    className={composeClassName(
+      classNames?.popover,
+      "z-50 p-0 shadow-xs outline-hidden sm:min-w-40"
+    )}
+  >
+    <MenuPrimitive
+      data-slot="menu-content"
+      {...props}
       className={composeClassName(
-        classNames?.popover,
-        "z-50 p-0 shadow-xs outline-hidden sm:min-w-40"
+        props.className,
+        "grid max-h-[calc(var(--visual-viewport-height)-10rem)] grid-cols-[auto_1fr] overflow-auto rounded-xl p-1 outline-hidden [clip-path:inset(0_0_0_0_round_calc(var(--radius-lg)-2px))] sm:max-h-[inherit] *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
       )}
-    >
-      <MenuPrimitive
-        data-slot="menu-content"
-        {...props}
-        className={composeClassName(
-          props.className,
-          "grid max-h-[calc(var(--visual-viewport-height)-10rem)] grid-cols-[auto_1fr] overflow-auto rounded-xl p-1 outline-hidden [clip-path:inset(0_0_0_0_round_calc(var(--radius-lg)-2px))] sm:max-h-[inherit] *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
-        )}
-      />
-    </PopoverContent>
-  )
-}
+    />
+  </PopoverContent>
+)
 
 type MenuItemProps = MenuItemPrimitiveProps &
   VariantProps<typeof dropdownItemStyles> & {
