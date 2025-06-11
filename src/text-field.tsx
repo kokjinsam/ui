@@ -1,16 +1,16 @@
-"use client"
-
 import * as React from "react"
 import type {
   InputProps,
   TextFieldProps as TextFieldPrimitiveProps
 } from "react-aria-components"
-import { TextField as TextFieldPrimitive } from "react-aria-components"
-import { Button } from "./button"
+import {
+  Button as ButtonPrimitive,
+  TextField as TextFieldPrimitive
+} from "react-aria-components"
 import type { FieldProps } from "./field"
 import { Description, FieldError, FieldGroup, Input, Label } from "./field"
 import { Loader } from "./loader"
-import { cn } from "./utils"
+import { composeClassName } from "./utils"
 
 type InputType = Exclude<InputProps["type"], "password">
 
@@ -19,14 +19,15 @@ type BaseTextFieldProps = TextFieldPrimitiveProps &
     prefix?: React.ReactNode
     suffix?: React.ReactNode
     isPending?: boolean
-    isRevealable?: boolean
   }
 
 type RevealableTextFieldProps = BaseTextFieldProps & {
+  isRevealable: true
   type: "password"
 }
 
 type NonRevealableTextFieldProps = BaseTextFieldProps & {
+  isRevealable?: never
   type?: InputType
 }
 
@@ -50,16 +51,17 @@ const TextField = ({
       ? "text"
       : "password"
     : type
-
   const handleTogglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev)
   }
-
   return (
     <TextFieldPrimitive
       type={inputType}
       {...props}
-      className={cn("group flex flex-col gap-y-1", props.className)}
+      className={composeClassName(
+        props.className,
+        "group flex flex-col gap-y-1"
+      )}
     >
       {!props.children ? (
         <>
@@ -70,31 +72,29 @@ const TextField = ({
             data-loading={isPending ? "true" : undefined}
           >
             {prefix && typeof prefix === "string" ? (
-              <span className="text-muted ml-2 text-base/5">{prefix}</span>
+              <span className="text-muted-foreground ml-2">{prefix}</span>
             ) : (
               prefix
             )}
             <Input placeholder={placeholder} />
             {isRevealable ? (
-              <Button
+              <ButtonPrimitive
                 type="button"
-                size="square-md"
-                intent="plain"
                 aria-label="Toggle password visibility"
                 onPress={handleTogglePasswordVisibility}
-                className="hover:bg-transparent"
+                className="*:data-[slot=icon]:text-muted-foreground focus-visible:*:data-[slot=icon]:text-primary relative mr-1 grid shrink-0 place-content-center rounded-sm border-transparent outline-hidden"
               >
                 {isPasswordVisible ? (
-                  <div data-slot="icon" className="lucide-eye-off" />
+                  <span data-slot="icon" className="lucide-eye-off" />
                 ) : (
-                  <div data-slot="icon" className="lucide-eye" />
+                  <span data-slot="icon" className="lucide-eye" />
                 )}
-              </Button>
+              </ButtonPrimitive>
             ) : isPending ? (
               <Loader variant="spin" />
             ) : suffix ? (
               typeof suffix === "string" ? (
-                <span className="text-muted mr-2 text-base/5">{suffix}</span>
+                <span className="text-muted-foreground mr-2">{suffix}</span>
               ) : (
                 suffix
               )
